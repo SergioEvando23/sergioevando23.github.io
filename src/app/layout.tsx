@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
+import { LanguageProvider } from '@/components/language';
 import { HydrationStatus, ThemeProvider } from '@/components/theme';
-import { brandConfig } from '@/config/brand';
+import { dicionario } from '@/i18n/dicionario';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: `${brandConfig.name} | ${brandConfig.role}`,
-  description: brandConfig.description,
+  title: dicionario.portugues.metadata.title,
+  description: dicionario.portugues.metadata.description,
 };
 
 interface RootLayoutProps {
@@ -17,8 +18,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <ThemeProvider>
-          <HydrationStatus />
-          {children}
+          <LanguageProvider>
+            <HydrationStatus />
+            {children}
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

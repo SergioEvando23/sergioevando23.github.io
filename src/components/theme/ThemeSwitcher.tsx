@@ -4,6 +4,7 @@ import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightnessOutlined';
 import { useTheme } from 'next-themes';
+import { useLanguage } from '@/components/language';
 import { IconButton } from '@/components/ui/IconButton';
 import { THEME_STORAGE_KEY } from '@/config/theme';
 import { useMounted } from '@/hooks/useMounted';
@@ -12,17 +13,17 @@ import { cn } from '@/lib/cn';
 const themes = [
   {
     value: 'light',
-    label: 'Claro',
+    labelKey: 'light',
     icon: LightModeOutlinedIcon,
   },
   {
     value: 'dark',
-    label: 'Escuro',
+    labelKey: 'dark',
     icon: DarkModeOutlinedIcon,
   },
   {
     value: 'system',
-    label: 'Sistema',
+    labelKey: 'system',
     icon: SettingsBrightnessOutlinedIcon,
   },
 ] as const;
@@ -30,6 +31,7 @@ const themes = [
 export function ThemeSwitcher() {
   const mounted = useMounted();
   const { theme, setTheme } = useTheme();
+  const { textos } = useLanguage();
   const selectedTheme = mounted ? (theme ?? 'system') : 'system';
 
   const applyTheme = (value: (typeof themes)[number]['value']) => {
@@ -46,7 +48,7 @@ export function ThemeSwitcher() {
 
   return (
     <div
-      aria-label="Selecionar tema"
+      aria-label={textos.theme.label}
       className="inline-flex rounded-[var(--radius-full)] border border-border bg-overlay p-1 shadow-[var(--shadow-card)] backdrop-blur"
       role="radiogroup"
     >
@@ -63,7 +65,7 @@ export function ThemeSwitcher() {
                 'bg-primary text-primary-foreground shadow-[var(--shadow-glow)]',
             )}
             key={item.value}
-            label={`Tema ${item.label}`}
+            label={textos.theme.optionLabel(textos.theme[item.labelKey])}
             onClick={() => applyTheme(item.value)}
             role="radio"
             size="small"
