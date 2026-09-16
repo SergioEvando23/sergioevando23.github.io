@@ -1,24 +1,19 @@
-# Sérgio Costa Portfolio
+# Sergio Costa Portfolio
 
-Portfólio profissional de Sérgio Costa, criado com arquitetura whitelabel para evoluir páginas, componentes e identidade visual sem acoplar dados pessoais ao JSX.
+Portfolio profissional de Sergio Costa em Next.js, com arquitetura whitelabel,
+temas Light/Dark/System e textos centralizados em um dicionario macro bilingue.
 
 ## Stack
 
 - Next.js com App Router
 - React e TypeScript em modo estrito
 - Tailwind CSS v4 com CSS Variables
-- `next-themes` para Light, Dark e System
+- `next-themes` para temas
 - Material UI Icons com imports individuais
 - Vitest, React Testing Library e Playwright
-- ESLint e Prettier
-- npm
+- ESLint, Prettier e npm
 
-## Requisitos
-
-- Node.js 22 ou superior
-- npm 10 ou superior
-
-## Instalação e execução
+## Execucao
 
 ```bash
 npm install
@@ -35,12 +30,9 @@ npm run build
 npm run start
 npm run lint
 npm run typecheck
-npm run test
 npm run test:run
-npm run test:coverage
 npm run test:e2e
-npm run format
-npm run format:check
+npm run validate:i18n
 npm run validate
 ```
 
@@ -48,40 +40,88 @@ npm run validate
 
 ```text
 src/
-  app/                 Layout, página inicial e tokens globais
-  components/ui/       Button, IconButton, Container, SectionHeading e Tag
-  components/theme/    ThemeProvider, ThemeSwitcher e hidratação
+  app/                 Layout, pagina inicial e tokens globais
+  components/ui/       Componentes reutilizaveis
+  components/theme/    ThemeProvider e ThemeSwitcher
+  components/language/ LanguageProvider e LanguageSwitcher
   components/layout/   Header e Footer
-  components/carousel/ Carousel, slides, controles e indicadores
-  config/              Marca, navegação e tokens estruturais
-  data/                Dados mockados de slides, skills e experiência
-  hooks/               useCarousel, useMounted e useMediaQuery
-  lib/                 Utilitários compartilhados
-  types/               Tipos públicos dos domínios
+  components/carousel/ Carousel acessivel e responsivo
+  config/              Marca, navegacao, curriculos e tema
+  data/                Dados tecnicos com translationKey
+  i18n/                Dicionario macro, config e validacao
+  hooks/               Hooks compartilhados
+  types/               Tipos de dominio
 e2e/                   Testes Playwright
-public/images/         Assets locais
+public/documents/      Curriculos em PDF
 ```
 
-## Whitelabel
+## Internacionalizacao
 
-- Dados da marca: `src/config/brand.ts`
-- Navegação: `src/config/navigation.ts`
-- Tamanhos do carousel e storage key: `src/config/theme.ts`
+A fonte unica de textos e `src/i18n/dicionario.ts`:
+
+```ts
+dicionario.portugues;
+dicionario.ingles;
+```
+
+Nenhum texto pode ser adicionado somente a um idioma. Toda alteracao deve ser
+realizada simultaneamente em `dicionario.portugues` e `dicionario.ingles`.
+
+As estruturas devem manter as mesmas chaves, profundidade, arrays e funcoes. A
+paridade e verificada por TypeScript e em runtime:
+
+```bash
+npm run validate:i18n
+```
+
+Use textos nos componentes assim:
+
+```tsx
+const { textos } = useLanguage();
+
+return <h1>{textos.brand.role}</h1>;
+```
+
+Conteudos dinamicos usam `translationKey` nos dados tecnicos e a traducao no
+dicionario, evitando duplicar objetos completos.
+
+## Idioma
+
+O `LanguageProvider` usa a prioridade:
+
+1. Preferencia salva em `sergio-portfolio-language`.
+2. Idioma do navegador.
+3. Portugues como fallback.
+
+Idiomas iniciados por `pt` usam `portugues`; os demais usam `ingles`. A troca PT
+ou EN acontece no Header sem reload, persiste no navegador e atualiza
+`document.documentElement.lang` para `pt-BR` ou `en`.
+
+## Curriculos
+
+Os dois arquivos ficam sempre disponiveis, em qualquer idioma:
+
+- `public/documents/CurriculoSergioCosta.pdf`
+- `public/documents/SergioCostaResume.pdf`
+
+Os caminhos sao centralizados em `src/config/curriculos.ts`. Os labels dos links
+vem de `textos.resume.downloadPortuguese` e
+`textos.resume.downloadEnglish`.
+
+## Whitelabel E Temas
+
+- Marca e URLs: `src/config/brand.ts`
+- Navegacao: `src/config/navigation.ts`
 - Tokens visuais: `src/app/globals.css`
+- Temas Light/Dark/System: `src/components/theme`
 
-Para trocar a identidade, altere `brandConfig` e os tokens CSS sem editar os componentes.
-
-## Temas
-
-Os temas Light, Dark e System usam `next-themes` com `attribute="class"`, `defaultTheme="system"`, `enableSystem` e storage key explícita. A preferência é persistida no navegador e aplicada no `<html>`.
-
-Os tokens principais estão em `:root` e `.dark` dentro de `src/app/globals.css`.
+Altere identidade visual pelos tokens CSS e pelos arquivos de configuracao, sem
+colocar cores de marca diretamente no JSX.
 
 ## Carousel
 
-O carousel é interno, reutilizável, responsivo, acessível, usa `next/image`, suporta controles, indicadores, teclado, swipe, autoplay opcional, pausa em hover/foco e `prefers-reduced-motion`.
-
-Exemplos:
+O carousel e interno, responsivo, acessivel, suporta teclado, swipe, controles,
+indicadores, autoplay opcional, pausa em hover/foco e `prefers-reduced-motion`.
 
 ```tsx
 <Carousel items={items} size="small" />
@@ -89,33 +129,36 @@ Exemplos:
 <Carousel items={items} size="large" autoPlay loop />
 ```
 
-Cadastre slides em `src/data/carousel.ts`.
+Cadastre slides tecnicos em `src/data/carousel.ts` e traducoes em
+`dicionario.*.carousel.items`.
 
 ## Material UI Icons
 
-Os ícones são importados individualmente de `@mui/icons-material`, por exemplo:
+Use apenas imports individuais:
 
 ```tsx
 import GitHubIcon from '@mui/icons-material/GitHub';
 ```
 
-A estilização continua em Tailwind CSS e CSS Variables; os ícones herdam `currentColor`.
+Os icones herdam `currentColor`; a estilizacao permanece em Tailwind CSS e CSS
+Variables.
 
 ## Testes
 
-- Unitários: Vitest + React Testing Library
-- E2E: Playwright em desktop e mobile
-- Cobertura inclui Button, IconButton, ThemeSwitcher e Carousel
+- Dicionario: paridade, funcoes, arrays e strings vazias.
+- Idioma: fallback, navegador, persistencia, `lang` e troca sem reload.
+- UI: LanguageSwitcher, ThemeSwitcher, Button, IconButton e Carousel.
+- Integracao: Header, Hero, secoes, Footer, curriculos e preservacao de slide.
+- E2E: idioma, tema, carrossel, curriculos e overflow mobile.
 
-Antes do primeiro E2E em uma máquina nova:
+Antes do primeiro E2E em uma maquina nova:
 
 ```bash
 npx playwright install chromium
 ```
 
-## Próximos passos
+## Proximos Passos
 
-- Cadastrar currículo real em `public/`
-- Criar páginas internas de projetos e experiência
-- Integrar conteúdo real do portfólio
-- Adicionar CI para executar `npm run validate` e `npm run test:e2e`
+- Expandir paginas internas de projetos e experiencia.
+- Adicionar conteudo real de portfolio com `translationKey`.
+- Integrar CI executando `npm run validate` e `npm run test:e2e`.
