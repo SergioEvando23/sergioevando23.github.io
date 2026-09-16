@@ -16,6 +16,8 @@
 !/src/**
 !/e2e/
 !/e2e/**
+!/scripts/
+!/scripts/**
 !/public/
 !/public/**
 
