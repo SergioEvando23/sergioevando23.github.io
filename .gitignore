@@ -12,6 +12,11 @@
 !/prettier.config.mjs
 !/vitest.config.ts
 !/playwright.config.ts
+!/.firebaserc.example
+!/firebase.json
+!/firestore.rules
+!/firestore.indexes.json
+!/storage.rules
 !/src/
 !/src/**
 !/e2e/

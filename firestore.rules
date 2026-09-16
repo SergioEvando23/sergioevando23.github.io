@@ -1,0 +1,94 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAllowedEmail() {
+      return signedIn()
+        && request.auth.token.email_verified == true
+        && request.auth.token.email == 'sergioevandocosta@gmail.com';
+    }
+
+    function adminDoc() {
+      return get(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function isAdmin() {
+      return isAllowedEmail()
+        && exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+        && adminDoc().data.active == true
+        && adminDoc().data.email == request.auth.token.email;
+    }
+
+    function validProjectId(projectId) {
+      return projectId.matches('^[a-z0-9]+(?:-[a-z0-9]+)*$');
+    }
+
+    function validImages(images) {
+      return images is list
+        && images.size() >= 1
+        && images.size() <= 3;
+    }
+
+    function validProject(projectId) {
+      return request.resource.data.keys().hasOnly([
+        'id',
+        'repository',
+        'title',
+        'description',
+        'focus',
+        'technologies',
+        'category',
+        'kind',
+        'startedAt',
+        'completedAt',
+        'date',
+        'githubUrl',
+        'portfolioEligible',
+        'images',
+        'createdAt',
+        'updatedAt',
+        'createdBy'
+      ])
+      && request.resource.data.id == projectId
+      && validProjectId(projectId)
+      && request.resource.data.createdBy == request.auth.uid
+      && request.resource.data.repository is string
+      && request.resource.data.title is string
+      && request.resource.data.description is string
+      && request.resource.data.focus is string
+      && request.resource.data.technologies is list
+      && request.resource.data.category is string
+      && request.resource.data.kind is string
+      && request.resource.data.startedAt is string
+      && request.resource.data.completedAt is string
+      && request.resource.data.date is string
+      && request.resource.data.githubUrl is string
+      && request.resource.data.githubUrl.matches('^https://github.com/.+')
+      && request.resource.data.portfolioEligible is bool
+      && validImages(request.resource.data.images);
+    }
+
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid && isAllowedEmail();
+      allow create, update, delete: if false;
+    }
+
+    match /studyProjects/{projectId} {
+      allow read: if resource.data.portfolioEligible == true || isAdmin();
+      allow create: if isAdmin() && validProject(projectId);
+      allow update: if isAdmin()
+        && resource.data.createdBy == request.auth.uid
+        && validProject(projectId)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if isAdmin();
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "studyProjects",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "portfolioEligible",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "date",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
