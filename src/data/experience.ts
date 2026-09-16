@@ -1,20 +1,17 @@
+import type { ConteudoTraduzido } from '@/i18n/dicionario';
+
 export interface ExperienceItem {
   id: string;
-  title: string;
-  description: string;
+  translationKey: keyof ConteudoTraduzido['experience']['items'];
 }
 
 export const experienceItems: ExperienceItem[] = [
   {
     id: 'product-engineering',
-    title: 'Engenharia orientada a produto',
-    description:
-      'Construção de soluções digitais com foco em valor de negócio, qualidade e evolução contínua.',
+    translationKey: 'productEngineering',
   },
   {
     id: 'design-systems',
-    title: 'Design systems whitelabel',
-    description:
-      'Componentes desacoplados, tokens semânticos e temas adaptáveis para diferentes marcas.',
+    translationKey: 'designSystems',
   },
 ];

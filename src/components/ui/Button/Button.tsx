@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { cn } from '@/lib/cn';
 
@@ -21,12 +21,10 @@ type NativeButtonProps = ButtonBaseProps &
     href?: never;
   };
 
-type LinkButtonProps = ButtonBaseProps & {
-  href: string;
-  target?: string;
-  rel?: string;
-  onClick?: () => void;
-};
+type LinkButtonProps = ButtonBaseProps &
+  Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'className' | 'children'> & {
+    href: string;
+  };
 
 export type ButtonProps = NativeButtonProps | LinkButtonProps;
 
@@ -75,15 +73,26 @@ export function Button(props: ButtonProps) {
   );
 
   if ('href' in props && props.href) {
-    const { href, target, rel, onClick } = props;
+    const {
+      href,
+      target,
+      rel,
+      onClick,
+      download,
+      title,
+      'aria-label': ariaLabel,
+    } = props;
 
     return (
       <Link
+        aria-label={ariaLabel}
         className={classes}
+        download={download}
         href={href}
         onClick={onClick}
         rel={rel ?? (target === '_blank' ? 'noreferrer' : undefined)}
         target={target}
+        title={title}
       >
         {content}
       </Link>

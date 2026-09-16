@@ -13,6 +13,12 @@ interface CarouselControlsProps {
   isPaused?: boolean;
   onPause?: () => void;
   onResume?: () => void;
+  texts: {
+    previousSlide: string;
+    nextSlide: string;
+    pause: string;
+    resume: string;
+  };
 }
 
 export function CarouselControls({
@@ -24,13 +30,14 @@ export function CarouselControls({
   isPaused = false,
   onPause,
   onResume,
+  texts,
 }: CarouselControlsProps) {
   return (
     <div className="pointer-events-none absolute inset-x-3 top-1/2 z-20 flex -translate-y-1/2 items-center justify-between">
       <IconButton
         className="pointer-events-auto bg-overlay text-text shadow-[var(--shadow-card)] backdrop-blur"
         disabled={!canGoPrevious}
-        label="Slide anterior"
+        label={texts.previousSlide}
         onClick={onPrevious}
         variant="default"
       >
@@ -41,7 +48,7 @@ export function CarouselControls({
         {autoPlay ? (
           <IconButton
             className="pointer-events-auto hidden bg-overlay text-text shadow-[var(--shadow-card)] backdrop-blur sm:inline-flex"
-            label={isPaused ? 'Retomar carrossel' : 'Pausar carrossel'}
+            label={isPaused ? texts.resume : texts.pause}
             onClick={isPaused ? onResume : onPause}
             variant="default"
           >
@@ -55,7 +62,7 @@ export function CarouselControls({
         <IconButton
           className="pointer-events-auto bg-overlay text-text shadow-[var(--shadow-card)] backdrop-blur"
           disabled={!canGoNext}
-          label="Próximo slide"
+          label={texts.nextSlide}
           onClick={onNext}
           variant="default"
         >

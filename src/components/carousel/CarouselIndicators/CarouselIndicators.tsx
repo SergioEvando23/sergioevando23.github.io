@@ -4,12 +4,18 @@ interface CarouselIndicatorsProps {
   count: number;
   activeIndex: number;
   onSelect: (index: number) => void;
+  texts: {
+    selectSlide: string;
+    currentSlide: string;
+    goToSlide: (slide: number) => string;
+  };
 }
 
 export function CarouselIndicators({
   count,
   activeIndex,
   onSelect,
+  texts,
 }: CarouselIndicatorsProps) {
   if (count <= 1) {
     return null;
@@ -17,7 +23,7 @@ export function CarouselIndicators({
 
   return (
     <div
-      aria-label="Selecionar slide"
+      aria-label={texts.selectSlide}
       className="absolute inset-x-0 bottom-4 z-20 flex justify-center gap-2"
       role="tablist"
     >
@@ -26,7 +32,7 @@ export function CarouselIndicators({
 
         return (
           <button
-            aria-label={`Ir para slide ${index + 1}`}
+            aria-label={texts.goToSlide(index + 1)}
             aria-selected={selected}
             className={cn(
               'h-3 rounded-[var(--radius-full)] border border-border bg-overlay transition-all duration-[var(--transition-fast)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent',
@@ -38,7 +44,7 @@ export function CarouselIndicators({
             type="button"
           >
             <span className="sr-only">
-              {selected ? 'Slide atual' : 'Selecionar slide'}
+              {selected ? texts.currentSlide : texts.selectSlide}
             </span>
           </button>
         );

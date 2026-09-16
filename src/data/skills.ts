@@ -1,23 +1,21 @@
+import type { ConteudoTraduzido } from '@/i18n/dicionario';
+
 export interface SkillGroup {
   id: string;
-  title: string;
-  items: string[];
+  translationKey: keyof ConteudoTraduzido['skills']['groups'];
 }
 
 export const skillGroups: SkillGroup[] = [
   {
     id: 'frontend',
-    title: 'Frontend',
-    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Acessibilidade'],
+    translationKey: 'frontend',
   },
   {
     id: 'mobile',
-    title: 'Mobile',
-    items: ['Flutter', 'Dart', 'UI responsiva', 'Integrações nativas'],
+    translationKey: 'mobile',
   },
   {
     id: 'backend',
-    title: 'Backend',
-    items: ['Node.js', 'APIs REST', 'Autenticação', 'Bancos relacionais'],
+    translationKey: 'backend',
   },
 ];

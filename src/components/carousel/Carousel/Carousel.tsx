@@ -1,5 +1,6 @@
 'use client';
 
+import { useLanguage } from '@/components/language';
 import { carouselSizes } from '@/config/theme';
 import { useCarousel } from '@/hooks/useCarousel';
 import { cn } from '@/lib/cn';
@@ -19,10 +20,12 @@ export function Carousel({
   showIndicators = true,
   pauseOnHover = true,
   className,
-  ariaLabel = 'Carrossel de destaques',
+  ariaLabel,
   onSlideChange,
 }: CarouselProps) {
+  const { textos } = useLanguage();
   const dimensions = carouselSizes[size];
+  const label = ariaLabel ?? textos.carousel.defaultLabel;
   const carousel = useCarousel({
     items,
     initialIndex,
@@ -36,20 +39,20 @@ export function Carousel({
   if (items.length === 0) {
     return (
       <section
-        aria-label={ariaLabel}
+        aria-label={label}
         className={cn(
           'flex min-h-56 w-full items-center justify-center rounded-[var(--radius-xl)] border border-border bg-surface-secondary p-6 text-center text-text-muted',
           className,
         )}
       >
-        Nenhum slide cadastrado.
+        {textos.carousel.empty}
       </section>
     );
   }
 
   return (
     <section
-      aria-label={ariaLabel}
+      aria-label={label}
       className={cn('w-full', className)}
       data-carousel
       data-carousel-size={size}
@@ -64,7 +67,7 @@ export function Carousel({
         }}
       >
         <div aria-live="polite" className="sr-only">
-          Slide {carousel.activeIndex + 1} de {items.length}:{' '}
+          {textos.carousel.slidePosition(carousel.activeIndex + 1, items.length)}:{' '}
           {items[carousel.activeIndex]?.title}
         </div>
         {items.map((item, index) => (
@@ -88,6 +91,12 @@ export function Carousel({
             onPause={carousel.pause}
             onPrevious={carousel.previous}
             onResume={carousel.resume}
+            texts={{
+              nextSlide: textos.carousel.nextSlide,
+              pause: textos.carousel.pause,
+              previousSlide: textos.carousel.previousSlide,
+              resume: textos.carousel.resume,
+            }}
           />
         ) : null}
         {showIndicators ? (
@@ -95,6 +104,11 @@ export function Carousel({
             activeIndex={carousel.activeIndex}
             count={items.length}
             onSelect={carousel.goTo}
+            texts={{
+              currentSlide: textos.carousel.currentSlide,
+              goToSlide: textos.carousel.goToSlide,
+              selectSlide: textos.carousel.selectSlide,
+            }}
           />
         ) : null}
       </div>

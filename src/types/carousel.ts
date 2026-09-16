@@ -1,4 +1,7 @@
+import type { ConteudoTraduzido } from '@/i18n/dicionario';
+
 export type CarouselSize = 'small' | 'medium' | 'large';
+export type CarouselTranslationKey = keyof ConteudoTraduzido['carousel']['items'];
 
 export interface CarouselImage {
   id: string;
@@ -9,6 +12,15 @@ export interface CarouselImage {
   title?: string;
   description?: string;
   href?: string;
+}
+
+export interface CarouselDataItem {
+  id: string;
+  src: string;
+  darkSrc?: string;
+  lightSrc?: string;
+  href?: string;
+  translationKey: CarouselTranslationKey;
 }
 
 export interface CarouselProps {

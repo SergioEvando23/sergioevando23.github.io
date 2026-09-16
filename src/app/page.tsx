@@ -1,3 +1,6 @@
+'use client';
+
+import { useMemo } from 'react';
 import Link from 'next/link';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -8,6 +11,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import StorageIcon from '@mui/icons-material/Storage';
 import { Carousel } from '@/components/carousel/Carousel';
+import { useLanguage } from '@/components/language';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
 import { Button } from '@/components/ui/Button';
@@ -15,13 +19,25 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Tag } from '@/components/ui/Tag';
 import { brandConfig } from '@/config/brand';
+import { curriculos } from '@/config/curriculos';
 import { carouselItems } from '@/data/carousel';
 import { experienceItems } from '@/data/experience';
 import { skillGroups } from '@/data/skills';
+import type { CarouselImage } from '@/types/carousel';
 
 const domainIcons = [CodeIcon, SmartphoneIcon, StorageIcon];
 
-export default function Home() {
+function HomeContent() {
+  const { textos } = useLanguage();
+  const translatedCarouselItems = useMemo<CarouselImage[]>(
+    () =>
+      carouselItems.map((item) => ({
+        ...item,
+        ...textos.carousel.items[item.translationKey],
+      })),
+    [textos],
+  );
+
   return (
     <>
       <Header />
@@ -30,33 +46,42 @@ export default function Home() {
           <Container className="grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
             <div className="flex flex-col gap-7">
               <div className="flex flex-wrap gap-2">
-                <Tag variant="primary">{brandConfig.initials}</Tag>
-                <Tag variant="accent">{brandConfig.location}</Tag>
+                <Tag variant="primary">{textos.brand.initials}</Tag>
+                <Tag variant="accent">{textos.brand.location}</Tag>
               </div>
               <div className="flex flex-col gap-5">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-                  {brandConfig.name}
+                  {textos.hero.eyebrow} {textos.brand.name}
                 </p>
                 <h1 className="max-w-4xl text-4xl font-black leading-tight text-text sm:text-5xl lg:text-6xl">
-                  {brandConfig.role}
+                  {textos.brand.role}
                 </h1>
                 <p className="max-w-2xl text-lg leading-8 text-text-muted">
-                  {brandConfig.description}
+                  {textos.brand.description}
                 </p>
               </div>
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button
                   href="#projetos"
                   leftIcon={<FolderOutlinedIcon aria-hidden="true" />}
                 >
-                  Ver projetos
+                  {textos.hero.viewProjects}
                 </Button>
                 <Button
-                  href="/curriculo-sergio-costa.pdf"
+                  download={curriculos.portugues.fileName}
+                  href={curriculos.portugues.href}
                   leftIcon={<DownloadOutlinedIcon aria-hidden="true" />}
                   variant="secondary"
                 >
-                  Baixar currículo
+                  {textos.resume.downloadPortuguese}
+                </Button>
+                <Button
+                  download={curriculos.ingles.fileName}
+                  href={curriculos.ingles.href}
+                  leftIcon={<DownloadOutlinedIcon aria-hidden="true" />}
+                  variant="secondary"
+                >
+                  {textos.resume.downloadEnglish}
                 </Button>
               </div>
               <div className="flex gap-3">
@@ -67,7 +92,7 @@ export default function Home() {
                   target="_blank"
                 >
                   <GitHubIcon aria-hidden="true" fontSize="small" />
-                  GitHub
+                  {textos.hero.githubLabel}
                 </Link>
                 <Link
                   className="inline-flex items-center gap-2 text-sm font-semibold text-text-muted transition-colors hover:text-primary"
@@ -76,16 +101,16 @@ export default function Home() {
                   target="_blank"
                 >
                   <LinkedInIcon aria-hidden="true" fontSize="small" />
-                  LinkedIn
+                  {textos.hero.linkedinLabel}
                 </Link>
               </div>
             </div>
 
             <Carousel
-              ariaLabel="Carrossel principal de competências"
+              ariaLabel={textos.carousel.mainLabel}
               autoPlay
               className="lg:justify-self-end"
-              items={carouselItems}
+              items={translatedCarouselItems}
               loop
               size="large"
             />
@@ -95,21 +120,25 @@ export default function Home() {
         <section className="py-14" id="projetos">
           <Container className="flex flex-col gap-10">
             <SectionHeading
-              description="O carrossel é whitelabel, responsivo e pode ser reutilizado em páginas internas do portfólio."
-              eyebrow="Playground"
-              title="Variantes do carrossel"
+              description={textos.sections.carouselPlayground.description}
+              eyebrow={textos.sections.carouselPlayground.eyebrow}
+              title={textos.sections.carouselPlayground.title}
             />
             <div className="grid gap-8">
               <Carousel
-                ariaLabel="Carrossel pequeno"
-                items={carouselItems}
+                ariaLabel={textos.carousel.smallLabel}
+                items={translatedCarouselItems}
                 size="small"
               />
-              <Carousel ariaLabel="Carrossel médio" items={carouselItems} size="medium" />
               <Carousel
-                ariaLabel="Carrossel grande"
+                ariaLabel={textos.carousel.mediumLabel}
+                items={translatedCarouselItems}
+                size="medium"
+              />
+              <Carousel
+                ariaLabel={textos.carousel.largeLabel}
                 autoPlay
-                items={carouselItems}
+                items={translatedCarouselItems}
                 loop
                 size="large"
               />
@@ -120,13 +149,14 @@ export default function Home() {
         <section className="py-14" id="tecnologias">
           <Container className="flex flex-col gap-10">
             <SectionHeading
-              description="Áreas centrais para evoluir produtos web e mobile com arquitetura consistente."
-              eyebrow="Stack"
-              title="Tecnologias e foco técnico"
+              description={textos.sections.technologies.description}
+              eyebrow={textos.sections.technologies.eyebrow}
+              title={textos.sections.technologies.title}
             />
             <div className="grid gap-5 md:grid-cols-3">
               {skillGroups.map((group, index) => {
                 const Icon = domainIcons[index] ?? CodeIcon;
+                const translatedGroup = textos.skills.groups[group.translationKey];
 
                 return (
                   <article
@@ -136,9 +166,11 @@ export default function Home() {
                     <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-[var(--radius-lg)] bg-surface-secondary text-primary">
                       <Icon aria-hidden="true" />
                     </div>
-                    <h3 className="text-xl font-bold text-text">{group.title}</h3>
+                    <h3 className="text-xl font-bold text-text">
+                      {translatedGroup.title}
+                    </h3>
                     <div className="mt-4 flex flex-wrap gap-2">
-                      {group.items.map((item) => (
+                      {translatedGroup.items.map((item) => (
                         <Tag key={item}>{item}</Tag>
                       ))}
                     </div>
@@ -152,24 +184,32 @@ export default function Home() {
         <section className="py-14" id="experiencia">
           <Container className="flex flex-col gap-8">
             <SectionHeading
-              description="Base preparada para receber páginas completas de projetos, experiência e conteúdo."
-              eyebrow="Arquitetura"
-              title="Pronto para evoluir"
+              description={textos.sections.architecture.description}
+              eyebrow={textos.sections.architecture.eyebrow}
+              title={textos.sections.architecture.title}
             />
             <div className="grid gap-5 md:grid-cols-2">
-              {experienceItems.map((item) => (
-                <article
-                  className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 shadow-[var(--shadow-card)]"
-                  key={item.id}
-                >
-                  <h3 className="text-xl font-bold text-text">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-text-muted">{item.description}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
-                    Continuar evolução
-                    <ArrowForwardIcon aria-hidden="true" fontSize="small" />
-                  </span>
-                </article>
-              ))}
+              {experienceItems.map((item) => {
+                const translatedItem = textos.experience.items[item.translationKey];
+
+                return (
+                  <article
+                    className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 shadow-[var(--shadow-card)]"
+                    key={item.id}
+                  >
+                    <h3 className="text-xl font-bold text-text">
+                      {translatedItem.title}
+                    </h3>
+                    <p className="mt-3 leading-7 text-text-muted">
+                      {translatedItem.description}
+                    </p>
+                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                      {textos.sections.architecture.continueEvolution}
+                      <ArrowForwardIcon aria-hidden="true" fontSize="small" />
+                    </span>
+                  </article>
+                );
+              })}
             </div>
           </Container>
         </section>
@@ -177,4 +217,8 @@ export default function Home() {
       <Footer />
     </>
   );
+}
+
+export default function Home() {
+  return <HomeContent />;
 }
