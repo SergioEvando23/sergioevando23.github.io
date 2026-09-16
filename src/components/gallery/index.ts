@@ -1,0 +1,1 @@
+export { StudyGallery } from './StudyGallery';

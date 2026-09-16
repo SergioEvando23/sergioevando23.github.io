@@ -11,6 +11,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import StorageIcon from '@mui/icons-material/Storage';
 import { Carousel } from '@/components/carousel/Carousel';
+import { StudyGallery } from '@/components/gallery';
 import { useLanguage } from '@/components/language';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
@@ -213,6 +214,8 @@ function HomeContent() {
             </div>
           </Container>
         </section>
+
+        <StudyGallery />
       </main>
       <Footer />
     </>
