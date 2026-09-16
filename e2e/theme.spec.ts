@@ -8,6 +8,9 @@ test('theme preference persists and keeps carousel state', async ({ page }) => {
     }
   });
 
+  await page.addInitScript(() => {
+    localStorage.setItem('sergio-portfolio-language', 'portugues');
+  });
   await page.goto('/');
   await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();
 
@@ -16,17 +19,17 @@ test('theme preference persists and keeps carousel state', async ({ page }) => {
   await expect(page.locator('html')).toHaveClass(/dark/);
 
   const carousel = page.getByRole('region', {
-    name: 'Carrossel principal de competências',
+    name: 'Carrossel principal de competencias',
   });
-  await carousel.getByRole('button', { name: 'Próximo slide' }).click();
+  await carousel.getByRole('button', { name: 'Proximo slide' }).click();
   await expect(
-    carousel.getByRole('heading', { name: 'Mobile — Flutter + Dart' }),
+    carousel.getByRole('heading', { name: 'Mobile - Flutter + Dart' }),
   ).toBeVisible();
 
   await page.getByRole('radio', { name: 'Tema Claro' }).click();
   await expect(page.locator('html')).not.toHaveClass(/dark/);
   await expect(
-    carousel.getByRole('heading', { name: 'Mobile — Flutter + Dart' }),
+    carousel.getByRole('heading', { name: 'Mobile - Flutter + Dart' }),
   ).toBeVisible();
 
   await page.reload();
