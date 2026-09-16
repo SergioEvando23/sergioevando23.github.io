@@ -6,6 +6,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LoginIcon from '@mui/icons-material/Login';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import { useAuth } from '@/components/auth';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { ThemeSwitcher } from '@/components/theme';
 import { Container } from '@/components/ui/Container';
@@ -19,6 +23,13 @@ export function Header() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
   const { textos } = useLanguage();
+  const {
+    isAuthenticated,
+    isAdmin,
+    adminLoading,
+    signInWithGoogle,
+    signOut,
+  } = useAuth();
 
   useEffect(() => {
     if (!mobileOpen) {
@@ -64,6 +75,15 @@ export function Header() {
               {textos.navigation[item.translationKey]}
             </Link>
           ))}
+          {!adminLoading && isAdmin ? (
+            <Link
+              className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
+              href="/admin/projects/new"
+            >
+              <AddCircleOutlineIcon aria-hidden="true" fontSize="small" />
+              {textos.admin.insertProjects}
+            </Link>
+          ) : null}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
@@ -86,6 +106,18 @@ export function Header() {
             variant="ghost"
           >
             <LinkedInIcon aria-hidden="true" fontSize="inherit" />
+          </IconButton>
+          <IconButton
+            label={isAuthenticated ? textos.auth.signOut : textos.auth.signIn}
+            onClick={isAuthenticated ? signOut : signInWithGoogle}
+            size="small"
+            variant="ghost"
+          >
+            {isAuthenticated ? (
+              <LogoutIcon aria-hidden="true" fontSize="inherit" />
+            ) : (
+              <LoginIcon aria-hidden="true" fontSize="inherit" />
+            )}
           </IconButton>
           <LanguageSwitcher />
           <ThemeSwitcher />
@@ -132,6 +164,16 @@ export function Header() {
               {textos.navigation[item.translationKey]}
             </Link>
           ))}
+          {!adminLoading && isAdmin ? (
+            <Link
+              className="inline-flex items-center gap-2 rounded-[var(--radius-md)] px-3 py-3 text-base font-semibold text-primary transition-colors hover:bg-surface-secondary"
+              href="/admin/projects/new"
+              onClick={closeMobileMenu}
+            >
+              <AddCircleOutlineIcon aria-hidden="true" fontSize="small" />
+              {textos.admin.insertProjects}
+            </Link>
+          ) : null}
           <div className="flex gap-2 border-t border-border pt-3">
             <IconButton
               label={textos.accessibility.openGithub}
@@ -150,6 +192,17 @@ export function Header() {
               variant="ghost"
             >
               <LinkedInIcon aria-hidden="true" fontSize="inherit" />
+            </IconButton>
+            <IconButton
+              label={isAuthenticated ? textos.auth.signOut : textos.auth.signIn}
+              onClick={isAuthenticated ? signOut : signInWithGoogle}
+              variant="ghost"
+            >
+              {isAuthenticated ? (
+                <LogoutIcon aria-hidden="true" fontSize="inherit" />
+              ) : (
+                <LoginIcon aria-hidden="true" fontSize="inherit" />
+              )}
             </IconButton>
           </div>
         </Container>
