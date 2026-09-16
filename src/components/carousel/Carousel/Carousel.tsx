@@ -64,7 +64,8 @@ export function Carousel({
         }}
       >
         <div aria-live="polite" className="sr-only">
-          Slide {carousel.activeIndex + 1} de {items.length}: {items[carousel.activeIndex]?.title}
+          Slide {carousel.activeIndex + 1} de {items.length}:{' '}
+          {items[carousel.activeIndex]?.title}
         </div>
         {items.map((item, index) => (
           <CarouselSlide

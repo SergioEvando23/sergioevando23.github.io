@@ -63,7 +63,10 @@ export function useCarousel({
   );
 
   const goTo = useCallback((index: number) => updateIndex(index), [updateIndex]);
-  const next = useCallback(() => updateIndex(activeIndex + 1), [activeIndex, updateIndex]);
+  const next = useCallback(
+    () => updateIndex(activeIndex + 1),
+    [activeIndex, updateIndex],
+  );
   const previous = useCallback(
     () => updateIndex(activeIndex - 1),
     [activeIndex, updateIndex],

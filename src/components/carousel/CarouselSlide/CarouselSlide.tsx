@@ -41,7 +41,9 @@ export function CarouselSlide({
       <div className="absolute inset-0 bg-linear-to-t from-background/95 via-background/40 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-3 p-5 sm:p-7">
         {item.title ? (
-          <h3 className="max-w-2xl text-2xl font-bold text-text sm:text-3xl">{item.title}</h3>
+          <h3 className="max-w-2xl text-2xl font-bold text-text sm:text-3xl">
+            {item.title}
+          </h3>
         ) : null}
         {item.description ? (
           <p className="max-w-2xl text-sm leading-6 text-text-muted sm:text-base">

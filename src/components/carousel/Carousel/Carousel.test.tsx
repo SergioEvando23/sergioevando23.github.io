@@ -99,7 +99,9 @@ describe('Carousel', () => {
 
     rerender(<Carousel items={[carouselItems[0]]} />);
 
-    expect(screen.queryByRole('button', { name: 'Próximo slide' })).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('button', { name: 'Próximo slide' }),
+    ).not.toBeInTheDocument();
   });
 
   it('renders all size variants and material icons', () => {

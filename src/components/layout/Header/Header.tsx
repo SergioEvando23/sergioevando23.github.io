@@ -49,7 +49,10 @@ export function Header() {
           {brandConfig.initials}.
         </Link>
 
-        <nav aria-label="Navegação principal" className="hidden items-center gap-6 lg:flex">
+        <nav
+          aria-label="Navegação principal"
+          className="hidden items-center gap-6 lg:flex"
+        >
           {navigationItems.map((item) => (
             <Link
               className="text-sm font-semibold text-text-muted transition-colors hover:text-text"
@@ -64,7 +67,9 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex">
           <IconButton
             label="Abrir GitHub"
-            onClick={() => window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')}
+            onClick={() =>
+              window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')
+            }
             size="small"
             variant="ghost"
           >
@@ -72,7 +77,9 @@ export function Header() {
           </IconButton>
           <IconButton
             label="Abrir LinkedIn"
-            onClick={() => window.open(brandConfig.socialLinks.linkedin, '_blank', 'noreferrer')}
+            onClick={() =>
+              window.open(brandConfig.socialLinks.linkedin, '_blank', 'noreferrer')
+            }
             size="small"
             variant="ghost"
           >
@@ -122,7 +129,9 @@ export function Header() {
           <div className="flex gap-2 border-t border-border pt-3">
             <IconButton
               label="Abrir GitHub"
-              onClick={() => window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')}
+              onClick={() =>
+                window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')
+              }
               variant="ghost"
             >
               <GitHubIcon aria-hidden="true" fontSize="inherit" />

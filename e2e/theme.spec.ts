@@ -9,7 +9,9 @@ test('theme preference persists and keeps carousel state', async ({ page }) => {
   });
 
   await page.goto('/');
+  await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();
 
+  await expect(page.getByRole('radio', { name: 'Tema Escuro' })).toBeVisible();
   await page.getByRole('radio', { name: 'Tema Escuro' }).click();
   await expect(page.locator('html')).toHaveClass(/dark/);
 
@@ -17,11 +19,15 @@ test('theme preference persists and keeps carousel state', async ({ page }) => {
     name: 'Carrossel principal de competências',
   });
   await carousel.getByRole('button', { name: 'Próximo slide' }).click();
-  await expect(carousel.getByText('Mobile — Flutter + Dart')).toBeVisible();
+  await expect(
+    carousel.getByRole('heading', { name: 'Mobile — Flutter + Dart' }),
+  ).toBeVisible();
 
   await page.getByRole('radio', { name: 'Tema Claro' }).click();
   await expect(page.locator('html')).not.toHaveClass(/dark/);
-  await expect(carousel.getByText('Mobile — Flutter + Dart')).toBeVisible();
+  await expect(
+    carousel.getByRole('heading', { name: 'Mobile — Flutter + Dart' }),
+  ).toBeVisible();
 
   await page.reload();
   await expect(page.locator('html')).not.toHaveClass(/dark/);

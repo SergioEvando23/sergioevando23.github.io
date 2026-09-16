@@ -13,7 +13,8 @@ export const carouselItems: CarouselImage[] = [
     src: '/images/carousel/mobile.svg',
     alt: 'Telas mobile abstratas representando Flutter e Dart',
     title: 'Mobile — Flutter + Dart',
-    description: 'Aplicações mobile fluidas com experiência consistente entre plataformas.',
+    description:
+      'Aplicações mobile fluidas com experiência consistente entre plataformas.',
   },
   {
     id: 'backend-node-apis',

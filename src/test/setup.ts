@@ -17,13 +17,6 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 vi.mock('next/image', () => ({
-  default: ({
-    alt,
-    src,
-    className,
-  }: {
-    alt: string;
-    src: string;
-    className?: string;
-  }) => React.createElement('img', { alt, src, className }),
+  default: ({ alt, src, className }: { alt: string; src: string; className?: string }) =>
+    React.createElement('img', { alt, src, className }),
 }));

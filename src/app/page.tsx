@@ -45,7 +45,10 @@ export default function Home() {
                 </p>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row">
-                <Button href="#projetos" leftIcon={<FolderOutlinedIcon aria-hidden="true" />}>
+                <Button
+                  href="#projetos"
+                  leftIcon={<FolderOutlinedIcon aria-hidden="true" />}
+                >
                   Ver projetos
                 </Button>
                 <Button
@@ -102,11 +105,7 @@ export default function Home() {
                 items={carouselItems}
                 size="small"
               />
-              <Carousel
-                ariaLabel="Carrossel médio"
-                items={carouselItems}
-                size="medium"
-              />
+              <Carousel ariaLabel="Carrossel médio" items={carouselItems} size="medium" />
               <Carousel
                 ariaLabel="Carrossel grande"
                 autoPlay

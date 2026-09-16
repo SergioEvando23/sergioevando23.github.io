@@ -35,7 +35,11 @@ export function Footer() {
           >
             <LinkedInIcon aria-hidden="true" fontSize="inherit" />
           </Link>
-          <IconButton disabled={!brandConfig.email} label="E-mail não cadastrado" variant="ghost">
+          <IconButton
+            disabled={!brandConfig.email}
+            label="E-mail não cadastrado"
+            variant="ghost"
+          >
             <EmailOutlinedIcon aria-hidden="true" fontSize="inherit" />
           </IconButton>
           <Link

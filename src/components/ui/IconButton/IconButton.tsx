@@ -21,36 +21,39 @@ const sizeClasses: Record<IconButtonSize, string> = {
 const variantClasses: Record<IconButtonVariant, string> = {
   default:
     'border border-border bg-surface text-text-muted hover:border-primary hover:text-primary',
-  primary: 'bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary-hover',
+  primary:
+    'bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:bg-primary-hover',
   ghost: 'text-text-muted hover:bg-surface-secondary hover:text-text',
 };
 
-export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
-  {
-    label,
-    size = 'medium',
-    variant = 'default',
-    className,
-    children,
-    type = 'button',
-    ...props
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  function IconButton(
+    {
+      label,
+      size = 'medium',
+      variant = 'default',
+      className,
+      children,
+      type = 'button',
+      ...props
+    },
+    ref,
+  ) {
+    return (
+      <button
+        aria-label={label}
+        className={cn(
+          'inline-flex shrink-0 items-center justify-center rounded-[var(--radius-full)] transition-colors duration-[var(--transition-fast)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
+          sizeClasses[size],
+          variantClasses[variant],
+          className,
+        )}
+        ref={ref}
+        type={type}
+        {...props}
+      >
+        {children}
+      </button>
+    );
   },
-  ref,
-) {
-  return (
-    <button
-      aria-label={label}
-      className={cn(
-        'inline-flex shrink-0 items-center justify-center rounded-[var(--radius-full)] transition-colors duration-[var(--transition-fast)] focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50',
-        sizeClasses[size],
-        variantClasses[variant],
-        className,
-      )}
-      ref={ref}
-      type={type}
-      {...props}
-    >
-      {children}
-    </button>
-  );
-});
+);

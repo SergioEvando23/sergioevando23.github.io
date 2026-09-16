@@ -5,6 +5,7 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SettingsBrightnessOutlinedIcon from '@mui/icons-material/SettingsBrightnessOutlined';
 import { useTheme } from 'next-themes';
 import { IconButton } from '@/components/ui/IconButton';
+import { THEME_STORAGE_KEY } from '@/config/theme';
 import { useMounted } from '@/hooks/useMounted';
 import { cn } from '@/lib/cn';
 
@@ -31,6 +32,18 @@ export function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
   const selectedTheme = mounted ? (theme ?? 'system') : 'system';
 
+  const applyTheme = (value: (typeof themes)[number]['value']) => {
+    setTheme(value);
+    localStorage.setItem(THEME_STORAGE_KEY, value);
+
+    const shouldUseDark =
+      value === 'dark' ||
+      (value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+    document.documentElement.classList.toggle('dark', shouldUseDark);
+    document.documentElement.classList.toggle('light', !shouldUseDark);
+  };
+
   return (
     <div
       aria-label="Selecionar tema"
@@ -46,11 +59,12 @@ export function ThemeSwitcher() {
             aria-checked={selected}
             className={cn(
               'h-10 min-h-10 w-10 min-w-10 border-0 bg-transparent text-text-muted',
-              selected && 'bg-primary text-primary-foreground shadow-[var(--shadow-glow)]',
+              selected &&
+                'bg-primary text-primary-foreground shadow-[var(--shadow-glow)]',
             )}
             key={item.value}
             label={`Tema ${item.label}`}
-            onClick={() => setTheme(item.value)}
+            onClick={() => applyTheme(item.value)}
             role="radio"
             size="small"
             variant="ghost"

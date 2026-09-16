@@ -37,7 +37,9 @@ export function CarouselIndicators({
             role="tab"
             type="button"
           >
-            <span className="sr-only">{selected ? 'Slide atual' : 'Selecionar slide'}</span>
+            <span className="sr-only">
+              {selected ? 'Slide atual' : 'Selecionar slide'}
+            </span>
           </button>
         );
       })}

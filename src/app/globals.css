@@ -1,4 +1,11 @@
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
+
+@source '../app/**/*.{ts,tsx}';
+@source '../components/**/*.{ts,tsx}';
+@source '../config/**/*.{ts,tsx}';
+@source '../data/**/*.{ts,tsx}';
+@source '../hooks/**/*.{ts,tsx}';
+@source '../lib/**/*.{ts,tsx}';
 
 :root {
   color-scheme: light;
@@ -66,7 +73,7 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif;
   --color-background: var(--color-background);
   --color-surface: var(--color-surface);
   --color-surface-secondary: var(--color-surface-secondary);
@@ -96,8 +103,16 @@ body {
   margin: 0;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--color-primary) 22%, transparent), transparent 28rem),
-    radial-gradient(circle at 88% 12%, color-mix(in srgb, var(--color-accent) 18%, transparent), transparent 26rem),
+    radial-gradient(
+      circle at 12% 8%,
+      color-mix(in srgb, var(--color-primary) 22%, transparent),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 88% 12%,
+      color-mix(in srgb, var(--color-accent) 18%, transparent),
+      transparent 26rem
+    ),
     var(--color-background);
   color: var(--color-text);
   font-family: var(--font-sans);
