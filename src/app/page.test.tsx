@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { AuthProvider } from '@/components/auth';
 import { LanguageProvider } from '@/components/language';
 import { ThemeProvider } from '@/components/theme';
 import { curriculos } from '@/config/curriculos';
@@ -13,7 +14,9 @@ function renderHome(initial = 'portugues') {
   return render(
     <ThemeProvider>
       <LanguageProvider>
-        <Home />
+        <AuthProvider>
+          <Home />
+        </AuthProvider>
       </LanguageProvider>
     </ThemeProvider>,
   );

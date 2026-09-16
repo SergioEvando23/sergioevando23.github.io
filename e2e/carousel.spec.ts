@@ -5,6 +5,7 @@ test('carousel supports mouse, indicators, keyboard and mobile layout', async ({
 }) => {
   await page.addInitScript(() => {
     localStorage.setItem('sergio-portfolio-language', 'portugues');
+    localStorage.setItem('sergio-portfolio-entry-choice', 'visitor');
   });
   await page.goto('/');
   await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();

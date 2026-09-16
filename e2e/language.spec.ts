@@ -14,6 +14,7 @@ test('language selection persists and keeps theme carousel and resume links', as
     if (!localStorage.getItem('sergio-portfolio-language')) {
       localStorage.setItem('sergio-portfolio-language', 'portugues');
     }
+    localStorage.setItem('sergio-portfolio-entry-choice', 'visitor');
   });
   await page.goto('/');
   await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();
