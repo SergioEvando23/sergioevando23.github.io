@@ -44,8 +44,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   useEffect(() => {
     if (!hasFirebaseConfig()) {
-      setLoading(false);
-      return undefined;
+      const timeout = window.setTimeout(() => setLoading(false), 0);
+      return () => window.clearTimeout(timeout);
     }
 
     return onAuthStateChanged(getFirebaseAuth(), (nextUser) => {
@@ -60,7 +60,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     if (!hasFirebaseConfig()) {
       setAuthError('missingConfig');
-      return;
+      throw new Error('missingConfig');
     }
 
     try {

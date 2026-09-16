@@ -21,11 +21,9 @@ import type {
 const STUDY_PROJECTS_COLLECTION = 'studyProjects';
 
 export function studyProjectDoc(projectId: string) {
-  return doc(
-    getFirebaseFirestore(),
-    STUDY_PROJECTS_COLLECTION,
-    projectId,
-  ).withConverter(studyProjectConverter);
+  return doc(getFirebaseFirestore(), STUDY_PROJECTS_COLLECTION, projectId).withConverter(
+    studyProjectConverter,
+  );
 }
 
 export async function studyProjectExists(projectId: string) {

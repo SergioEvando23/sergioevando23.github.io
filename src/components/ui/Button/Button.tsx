@@ -100,7 +100,25 @@ export function Button(props: ButtonProps) {
   }
 
   const nativeProps = props as NativeButtonProps;
-  const { disabled, type = 'button', ...buttonProps } = nativeProps;
+  const {
+    disabled,
+    type = 'button',
+    variant: nativeVariant,
+    size: nativeSize,
+    leftIcon: nativeLeftIcon,
+    rightIcon: nativeRightIcon,
+    loading: nativeLoading,
+    className: nativeClassName,
+    children: nativeChildren,
+    ...buttonProps
+  } = nativeProps;
+  void nativeVariant;
+  void nativeSize;
+  void nativeLeftIcon;
+  void nativeRightIcon;
+  void nativeLoading;
+  void nativeClassName;
+  void nativeChildren;
 
   return (
     <button

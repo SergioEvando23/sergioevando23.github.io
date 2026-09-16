@@ -51,8 +51,8 @@ export function StudyGallery() {
         {!loading && !error && projects.length > 0 ? (
           <div className="grid gap-6 lg:grid-cols-2">
             {projects.map((project) => {
-              const cover = project.images.find((image) => image.isCover) ??
-                project.images[0];
+              const cover =
+                project.images.find((image) => image.isCover) ?? project.images[0];
               const period =
                 project.startedAt && project.completedAt
                   ? `${project.startedAt} - ${project.completedAt}`
@@ -67,8 +67,7 @@ export function StudyGallery() {
                     {cover ? (
                       <Image
                         alt={
-                          cover.alt ||
-                          textos.studyGallery.imageAltFallback(project.title)
+                          cover.alt || textos.studyGallery.imageAltFallback(project.title)
                         }
                         className="object-cover"
                         fill
@@ -79,9 +78,7 @@ export function StudyGallery() {
                   </div>
                   <div className="flex flex-col gap-4 p-6">
                     <div>
-                      <h3 className="text-2xl font-black text-text">
-                        {project.title}
-                      </h3>
+                      <h3 className="text-2xl font-black text-text">{project.title}</h3>
                       <p className="mt-3 leading-7 text-text-muted">
                         {project.description}
                       </p>

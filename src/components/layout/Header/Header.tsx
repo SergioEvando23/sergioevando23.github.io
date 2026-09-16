@@ -23,13 +23,7 @@ export function Header() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
   const { textos } = useLanguage();
-  const {
-    isAuthenticated,
-    isAdmin,
-    adminLoading,
-    signInWithGoogle,
-    signOut,
-  } = useAuth();
+  const { isAuthenticated, isAdmin, adminLoading, signInWithGoogle, signOut } = useAuth();
 
   useEffect(() => {
     if (!mobileOpen) {

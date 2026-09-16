@@ -60,12 +60,7 @@ export async function uploadProjectImages(
         contentType: image.file.type,
       });
 
-      task.on(
-        'state_changed',
-        undefined,
-        reject,
-        () => resolve(),
-      );
+      task.on('state_changed', undefined, reject, () => resolve());
     });
 
     uploaded.push({

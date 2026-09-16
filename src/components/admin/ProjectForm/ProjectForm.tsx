@@ -171,16 +171,18 @@ export function ProjectForm() {
       nextErrors.id = textos.admin.form.errors.invalidSlug;
     }
 
-    ([
-      'repository',
-      'title',
-      'description',
-      'focus',
-      'category',
-      'kind',
-      'date',
-      'githubUrl',
-    ] as const).forEach((key) => {
+    (
+      [
+        'repository',
+        'title',
+        'description',
+        'focus',
+        'category',
+        'kind',
+        'date',
+        'githubUrl',
+      ] as const
+    ).forEach((key) => {
       if (!input[key]) {
         nextErrors[key] = textos.admin.form.errors.required;
       }
@@ -480,7 +482,9 @@ export function ProjectForm() {
           loading={loading}
           type="submit"
         >
-          {loading ? textos.admin.form.actions.publishing : textos.admin.form.actions.publish}
+          {loading
+            ? textos.admin.form.actions.publishing
+            : textos.admin.form.actions.publish}
         </Button>
       </div>
 

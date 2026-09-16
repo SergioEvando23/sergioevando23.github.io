@@ -89,21 +89,18 @@ const portugues = {
       popupClosed: 'Login cancelado antes da conclusao.',
       popupBlocked: 'Popup bloqueado. Vamos tentar redirecionar com seguranca.',
       network: 'Falha de rede ao autenticar. Tente novamente.',
-      unauthorizedDomain:
-        'Dominio nao autorizado no Firebase Authentication.',
+      unauthorizedDomain: 'Dominio nao autorizado no Firebase Authentication.',
       unknown: 'Nao foi possivel autenticar com Google.',
     },
   },
   admin: {
     insertProjects: 'Inserir projetos',
     accessDeniedTitle: 'Acesso negado',
-    accessDeniedDescription:
-      'Esta area e restrita ao administrador autorizado.',
+    accessDeniedDescription: 'Esta area e restrita ao administrador autorizado.',
     checkingAccess: 'Verificando permissao administrativa...',
     form: {
       title: 'Cadastrar projeto de estudo',
-      description:
-        'Publique estudos com dados estruturados e ate tres imagens.',
+      description: 'Publique estudos com dados estruturados e ate tres imagens.',
       preview: 'Preview',
       fields: {
         id: 'ID do projeto',
@@ -352,8 +349,7 @@ const ingles = {
     welcomeSubtitle: 'Fullstack Web & Mobile Software Engineering',
     signInWithGoogle: 'Sign in with Google',
     continueAsVisitor: 'Continue as visitor',
-    optionalLogin:
-      'Login is optional. Visitors can access the public gallery.',
+    optionalLogin: 'Login is optional. Visitors can access the public gallery.',
     signOut: 'Sign out',
     signIn: 'Sign in',
     missingConfig:
@@ -362,21 +358,18 @@ const ingles = {
       popupClosed: 'Login was cancelled before completion.',
       popupBlocked: 'Popup was blocked. We will try a safe redirect.',
       network: 'Network error while authenticating. Try again.',
-      unauthorizedDomain:
-        'Domain is not authorized in Firebase Authentication.',
+      unauthorizedDomain: 'Domain is not authorized in Firebase Authentication.',
       unknown: 'Google authentication could not be completed.',
     },
   },
   admin: {
     insertProjects: 'Insert projects',
     accessDeniedTitle: 'Access denied',
-    accessDeniedDescription:
-      'This area is restricted to the authorized administrator.',
+    accessDeniedDescription: 'This area is restricted to the authorized administrator.',
     checkingAccess: 'Checking administrative permission...',
     form: {
       title: 'Create study project',
-      description:
-        'Publish studies with structured data and up to three images.',
+      description: 'Publish studies with structured data and up to three images.',
       preview: 'Preview',
       fields: {
         id: 'Project ID',

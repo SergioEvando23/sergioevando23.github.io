@@ -28,7 +28,11 @@ export function useStudyProjects() {
   }, []);
 
   useEffect(() => {
-    void load();
+    const timeout = window.setTimeout(() => {
+      void load();
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
   }, [load]);
 
   return { projects, loading, error, retry: load };

@@ -25,11 +25,7 @@ export function useAdminStatus(user: User | null) {
 
       setStatus({ isAdmin: false, loading: true });
 
-      if (
-        !hasFirebaseConfig() ||
-        !user.emailVerified ||
-        user.email !== ADMIN_EMAIL
-      ) {
+      if (!hasFirebaseConfig() || !user.emailVerified || user.email !== ADMIN_EMAIL) {
         if (active) {
           setStatus({ isAdmin: false, loading: false });
         }
