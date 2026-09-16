@@ -1,0 +1,58 @@
+# workspace allowlist
+/*
+!/.gitignore
+!/README.md
+!/package.json
+!/package-lock.json
+!/next-env.d.ts
+!/next.config.ts
+!/tsconfig.json
+!/eslint.config.mjs
+!/postcss.config.mjs
+!/prettier.config.mjs
+!/vitest.config.ts
+!/playwright.config.ts
+!/src/
+!/src/**
+!/e2e/
+!/e2e/**
+!/public/
+!/public/**
+
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+
+# production
+build/
+dist/
+
+# testing
+coverage/
+playwright-report/
+test-results/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# misc
+*.tsbuildinfo

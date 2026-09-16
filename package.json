@@ -1,0 +1,52 @@
+{
+  "name": "sergio-costa-portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint src e2e next.config.ts vitest.config.ts playwright.config.ts eslint.config.mjs --no-error-on-unmatched-pattern",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\" \"e2e/**/*.{ts,tsx}\" \"*.{js,mjs,ts,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,md}\" \"e2e/**/*.{ts,tsx}\" \"*.{js,mjs,ts,json,md}\"",
+    "validate": "npm run typecheck && npm run lint && npm run test:run && npm run build"
+  },
+  "dependencies": {
+    "@emotion/react": "latest",
+    "@emotion/styled": "latest",
+    "@mui/icons-material": "latest",
+    "@mui/material": "latest",
+    "clsx": "latest",
+    "next": "latest",
+    "next-themes": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "tailwind-merge": "latest"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "latest",
+    "@playwright/test": "latest",
+    "@tailwindcss/postcss": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@testing-library/user-event": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@vitejs/plugin-react": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "eslint-config-prettier": "latest",
+    "jsdom": "^26.1.0",
+    "prettier": "latest",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  }
+}
