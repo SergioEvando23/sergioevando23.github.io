@@ -1,14 +1,20 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, describe, expect, it } from 'vitest';
+import { LanguageProvider } from '@/components/language';
 import { THEME_STORAGE_KEY } from '@/config/theme';
+import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
 import { ThemeProvider } from './ThemeProvider';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 function renderThemeSwitcher() {
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portugues');
+
   return render(
     <ThemeProvider>
-      <ThemeSwitcher />
+      <LanguageProvider>
+        <ThemeSwitcher />
+      </LanguageProvider>
     </ThemeProvider>,
   );
 }

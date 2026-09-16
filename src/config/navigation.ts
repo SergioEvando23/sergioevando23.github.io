@@ -1,11 +1,13 @@
+import type { ConteudoTraduzido } from '@/i18n/dicionario';
+
 export interface NavigationItem {
-  label: string;
   href: string;
+  translationKey: keyof ConteudoTraduzido['navigation'];
 }
 
 export const navigationItems: NavigationItem[] = [
-  { label: 'Projetos', href: '#projetos' },
-  { label: 'Tecnologias', href: '#tecnologias' },
-  { label: 'Experiência', href: '#experiencia' },
-  { label: 'Contato', href: '#contato' },
+  { translationKey: 'projects', href: '#projetos' },
+  { translationKey: 'technologies', href: '#tecnologias' },
+  { translationKey: 'experience', href: '#experiencia' },
+  { translationKey: 'contact', href: '#contato' },
 ];

@@ -6,6 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { ThemeSwitcher } from '@/components/theme';
 import { Container } from '@/components/ui/Container';
 import { IconButton } from '@/components/ui/IconButton';
@@ -17,6 +18,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
+  const { textos } = useLanguage();
 
   useEffect(() => {
     if (!mobileOpen) {
@@ -42,15 +44,15 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-overlay backdrop-blur-xl">
       <Container className="flex h-[var(--header-height)] items-center justify-between gap-4">
         <Link
-          aria-label={`${brandConfig.name}, início`}
+          aria-label={textos.brand.homeLabel}
           className="text-xl font-black tracking-normal text-text"
           href="#inicio"
         >
-          {brandConfig.initials}.
+          {textos.brand.initials}.
         </Link>
 
         <nav
-          aria-label="Navegação principal"
+          aria-label={textos.accessibility.mainNavigation}
           className="hidden items-center gap-6 lg:flex"
         >
           {navigationItems.map((item) => (
@@ -59,14 +61,14 @@ export function Header() {
               href={item.href}
               key={item.href}
             >
-              {item.label}
+              {textos.navigation[item.translationKey]}
             </Link>
           ))}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
           <IconButton
-            label="Abrir GitHub"
+            label={textos.accessibility.openGithub}
             onClick={() =>
               window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')
             }
@@ -76,7 +78,7 @@ export function Header() {
             <GitHubIcon aria-hidden="true" fontSize="inherit" />
           </IconButton>
           <IconButton
-            label="Abrir LinkedIn"
+            label={textos.accessibility.openLinkedin}
             onClick={() =>
               window.open(brandConfig.socialLinks.linkedin, '_blank', 'noreferrer')
             }
@@ -85,15 +87,19 @@ export function Header() {
           >
             <LinkedInIcon aria-hidden="true" fontSize="inherit" />
           </IconButton>
+          <LanguageSwitcher />
           <ThemeSwitcher />
         </div>
 
         <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcher />
           <ThemeSwitcher />
           <IconButton
             aria-controls="mobile-navigation"
             aria-expanded={mobileOpen}
-            label={mobileOpen ? 'Fechar menu' : 'Abrir menu'}
+            label={
+              mobileOpen ? textos.accessibility.closeMenu : textos.accessibility.openMenu
+            }
             onClick={() => setMobileOpen((current) => !current)}
             ref={menuButtonRef}
             variant="default"
@@ -123,12 +129,12 @@ export function Header() {
               key={item.href}
               onClick={closeMobileMenu}
             >
-              {item.label}
+              {textos.navigation[item.translationKey]}
             </Link>
           ))}
           <div className="flex gap-2 border-t border-border pt-3">
             <IconButton
-              label="Abrir GitHub"
+              label={textos.accessibility.openGithub}
               onClick={() =>
                 window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')
               }
@@ -137,7 +143,7 @@ export function Header() {
               <GitHubIcon aria-hidden="true" fontSize="inherit" />
             </IconButton>
             <IconButton
-              label="Abrir LinkedIn"
+              label={textos.accessibility.openLinkedin}
               onClick={() =>
                 window.open(brandConfig.socialLinks.linkedin, '_blank', 'noreferrer')
               }
