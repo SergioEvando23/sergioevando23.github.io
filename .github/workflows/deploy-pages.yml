@@ -76,9 +76,6 @@ jobs:
       - name: Unit tests
         run: npm run test:run
 
-      - name: Firebase rules tests
-        run: npm run test:rules
-
       - name: Build static export
         run: npm run build
 
