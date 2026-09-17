@@ -23,7 +23,13 @@ export function Header() {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
   const { textos } = useLanguage();
-  const { isAuthenticated, isAdmin, adminLoading, signInWithGoogle, signOut } = useAuth();
+  const { user, isAuthenticated, isAdmin, adminLoading, signInWithGoogle, signOut } =
+    useAuth();
+  const canAccessStudyAdmin =
+    isAdmin ||
+    (!adminLoading &&
+      user?.email === 'sergioevandocosta@gmail.com' &&
+      user.emailVerified);
 
   useEffect(() => {
     if (!mobileOpen) {
@@ -51,7 +57,7 @@ export function Header() {
         <Link
           aria-label={textos.brand.homeLabel}
           className="text-xl font-black tracking-normal text-text"
-          href="#inicio"
+          href="/"
         >
           {textos.brand.initials}.
         </Link>
@@ -69,10 +75,10 @@ export function Header() {
               {textos.navigation[item.translationKey]}
             </Link>
           ))}
-          {!adminLoading && isAdmin ? (
+          {canAccessStudyAdmin ? (
             <Link
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
-              href="/admin/projects/new"
+              href="/study/admin"
             >
               <AddCircleOutlineIcon aria-hidden="true" fontSize="small" />
               {textos.admin.insertProjects}
@@ -158,10 +164,10 @@ export function Header() {
               {textos.navigation[item.translationKey]}
             </Link>
           ))}
-          {!adminLoading && isAdmin ? (
+          {canAccessStudyAdmin ? (
             <Link
               className="inline-flex items-center gap-2 rounded-[var(--radius-md)] px-3 py-3 text-base font-semibold text-primary transition-colors hover:bg-surface-secondary"
-              href="/admin/projects/new"
+              href="/study/admin"
               onClick={closeMobileMenu}
             >
               <AddCircleOutlineIcon aria-hidden="true" fontSize="small" />

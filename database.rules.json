@@ -1,0 +1,65 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "study": {
+      ".read": true,
+      "$studyId": {
+        ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'sergioevandocosta@gmail.com'",
+        ".validate": "newData.val() == null || (newData.hasChildren(['id', 'repository', 'title', 'description', 'focus', 'technologies', 'category', 'kind', 'date', 'githubUrl', 'portfolioEligible']) && newData.child('id').val() == $studyId && newData.child('id').isString() && newData.child('repository').isString() && newData.child('title').isString() && newData.child('description').isString() && newData.child('focus').isString() && newData.child('category').isString() && newData.child('kind').isString() && newData.child('date').isString() && newData.child('githubUrl').isString() && newData.child('portfolioEligible').isBoolean() && (!newData.child('startedAt').exists() || newData.child('startedAt').isString()) && (!newData.child('completedAt').exists() || newData.child('completedAt').isString()) && (!newData.child('coverImage').exists() || newData.child('coverImage').isString()) && newData.getChildrenCount() <= 14)",
+        "id": {
+          ".validate": "newData.isString() && newData.val() == $studyId"
+        },
+        "repository": {
+          ".validate": "newData.isString()"
+        },
+        "title": {
+          ".validate": "newData.isString()"
+        },
+        "description": {
+          ".validate": "newData.isString()"
+        },
+        "focus": {
+          ".validate": "newData.isString()"
+        },
+        "technologies": {
+          "$index": {
+            ".validate": "newData.isString()"
+          }
+        },
+        "category": {
+          ".validate": "newData.isString()"
+        },
+        "kind": {
+          ".validate": "newData.isString()"
+        },
+        "startedAt": {
+          ".validate": "newData.isString()"
+        },
+        "completedAt": {
+          ".validate": "newData.isString()"
+        },
+        "date": {
+          ".validate": "newData.isString()"
+        },
+        "githubUrl": {
+          ".validate": "newData.isString()"
+        },
+        "portfolioEligible": {
+          ".validate": "newData.isBoolean()"
+        },
+        "coverImage": {
+          ".validate": "newData.isString()"
+        },
+        "images": {
+          "$index": {
+            ".validate": "newData.isString()"
+          }
+        },
+        "$other": {
+          ".validate": false
+        }
+      }
+    }
+  }
+}

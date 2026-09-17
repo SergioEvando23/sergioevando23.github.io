@@ -16,6 +16,8 @@ export interface StudyProjectInput {
   date: string;
   githubUrl: string;
   portfolioEligible: boolean;
+  coverImage?: string;
+  images?: string[];
 }
 
 export interface StudyProjectImage {
@@ -28,8 +30,10 @@ export interface StudyProjectImage {
 }
 
 export interface StudyProject extends StudyProjectInput {
-  images: StudyProjectImage[];
+  galleryImages: StudyProjectImage[];
   createdAt: StudyProjectTimestamp;
   updatedAt: StudyProjectTimestamp;
   createdBy: string;
 }
+
+export type StudyProjectFormInput = StudyProjectInput;

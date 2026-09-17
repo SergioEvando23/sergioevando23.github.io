@@ -37,9 +37,12 @@ export async function createStudyProject(
   createdBy: string,
 ) {
   const now = serverTimestamp();
+  const imagePaths = images.map((image) => image.url);
   await setDoc(studyProjectDoc(input.id), {
     ...input,
-    images,
+    coverImage: input.coverImage ?? imagePaths[0] ?? '',
+    images: input.images ?? imagePaths,
+    galleryImages: images,
     createdAt: now,
     updatedAt: now,
     createdBy,
