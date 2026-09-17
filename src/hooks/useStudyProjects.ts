@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { listPublicStudyProjectsFromRest } from '@/services/firebase/realtimeStudyProjects';
+import { listPublicStudyProjectsFromRest } from '@/services/firebase/firebaseStudyRestService';
 import type { StudyProject } from '@/types/firebase/studyProject';
 
 export function useStudyProjects() {

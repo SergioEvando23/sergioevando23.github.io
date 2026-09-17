@@ -52,7 +52,8 @@ export function StudyGallery() {
           <div className="grid gap-6 lg:grid-cols-2">
             {projects.map((project) => {
               const cover =
-                project.images.find((image) => image.isCover) ?? project.images[0];
+                project.galleryImages.find((image) => image.isCover) ??
+                project.galleryImages[0];
               const period =
                 project.startedAt && project.completedAt
                   ? `${project.startedAt} - ${project.completedAt}`

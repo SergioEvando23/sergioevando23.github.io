@@ -5,7 +5,7 @@ import { LanguageProvider } from '@/components/language';
 import { ThemeProvider } from '@/components/theme';
 import { StudyGallery } from './StudyGallery';
 
-vi.mock('@/services/firebase/realtimeStudyProjects', () => ({
+vi.mock('@/services/firebase/firebaseStudyRestService', () => ({
   listPublicStudyProjectsFromRest: vi.fn(async () => []),
 }));
 
