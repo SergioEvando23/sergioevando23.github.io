@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { hasFirebaseConfig } from '@/lib/firebase/client';
-import { listPublicStudyProjects } from '@/services/firebase/studyProjects';
+import { listPublicStudyProjectsFromRest } from '@/services/firebase/realtimeStudyProjects';
 import type { StudyProject } from '@/types/firebase/studyProject';
 
 export function useStudyProjects() {
@@ -12,14 +11,8 @@ export function useStudyProjects() {
     setLoading(true);
     setError(false);
 
-    if (!hasFirebaseConfig()) {
-      setProjects([]);
-      setLoading(false);
-      return;
-    }
-
     try {
-      setProjects(await listPublicStudyProjects());
+      setProjects(await listPublicStudyProjectsFromRest());
     } catch {
       setError(true);
     } finally {

@@ -68,6 +68,13 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
+Variavel opcional para sobrescrever a URL REST do Realtime Database usada pela
+Galeria de estudos:
+
+```text
+NEXT_PUBLIC_FIREBASE_DATABASE_URL
+```
+
 Esses valores `NEXT_PUBLIC_*` sao incorporados ao bundle estatico durante o
 `npm run build`. O workflow falha cedo se algum nome estiver ausente e nao imprime
 valores no log. Use Secrets somente se houver uma politica interna exigindo isso.
@@ -234,9 +241,16 @@ A rota protegida `/admin/projects/new` renderiza um formulario Material UI para:
 
 ## Galeria De Estudos
 
-A secao publica `Galeria de estudos` consome `studyProjects` do Firestore e lista
-somente documentos com `portfolioEligible === true`, ordenados pelos mais
-recentes. Estados de loading, vazio, erro e retry sao traduzidos em PT/EN.
+A secao publica `Galeria de estudos` consome o Realtime Database via REST:
+
+```text
+GET https://sergioevando23-default-rtdb.firebaseio.com/study.json
+```
+
+A aplicacao normaliza o objeto retornado, lista somente registros com
+`portfolioEligible === true` e ordena pelos mais recentes. Escritas REST em
+`/study/{id}.json` devem enviar `?auth=FIREBASE_ID_TOKEN`; a galeria publica usa
+apenas leitura. Estados de loading, vazio, erro e retry sao traduzidos em PT/EN.
 
 ## Internacionalizacao
 

@@ -1,5 +1,7 @@
 import type { Timestamp } from 'firebase/firestore';
 
+export type StudyProjectTimestamp = Timestamp | string | number | null;
+
 export interface StudyProjectInput {
   id: string;
   repository: string;
@@ -27,7 +29,7 @@ export interface StudyProjectImage {
 
 export interface StudyProject extends StudyProjectInput {
   images: StudyProjectImage[];
-  createdAt: Timestamp;
-  updatedAt: Timestamp;
+  createdAt: StudyProjectTimestamp;
+  updatedAt: StudyProjectTimestamp;
   createdBy: string;
 }

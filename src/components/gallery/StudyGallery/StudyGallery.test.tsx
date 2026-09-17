@@ -5,12 +5,12 @@ import { LanguageProvider } from '@/components/language';
 import { ThemeProvider } from '@/components/theme';
 import { StudyGallery } from './StudyGallery';
 
-vi.mock('@/lib/firebase/client', () => ({
-  hasFirebaseConfig: () => false,
+vi.mock('@/services/firebase/realtimeStudyProjects', () => ({
+  listPublicStudyProjectsFromRest: vi.fn(async () => []),
 }));
 
 describe('StudyGallery', () => {
-  it('renders an empty state when Firebase is not configured', async () => {
+  it('renders an empty state when the REST gallery has no published studies', async () => {
     localStorage.setItem('sergio-portfolio-language', 'portugues');
 
     render(
