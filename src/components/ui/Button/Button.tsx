@@ -83,6 +83,29 @@ export function Button(props: ButtonProps) {
       'aria-label': ariaLabel,
     } = props;
 
+    const shouldUseNativeAnchor =
+      Boolean(download) ||
+      href.startsWith('http') ||
+      href.startsWith('mailto:') ||
+      href.startsWith('tel:');
+
+    if (shouldUseNativeAnchor) {
+      return (
+        <a
+          aria-label={ariaLabel}
+          className={classes}
+          download={download}
+          href={href}
+          onClick={onClick}
+          rel={rel ?? (target === '_blank' ? 'noreferrer' : undefined)}
+          target={target}
+          title={title}
+        >
+          {content}
+        </a>
+      );
+    }
+
     return (
       <Link
         aria-label={ariaLabel}
