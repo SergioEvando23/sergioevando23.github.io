@@ -17,6 +17,9 @@
 !/firestore.rules
 !/firestore.indexes.json
 !/storage.rules
+!/.github/
+!/.github/workflows/
+!/.github/workflows/**
 !/src/
 !/src/**
 !/e2e/
