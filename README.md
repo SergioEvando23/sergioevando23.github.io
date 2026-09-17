@@ -22,6 +22,85 @@ npm run dev
 
 Abra `http://localhost:3000`.
 
+## Deploy No GitHub Pages
+
+O portfolio e publicado como exportacao estatica do Next.js. O repositorio de
+usuario `SergioEvando23.github.io` deve servir os assets a partir da raiz `/`,
+sem `basePath` e sem `assetPrefix`.
+
+O GitHub Pages deve usar Actions:
+
+```text
+Repository -> Settings -> Pages -> Build and deployment -> Source -> GitHub Actions
+```
+
+Nao deixe `Deploy from a branch` apontando para `main /(root)`. Essa configuracao
+faz o Pages processar os arquivos-fonte com Jekyll e pode renderizar o
+`README.md` no lugar da aplicacao.
+
+O workflow `.github/workflows/deploy-pages.yml` executa:
+
+```text
+checkout -> setup Node -> configure Pages -> npm ci -> validacoes -> npm run build
+-> valida out/index.html e out/_next/static -> cria out/.nojekyll
+-> upload de out -> deploy oficial do Pages
+```
+
+Somente a pasta `out` e enviada como artefato. A raiz do repositorio, `.next`,
+`node_modules` e `README.md` nao sao publicados.
+
+### Variaveis Do Firebase No GitHub Actions
+
+Cadastre as configuracoes publicas do Firebase Web em:
+
+```text
+Repository -> Settings -> Secrets and variables -> Actions -> Variables
+```
+
+Variaveis obrigatorias:
+
+```text
+NEXT_PUBLIC_FIREBASE_API_KEY
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+NEXT_PUBLIC_FIREBASE_PROJECT_ID
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
+NEXT_PUBLIC_FIREBASE_APP_ID
+```
+
+Esses valores `NEXT_PUBLIC_*` sao incorporados ao bundle estatico durante o
+`npm run build`. O workflow falha cedo se algum nome estiver ausente e nao imprime
+valores no log. Use Secrets somente se houver uma politica interna exigindo isso.
+
+No Firebase Authentication, autorize tambem o dominio:
+
+```text
+sergioevando23.github.io
+```
+
+### Validacao Local Do Export
+
+```bash
+npm ci
+npm run validate:i18n
+npm run typecheck
+npm run lint
+npm run test:run
+npm run build
+```
+
+Depois do build:
+
+```bash
+test -f out/index.html
+test -d out/_next/static
+```
+
+Sirva `out` com um servidor HTTP estatico para validar a aplicacao renderizada,
+em vez de abrir arquivos com `file://`. A pasta exportada deve conter
+`index.html`, `_next/static`, `documents/` com os curriculos e as imagens
+publicas usadas no portfolio.
+
 ## Scripts
 
 ```bash
