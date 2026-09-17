@@ -107,11 +107,8 @@ async function getExistingSha(path: string, token: string) {
   return payload.sha;
 }
 
-async function putGithubFile(path: string, file: File, token: string) {
-  const sha = await getExistingSha(path, token);
-  const webpFile = await convertToWebpWhenSupported(file);
-  const content = await fileToBase64(webpFile);
-  const response = await fetch(githubContentsUrl(path), {
+async function putContents(path: string, content: string, token: string, sha?: string) {
+  return fetch(githubContentsUrl(path), {
     body: JSON.stringify({
       branch: 'main',
       content,
@@ -126,10 +123,34 @@ async function putGithubFile(path: string, file: File, token: string) {
     },
     method: 'PUT',
   });
+}
 
-  if (!response.ok) {
-    throw new Error(`github-upload-failed-${response.status}`);
+async function putGithubFile(path: string, file: File, token: string) {
+  const webpFile = await convertToWebpWhenSupported(file);
+  const content = await fileToBase64(webpFile);
+  const createResponse = await putContents(path, content, token);
+
+  if (createResponse.ok) {
+    return;
   }
+
+  if (createResponse.status === 422) {
+    const sha = await getExistingSha(path, token);
+
+    if (!sha) {
+      throw new Error('github-existing-file-without-sha');
+    }
+
+    const updateResponse = await putContents(path, content, token, sha);
+
+    if (updateResponse.ok) {
+      return;
+    }
+
+    throw new Error(`github-upload-failed-${updateResponse.status}`);
+  }
+
+  throw new Error(`github-upload-failed-${createResponse.status}`);
 }
 
 export function publicStudyImagePath(studyId: string, index: number, isCover: boolean) {
