@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { usePathname } from 'next/navigation';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutlineOutlined';
@@ -22,6 +23,7 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false);
   const { textos } = useLanguage();
   const { signInWithGoogle, authError, loading } = useAuth();
+  const pathname = usePathname();
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -62,6 +64,10 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
         {children}
       </div>
     );
+  }
+
+  if (pathname === '/study/admin') {
+    return <>{children}</>;
   }
 
   return (
