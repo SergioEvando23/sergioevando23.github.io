@@ -6,8 +6,9 @@ export interface NavigationItem {
 }
 
 export const navigationItems: NavigationItem[] = [
-  { translationKey: 'projects', href: '#projetos' },
-  { translationKey: 'technologies', href: '#tecnologias' },
-  { translationKey: 'experience', href: '#experiencia' },
-  { translationKey: 'contact', href: '#contato' },
+  { translationKey: 'projects', href: '/#projetos' },
+  { translationKey: 'studies', href: '/study' },
+  { translationKey: 'technologies', href: '/#tecnologias' },
+  { translationKey: 'experience', href: '/#experiencia' },
+  { translationKey: 'contact', href: '/#contato' },
 ];
