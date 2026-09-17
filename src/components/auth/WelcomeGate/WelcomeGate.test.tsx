@@ -1,10 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, expect, it, beforeEach } from 'vitest';
+import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { AuthProvider } from '@/components/auth';
 import { LanguageProvider } from '@/components/language';
 import { ThemeProvider } from '@/components/theme';
 import { WelcomeGate, ENTRY_CHOICE_STORAGE_KEY } from './WelcomeGate';
+
+vi.mock('@/lib/firebase/client', () => ({
+  hasFirebaseConfig: () => false,
+}));
 
 function renderGate() {
   localStorage.setItem('sergio-portfolio-language', 'portugues');

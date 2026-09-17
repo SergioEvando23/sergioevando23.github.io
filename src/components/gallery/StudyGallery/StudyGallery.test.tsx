@@ -1,9 +1,13 @@
 import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { AuthProvider } from '@/components/auth';
 import { LanguageProvider } from '@/components/language';
 import { ThemeProvider } from '@/components/theme';
 import { StudyGallery } from './StudyGallery';
+
+vi.mock('@/lib/firebase/client', () => ({
+  hasFirebaseConfig: () => false,
+}));
 
 describe('StudyGallery', () => {
   it('renders an empty state when Firebase is not configured', async () => {
