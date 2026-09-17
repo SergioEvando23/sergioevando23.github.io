@@ -51,6 +51,23 @@ const ADMIN_EMAIL = 'sergioevandocosta@gmail.com';
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 const IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 
+function createDraftStudyId() {
+  const timestamp = Date.now().toString(36);
+  const random =
+    typeof crypto !== 'undefined' && 'randomUUID' in crypto
+      ? crypto.randomUUID().slice(0, 8)
+      : Math.random().toString(36).slice(2, 10);
+
+  return `study-${timestamp}-${random}`;
+}
+
+function createEmptyStudyForm() {
+  return {
+    ...emptyStudyPayload(),
+    id: createDraftStudyId(),
+  };
+}
+
 function projectToPayload(project: StudyProject): StudyPayload {
   return {
     id: project.id,
@@ -84,7 +101,7 @@ export function StudyAdminPage() {
   const { user, loading, isAuthenticated, authError, signInWithGoogle, signOut } =
     useAuth();
   const [studies, setStudies] = useState<StudyProject[]>([]);
-  const [form, setForm] = useState<StudyPayload>(() => emptyStudyPayload());
+  const [form, setForm] = useState<StudyPayload>(() => createEmptyStudyForm());
   const [editingId, setEditingId] = useState<string | null>(null);
   const [errors, setErrors] = useState<StudyFormErrors>({});
   const [technology, setTechnology] = useState('');
@@ -166,7 +183,7 @@ export function StudyAdminPage() {
   const resetForm = () => {
     selectedImages.forEach((image) => URL.revokeObjectURL(image.previewUrl));
     setSelectedImages([]);
-    setForm(emptyStudyPayload());
+    setForm(createEmptyStudyForm());
     setEditingId(null);
     setErrors({});
     setTechnology('');
@@ -417,7 +434,7 @@ export function StudyAdminPage() {
 
       <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_380px]">
         <form
-          className="grid gap-4 rounded-[var(--radius-xl)] border border-border bg-surface/80 p-5 shadow-[var(--shadow-card)]"
+          className="grid gap-4 rounded-[var(--radius-xl)] border border-border bg-surface/80 p-5 shadow-[var(--shadow-card)] [&_.MuiFormHelperText-root]:font-semibold [&_.MuiFormHelperText-root]:text-error [&_.MuiInputBase-input::placeholder]:!text-text dark:[&_.MuiInputBase-input::placeholder]:!text-primary [&_.MuiInputBase-input::placeholder]:!opacity-100 [&_.MuiInputBase-input]:!text-text [&_.MuiInputBase-root]:bg-surface-secondary [&_.MuiInputBase-root]:text-text [&_.MuiInputBase-root.Mui-focused_.MuiOutlinedInput-notchedOutline]:border-primary [&_.MuiInputLabel-root]:!font-bold [&_.MuiInputLabel-root]:!text-text dark:[&_.MuiInputLabel-root]:!text-primary [&_.MuiInputLabel-root.Mui-focused]:!text-primary [&_.MuiOutlinedInput-notchedOutline]:border-border [&_.MuiSelect-icon]:!text-text dark:[&_.MuiSelect-icon]:!text-primary"
           onSubmit={(event) => {
             event.preventDefault();
             void saveStudy();
