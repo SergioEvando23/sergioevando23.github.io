@@ -73,6 +73,8 @@ Galeria de estudos:
 
 ```text
 NEXT_PUBLIC_FIREBASE_DATABASE_URL
+NEXT_PUBLIC_GITHUB_OWNER
+NEXT_PUBLIC_GITHUB_REPO
 ```
 
 Esses valores `NEXT_PUBLIC_*` sao incorporados ao bundle estatico durante o
@@ -135,6 +137,7 @@ src/
   components/layout/   Header e Footer
   components/admin/    Formulario administrativo de estudos
   components/gallery/  Galeria publica alimentada pelo Firebase
+  components/study/    Administracao CRUD da Galeria de estudos
   components/carousel/ Carousel acessivel e responsivo
   config/              Marca, navegacao, curriculos e tema
   data/                Dados tecnicos com translationKey
@@ -241,7 +244,8 @@ A rota protegida `/admin/projects/new` renderiza um formulario Material UI para:
 
 ## Galeria De Estudos
 
-A secao publica `Galeria de estudos` consome o Realtime Database via REST:
+A rota publica `/study` e a secao `Galeria de estudos` consomem o Realtime
+Database via REST:
 
 ```text
 GET https://sergioevando23-default-rtdb.firebaseio.com/study.json
@@ -251,6 +255,53 @@ A aplicacao normaliza o objeto retornado, lista somente registros com
 `portfolioEligible === true` e ordena pelos mais recentes. Escritas REST em
 `/study/{id}.json` devem enviar `?auth=FIREBASE_ID_TOKEN`; a galeria publica usa
 apenas leitura. Estados de loading, vazio, erro e retry sao traduzidos em PT/EN.
+
+## Administracao Da Galeria
+
+A rota `/study/admin` permite ao administrador criar, editar e excluir estudos no
+Realtime Database:
+
+```text
+GET    /study.json
+GET    /study/{id}.json
+PUT    /study/{id}.json?auth=FIREBASE_ID_TOKEN
+PATCH  /study/{id}.json?auth=FIREBASE_ID_TOKEN
+DELETE /study/{id}.json?auth=FIREBASE_ID_TOKEN
+```
+
+A interface exige login Google pelo Firebase e libera a administracao somente
+para `sergioevandocosta@gmail.com` com e-mail verificado. A seguranca definitiva
+continua nas regras do Firebase.
+
+As imagens nao usam Firebase Storage. Durante a sessao administrativa, informe
+um fine-grained GitHub Personal Access Token com permissao minima
+`Contents: Read and write` apenas para `SergioEvando23/sergioevando23.github.io`.
+O token fica somente em memoria, e e apagado ao sair/recarregar. Ele nao e
+salvo no Firebase, localStorage, sessionStorage, GitHub Actions ou codigo-fonte.
+
+Os uploads usam GitHub Contents API e gravam arquivos em:
+
+```text
+public/images/studies/{id}/cover.webp
+public/images/studies/{id}/01.webp
+public/images/studies/{id}/02.webp
+```
+
+O Firebase armazena apenas caminhos publicos, como:
+
+```json
+{
+  "coverImage": "/images/studies/shopping-cart/cover.webp",
+  "images": ["/images/studies/shopping-cart/cover.webp"]
+}
+```
+
+As regras locais do Realtime Database ficam em `database.rules.json` e sao
+referenciadas por `firebase.json`. Para publicar regras apos revisao:
+
+```bash
+firebase deploy --only database
+```
 
 ## Internacionalizacao
 
