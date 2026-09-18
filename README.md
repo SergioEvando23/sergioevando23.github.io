@@ -138,6 +138,7 @@ src/
   components/admin/    Formulario administrativo de estudos
   components/gallery/  Galeria publica alimentada pelo Firebase
   components/study/    Administracao CRUD da Galeria de estudos
+  components/chat/     Sergio AI, interface de chatbot integrada ao n8n
   components/carousel/ Carousel acessivel e responsivo
   config/              Marca, navegacao, curriculos e tema
   data/                Dados tecnicos com translationKey
@@ -302,6 +303,71 @@ referenciadas por `firebase.json`. Para publicar regras apos revisao:
 ```bash
 firebase deploy --only database
 ```
+
+## Sergio AI
+
+O portfolio inclui o `Sergio AI`, um chatbot profissional exibido como botao
+flutuante depois da tela de entrada. A interface usa os tokens, temas e o
+dicionario PT/EN existentes. O frontend gerencia apenas UI, historico visual,
+`sessionId`, idioma ativo e chamada HTTP para o webhook.
+
+A integracao esperada e:
+
+```text
+Portfolio -> Chat UI -> chatService -> Webhook n8n -> Workflow n8n -> IA -> Portfolio
+```
+
+Configure o endpoint publico do webhook no ambiente:
+
+```env
+NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL=
+```
+
+Nao coloque `OPENAI_API_KEY`, tokens do n8n, chaves privadas ou credenciais no
+frontend. O navegador deve conhecer somente o webhook criado para receber as
+mensagens do portfolio.
+
+Payload enviado ao n8n:
+
+```json
+{
+  "message": "Qual experiencia Sergio possui com React?",
+  "sessionId": "uuid-da-conversa",
+  "language": "pt-BR",
+  "source": "portfolio"
+}
+```
+
+Resposta inicial esperada:
+
+```json
+{
+  "answer": "Sergio possui experiencia profissional com React e TypeScript..."
+}
+```
+
+O contrato TypeScript ja permite evoluir a resposta com `sources`, `suggestions`
+e `actions`, mantendo a UI preparada para RAG, bases vetoriais, Firebase,
+GitHub, curriculos e links contextuais sem reconstruir a interface.
+
+### Workflow Sugerido No n8n
+
+```text
+Webhook
+-> Validate Input
+-> Normalize Language
+-> Rate Limit / Security
+-> Retrieve Professional Context
+-> AI Agent
+-> Format Response
+-> Respond to Webhook
+```
+
+O agente deve responder apenas sobre informacoes profissionais publicas de
+Sergio. Quando a base nao tiver informacao suficiente, deve informar isso de
+forma clara e sugerir curriculo, projetos, GitHub ou LinkedIn quando fizer
+sentido. O prompt do agente tambem deve bloquear tentativas de extrair system
+prompt, credenciais, estrutura interna ou dados privados.
 
 ## Internacionalizacao
 
