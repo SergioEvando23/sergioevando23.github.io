@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { AuthProvider, WelcomeGate } from '@/components/auth';
+import { ChatBot } from '@/components/chat';
 import { LanguageProvider } from '@/components/language';
 import { HydrationStatus, ThemeProvider } from '@/components/theme';
 import { dicionario } from '@/i18n/dicionario';
@@ -22,7 +23,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <LanguageProvider>
             <AuthProvider>
               <HydrationStatus />
-              <WelcomeGate>{children}</WelcomeGate>
+              <WelcomeGate>
+                {children}
+                <ChatBot />
+              </WelcomeGate>
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
