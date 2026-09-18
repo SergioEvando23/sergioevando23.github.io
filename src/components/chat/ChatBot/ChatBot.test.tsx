@@ -1,7 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { LanguageProvider } from '@/components/language';
+import { LanguageProvider, LanguageSwitcher } from '@/components/language';
 import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
 import { ChatBot } from './ChatBot';
 
@@ -19,6 +19,17 @@ function renderChat(language: 'portugues' | 'ingles' = 'portugues') {
 
   return render(
     <LanguageProvider>
+      <ChatBot />
+    </LanguageProvider>,
+  );
+}
+
+function renderChatWithLanguageSwitcher() {
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portugues');
+
+  return render(
+    <LanguageProvider>
+      <LanguageSwitcher />
       <ChatBot />
     </LanguageProvider>,
   );
@@ -131,6 +142,27 @@ describe('ChatBot', () => {
         expect.objectContaining({
           language: 'en-US',
           message: 'React experience',
+        }),
+      ),
+    );
+  });
+
+  it('follows the current language selected in the language switcher', async () => {
+    const user = userEvent.setup();
+    renderChatWithLanguageSwitcher();
+
+    await user.click(
+      screen.getByRole('button', { name: 'Alterar idioma para ingles' }),
+    );
+    await user.click(await screen.findByRole('button', { name: 'Open Sergio AI' }));
+    await user.type(screen.getByLabelText('Message for Sergio AI'), 'Tell me about React');
+    await user.keyboard('{Enter}');
+
+    await waitFor(() =>
+      expect(sendChatMessageMock).toHaveBeenCalledWith(
+        expect.objectContaining({
+          language: 'en-US',
+          message: 'Tell me about React',
         }),
       ),
     );
