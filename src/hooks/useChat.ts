@@ -4,6 +4,8 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { sendChatMessage } from '@/services/chat';
 import type { ChatMessage, ChatResponse, ChatStatus } from '@/types/chat';
 
+const CHAT_SESSION_STORAGE_KEY = 'sergio-ai-session-id';
+
 interface UseChatOptions {
   language: string;
 }
@@ -27,12 +29,28 @@ function createId(prefix: string) {
   return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }
 
+function createSessionId() {
+  if (typeof window === 'undefined') {
+    return createId('sergio-ai');
+  }
+
+  const stored = window.sessionStorage.getItem(CHAT_SESSION_STORAGE_KEY);
+
+  if (stored) {
+    return stored;
+  }
+
+  const sessionId = createId('sergio-ai');
+  window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, sessionId);
+  return sessionId;
+}
+
 export function useChat({ language }: UseChatOptions): UseChatResult {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [status, setStatus] = useState<ChatStatus>('idle');
   const [error, setError] = useState<string | null>(null);
   const [lastResponse, setLastResponse] = useState<ChatResponse | null>(null);
-  const [sessionId, setSessionId] = useState(() => createId('sergio-ai'));
+  const [sessionId, setSessionId] = useState(createSessionId);
   const lastUserMessageRef = useRef<string | null>(null);
 
   const requestAssistantResponse = useCallback(
@@ -45,13 +63,12 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
           message,
           sessionId,
           language,
-          source: 'portfolio',
         });
 
         const assistantMessage: ChatMessage = {
           id: createId('assistant'),
           role: 'assistant',
-          content: response.answer,
+          content: response.message,
           createdAt: new Date(),
         };
 
@@ -103,7 +120,9 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
     setStatus('idle');
     setError(null);
     setLastResponse(null);
-    setSessionId(createId('sergio-ai'));
+    const nextSessionId = createId('sergio-ai');
+    window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, nextSessionId);
+    setSessionId(nextSessionId);
     lastUserMessageRef.current = null;
   }, []);
 

@@ -12,7 +12,11 @@ describe('chatService', () => {
       'fetch',
       vi.fn().mockResolvedValue({
         ok: true,
-        json: async () => ({ answer: 'Resposta do agente.' }),
+        json: async () => ({
+          success: true,
+          message: 'Resposta do agente.',
+          sessionId: 'session-1',
+        }),
       }),
     );
   });
@@ -27,7 +31,6 @@ describe('chatService', () => {
       message: ' Qual experiencia Sergio possui com React? ',
       sessionId: 'session-1',
       language: 'pt-BR',
-      source: 'portfolio',
     });
 
     expect(fetch).toHaveBeenCalledWith(
@@ -38,7 +41,6 @@ describe('chatService', () => {
           message: 'Qual experiencia Sergio possui com React?',
           sessionId: 'session-1',
           language: 'pt-BR',
-          source: 'portfolio',
         }),
       }),
     );
@@ -52,7 +54,6 @@ describe('chatService', () => {
         message: 'React',
         sessionId: 'session-1',
         language: 'pt-BR',
-        source: 'portfolio',
       }),
     ).rejects.toBeInstanceOf(ChatServiceError);
   });
@@ -63,7 +64,6 @@ describe('chatService', () => {
         message: '   ',
         sessionId: 'session-1',
         language: 'pt-BR',
-        source: 'portfolio',
       }),
     ).rejects.toBeInstanceOf(ChatServiceError);
 
@@ -72,7 +72,6 @@ describe('chatService', () => {
         message: 'a'.repeat(CHAT_MESSAGE_MAX_LENGTH + 1),
         sessionId: 'session-1',
         language: 'pt-BR',
-        source: 'portfolio',
       }),
     ).rejects.toBeInstanceOf(ChatServiceError);
 
@@ -90,7 +89,25 @@ describe('chatService', () => {
         message: 'React',
         sessionId: 'session-1',
         language: 'pt-BR',
-        source: 'portfolio',
+      }),
+    ).rejects.toBeInstanceOf(ChatServiceError);
+  });
+
+  it('rejects validation errors returned by n8n', async () => {
+    vi.mocked(fetch).mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({
+        success: false,
+        message: 'Mensagem vazia ou ausente.',
+        sessionId: 'session-1',
+      }),
+    } as Response);
+
+    await expect(
+      sendChatMessage({
+        message: 'React',
+        sessionId: 'session-1',
+        language: 'pt-BR',
       }),
     ).rejects.toBeInstanceOf(ChatServiceError);
   });

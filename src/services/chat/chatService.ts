@@ -1,6 +1,6 @@
 import type { ChatRequest, ChatResponse } from '@/types/chat';
 
-export const CHAT_MESSAGE_MAX_LENGTH = 800;
+export const CHAT_MESSAGE_MAX_LENGTH = 4000;
 
 export class ChatServiceError extends Error {
   constructor(message: string) {
@@ -19,7 +19,11 @@ function isChatResponse(value: unknown): value is ChatResponse {
   }
 
   const candidate = value as Partial<ChatResponse>;
-  return typeof candidate.answer === 'string' && candidate.answer.trim().length > 0;
+  return (
+    typeof candidate.success === 'boolean' &&
+    typeof candidate.message === 'string' &&
+    typeof candidate.sessionId === 'string'
+  );
 }
 
 export async function sendChatMessage(request: ChatRequest): Promise<ChatResponse> {
@@ -49,14 +53,14 @@ export async function sendChatMessage(request: ChatRequest): Promise<ChatRespons
     }),
   });
 
-  if (!response.ok) {
-    throw new ChatServiceError(`chat-request-failed-${response.status}`);
-  }
-
   const payload: unknown = await response.json();
 
   if (!isChatResponse(payload)) {
     throw new ChatServiceError('chat-invalid-response');
+  }
+
+  if (!response.ok || !payload.success) {
+    throw new ChatServiceError(payload.message || `chat-request-failed-${response.status}`);
   }
 
   return payload;

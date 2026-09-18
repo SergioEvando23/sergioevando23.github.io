@@ -19,7 +19,7 @@ export function ChatBot() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const { messages, status, error, sendMessage, retry } = useChat({
-    language: idiomaConfig[idioma].htmlLang,
+    language: idioma === 'portugues' ? idiomaConfig.portugues.htmlLang : 'en-US',
   });
   const isSending = status === 'sending';
 

@@ -23,11 +23,12 @@ export interface ChatRequest {
   message: string;
   sessionId: string;
   language: string;
-  source: 'portfolio';
 }
 
 export interface ChatResponse {
-  answer: string;
+  success: boolean;
+  message: string;
+  sessionId: string;
   sources?: ChatSource[];
   suggestions?: string[];
   actions?: ChatAction[];
