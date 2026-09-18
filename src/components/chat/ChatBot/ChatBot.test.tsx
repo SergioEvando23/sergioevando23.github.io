@@ -10,7 +10,7 @@ const { sendChatMessageMock } = vi.hoisted(() => ({
 }));
 
 vi.mock('@/services/chat', () => ({
-  CHAT_MESSAGE_MAX_LENGTH: 800,
+  CHAT_MESSAGE_MAX_LENGTH: 4000,
   sendChatMessage: sendChatMessageMock,
 }));
 
@@ -27,8 +27,13 @@ function renderChat(language: 'portugues' | 'ingles' = 'portugues') {
 describe('ChatBot', () => {
   beforeEach(() => {
     localStorage.clear();
+    sessionStorage.clear();
     sendChatMessageMock.mockReset();
-    sendChatMessageMock.mockResolvedValue({ answer: 'Sergio possui experiencia.' });
+    sendChatMessageMock.mockResolvedValue({
+      success: true,
+      message: 'Sergio possui experiencia.',
+      sessionId: 'session-1',
+    });
   });
 
   it('opens and closes the chat interface', async () => {
@@ -71,7 +76,6 @@ describe('ChatBot', () => {
       expect.objectContaining({
         message: 'Qual experiencia com React?',
         language: 'pt-BR',
-        source: 'portfolio',
       }),
     );
   });
@@ -94,7 +98,11 @@ describe('ChatBot', () => {
     const user = userEvent.setup();
     sendChatMessageMock
       .mockRejectedValueOnce(new Error('offline'))
-      .mockResolvedValueOnce({ answer: 'Resposta apos retry.' });
+      .mockResolvedValueOnce({
+        success: true,
+        message: 'Resposta apos retry.',
+        sessionId: 'session-1',
+      });
 
     renderChat();
 
@@ -121,7 +129,7 @@ describe('ChatBot', () => {
     await waitFor(() =>
       expect(sendChatMessageMock).toHaveBeenCalledWith(
         expect.objectContaining({
-          language: 'en',
+          language: 'en-US',
           message: 'React experience',
         }),
       ),

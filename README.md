@@ -75,6 +75,7 @@ Galeria de estudos:
 NEXT_PUBLIC_FIREBASE_DATABASE_URL
 NEXT_PUBLIC_GITHUB_OWNER
 NEXT_PUBLIC_GITHUB_REPO
+NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL
 ```
 
 Esses valores `NEXT_PUBLIC_*` sao incorporados ao bundle estatico durante o
@@ -320,7 +321,7 @@ Portfolio -> Chat UI -> chatService -> Webhook n8n -> Workflow n8n -> IA -> Port
 Configure o endpoint publico do webhook no ambiente:
 
 ```env
-NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL=
+NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL=https://sergioevando23.app.n8n.cloud/webhook/portfolio-chat
 ```
 
 Nao coloque `OPENAI_API_KEY`, tokens do n8n, chaves privadas ou credenciais no
@@ -333,8 +334,7 @@ Payload enviado ao n8n:
 {
   "message": "Qual experiencia Sergio possui com React?",
   "sessionId": "uuid-da-conversa",
-  "language": "pt-BR",
-  "source": "portfolio"
+  "language": "pt-BR"
 }
 ```
 
@@ -342,13 +342,27 @@ Resposta inicial esperada:
 
 ```json
 {
-  "answer": "Sergio possui experiencia profissional com React e TypeScript..."
+  "success": true,
+  "message": "Sergio possui experiencia profissional com React e TypeScript...",
+  "sessionId": "uuid-da-conversa"
 }
 ```
 
-O contrato TypeScript ja permite evoluir a resposta com `sources`, `suggestions`
-e `actions`, mantendo a UI preparada para RAG, bases vetoriais, Firebase,
-GitHub, curriculos e links contextuais sem reconstruir a interface.
+O campo `message` aceita ate 4000 caracteres. O idioma enviado e `pt-BR` para
+portugues e `en-US` para ingles. O `sessionId` e reaproveitado em
+`sessionStorage` durante a sessao do navegador para preservar memoria no n8n.
+O contrato TypeScript tambem permite evoluir a resposta com `sources`,
+`suggestions` e `actions`, mantendo a UI preparada para RAG, bases vetoriais,
+Firebase, GitHub, curriculos e links contextuais sem reconstruir a interface.
+
+O webhook em producao libera CORS para:
+
+```text
+https://sergioevando23.github.io
+```
+
+Para testar localmente em `http://localhost:3000`, adicione essa origem na lista
+permitida do workflow n8n antes de validar a chamada real.
 
 ### Workflow Sugerido No n8n
 
