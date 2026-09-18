@@ -44,7 +44,7 @@ export function ChatBot() {
   }, [open]);
 
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    scrollRef.current?.scrollIntoView?.({ behavior: 'smooth', block: 'end' });
   }, [messages, status]);
 
   return (

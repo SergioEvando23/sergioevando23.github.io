@@ -15,7 +15,7 @@ type SuggestionKey = (typeof suggestionKeys)[number];
 
 interface ChatSuggestionsProps {
   labels: readonly string[];
-  questions: Record<SuggestionKey, string>;
+  questions: { readonly [K in SuggestionKey]: string };
   ariaLabel: string;
   disabled: boolean;
   onSelect: (question: string) => void;
