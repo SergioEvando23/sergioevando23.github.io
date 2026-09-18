@@ -32,7 +32,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
   const [status, setStatus] = useState<ChatStatus>('idle');
   const [error, setError] = useState<string | null>(null);
   const [lastResponse, setLastResponse] = useState<ChatResponse | null>(null);
-  const sessionIdRef = useRef(createId('sergio-ai'));
+  const [sessionId, setSessionId] = useState(() => createId('sergio-ai'));
   const lastUserMessageRef = useRef<string | null>(null);
 
   const requestAssistantResponse = useCallback(
@@ -43,7 +43,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
       try {
         const response = await sendChatMessage({
           message,
-          sessionId: sessionIdRef.current,
+          sessionId,
           language,
           source: 'portfolio',
         });
@@ -63,7 +63,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
         setStatus('error');
       }
     },
-    [language],
+    [language, sessionId],
   );
 
   const sendMessage = useCallback(
@@ -103,7 +103,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
     setStatus('idle');
     setError(null);
     setLastResponse(null);
-    sessionIdRef.current = createId('sergio-ai');
+    setSessionId(createId('sergio-ai'));
     lastUserMessageRef.current = null;
   }, []);
 
@@ -112,12 +112,12 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
       messages,
       status,
       error,
-      sessionId: sessionIdRef.current,
+      sessionId,
       lastResponse,
       sendMessage,
       retry,
       reset,
     }),
-    [error, lastResponse, messages, reset, retry, sendMessage, status],
+    [error, lastResponse, messages, reset, retry, sendMessage, sessionId, status],
   );
 }
