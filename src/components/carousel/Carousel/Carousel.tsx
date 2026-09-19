@@ -8,6 +8,7 @@ import type { CarouselProps } from '@/types/carousel';
 import { CarouselControls } from '../CarouselControls';
 import { CarouselIndicators } from '../CarouselIndicators';
 import { CarouselSlide } from '../CarouselSlide';
+import { getCarouselFrameStyle } from './styles';
 
 export function Carousel({
   items,
@@ -61,10 +62,7 @@ export function Carousel({
     >
       <div
         className="relative mx-auto w-full overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface shadow-[var(--shadow-card)]"
-        style={{
-          maxWidth: dimensions.width,
-          aspectRatio: `${dimensions.width} / ${dimensions.height}`,
-        }}
+        style={getCarouselFrameStyle(size)}
       >
         <div aria-live="polite" className="sr-only">
           {textos.carousel.slidePosition(carousel.activeIndex + 1, items.length)}:{' '}
