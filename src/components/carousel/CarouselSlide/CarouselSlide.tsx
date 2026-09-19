@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useLanguage } from '@/components/language';
+import { useMounted } from '@/hooks/useMounted';
 import type { CarouselImage } from '@/types/carousel';
 import { cn } from '@/lib/cn';
 
@@ -23,6 +25,12 @@ export function CarouselSlide({
   height,
 }: CarouselSlideProps) {
   const { textos } = useLanguage();
+  const mounted = useMounted();
+  const { resolvedTheme } = useTheme();
+  const themedSrc =
+    mounted && resolvedTheme === 'light'
+      ? item.lightSrc ?? item.src
+      : item.darkSrc ?? item.src;
 
   return (
     <article
@@ -39,9 +47,9 @@ export function CarouselSlide({
         fill
         priority={priority}
         sizes={sizes}
-        src={item.src}
+        src={themedSrc}
       />
-      <div className="absolute inset-0 bg-linear-to-t from-background/95 via-background/40 to-transparent" />
+      <div className="absolute inset-0 bg-linear-to-t from-background/96 via-background/45 to-transparent dark:from-background/95 dark:via-background/40" />
       <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-3 p-5 sm:p-7">
         {item.title ? (
           <h3 className="max-w-2xl text-2xl font-bold text-text sm:text-3xl">
