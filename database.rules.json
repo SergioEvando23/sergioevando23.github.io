@@ -6,7 +6,7 @@
       ".read": true,
       "$studyId": {
         ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'sergioevandocosta@gmail.com'",
-        ".validate": "newData.val() == null || (newData.hasChildren(['id', 'repository', 'title', 'description', 'focus', 'technologies', 'category', 'kind', 'date', 'githubUrl', 'portfolioEligible']) && newData.child('id').val() == $studyId && newData.child('id').isString() && newData.child('repository').isString() && newData.child('title').isString() && newData.child('description').isString() && newData.child('focus').isString() && newData.child('category').isString() && newData.child('kind').isString() && newData.child('date').isString() && newData.child('githubUrl').isString() && newData.child('portfolioEligible').isBoolean() && (!newData.child('startedAt').exists() || newData.child('startedAt').isString()) && (!newData.child('completedAt').exists() || newData.child('completedAt').isString()) && (!newData.child('coverImage').exists() || newData.child('coverImage').isString()) && newData.getChildrenCount() <= 14)",
+        ".validate": "newData.val() == null || (newData.hasChildren(['id', 'repository', 'title', 'description', 'focus', 'technologies', 'category', 'kind', 'date', 'githubUrl', 'portfolioEligible']) && newData.child('id').val() == $studyId && newData.child('id').isString() && newData.child('repository').isString() && newData.child('title').isString() && newData.child('description').isString() && newData.child('focus').isString() && newData.child('category').isString() && newData.child('kind').isString() && newData.child('date').isString() && newData.child('githubUrl').isString() && newData.child('portfolioEligible').isBoolean() && (!newData.child('startedAt').exists() || newData.child('startedAt').isString()) && (!newData.child('completedAt').exists() || newData.child('completedAt').isString()) && (!newData.child('coverImage').exists() || newData.child('coverImage').isString()))",
         "id": {
           ".validate": "newData.isString() && newData.val() == $studyId"
         },
@@ -55,6 +55,31 @@
           "$index": {
             ".validate": "newData.isString()"
           }
+        }
+      }
+    },
+    "studyDocumentations": {
+      ".read": true,
+      "$documentationId": {
+        ".write": "auth != null && auth.token.email_verified == true && auth.token.email == 'sergioevandocosta@gmail.com'",
+        ".validate": "newData.val() == null || newData.hasChildren(['title', 'tags', 'updatedAt', 'author', 'content'])",
+        "title": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "tags": {
+          ".validate": "newData.hasChildren()",
+          "$tagIndex": {
+            ".validate": "newData.isString() && newData.val().length > 0"
+          }
+        },
+        "updatedAt": {
+          ".validate": "newData.isNumber() && newData.val() == now"
+        },
+        "author": {
+          ".validate": "newData.isString() && newData.val() == 'Sérgio Costa'"
+        },
+        "content": {
+          ".validate": "newData.isString() && newData.val().length > 0"
         },
         "$other": {
           ".validate": false

@@ -1,15 +1,39 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { LanguageProvider } from '@/components/language';
 import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
-import { StudyDocumentationsPage } from './StudyDocumentationsPage';
+import { getAllDocumentations } from '@/services/firebase/studyDocumentationService';
+import { StudyDocumentationsPage } from './StudyDocumentationsDatabasePage';
 
 const useAuthMock = vi.fn();
 
 vi.mock('@/components/auth', () => ({
   useAuth: () => useAuthMock(),
 }));
+
+vi.mock('@/services/firebase/studyDocumentationService', () => ({
+  getAllDocumentations: vi.fn(),
+}));
+
+const documentationItems = [
+  {
+    id: 'llm-doc',
+    title: 'Otimizacao de tokens em LLMs',
+    tags: ['IA & LLMs', 'Eficiência'],
+    updatedAt: 1789873200000,
+    author: 'Sérgio Costa' as const,
+    content: '# Introducao\n\nConteudo sobre tokens em LLMs.',
+  },
+  {
+    id: 'architecture-doc',
+    title: 'Clean Architecture na pratica',
+    tags: ['Arquitetura'],
+    updatedAt: 1789873100000,
+    author: 'Sérgio Costa' as const,
+    content: '# Clean Architecture\n\n- Dependencias apontam para dentro.',
+  },
+];
 
 function renderPage(language: 'portugues' | 'ingles' = 'portugues') {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
@@ -28,56 +52,73 @@ describe('StudyDocumentationsPage', () => {
       user: null,
       isAdmin: false,
     });
+    vi.mocked(getAllDocumentations).mockResolvedValue(documentationItems);
   });
 
-  it('renders the study documentation route content', () => {
+  it('renders documentation data loaded from the service', async () => {
     renderPage();
 
     expect(
       screen.getByRole('heading', { name: /Documentacoes de Estudo/i }),
     ).toBeInTheDocument();
-    expect(screen.getAllByText('Otimizacao de tokens em LLMs')).toHaveLength(2);
+    expect(await screen.findAllByText('Otimizacao de tokens em LLMs')).toHaveLength(2);
     expect(
       screen.getByLabelText('Leitor da documentacao selecionada'),
     ).toBeInTheDocument();
   });
 
-  it('filters by category and searches documentation cards', async () => {
+  it('filters by tag and searches documentation cards', async () => {
     const user = userEvent.setup();
     renderPage();
 
+    await screen.findByText('Clean Architecture na pratica');
     await user.click(screen.getAllByRole('button', { name: /Arquitetura/i })[0]);
 
-    expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(0);
-    expect(screen.queryByText('RAG: da teoria ao uso real')).not.toBeInTheDocument();
+    expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(
+      0,
+    );
+    expect(screen.queryByText('Otimizacao de tokens em LLMs')).not.toBeInTheDocument();
 
     await user.clear(screen.getByLabelText('Buscar documentacoes'));
     await user.type(screen.getByLabelText('Buscar documentacoes'), 'clean');
 
-    expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(
+      0,
+    );
   });
 
   it('selects another documentation and updates the reader', async () => {
     const user = userEvent.setup();
     renderPage();
 
-    await user.click(screen.getByRole('button', { name: /TypeScript alem do basico/i }));
+    await user.click(
+      await screen.findByRole('button', { name: /Clean Architecture na pratica/i }),
+    );
 
-    expect(screen.getAllByText('TypeScript alem do basico').length).toBeGreaterThan(1);
-    expect(screen.getByText('Unions discriminadas.')).toBeInTheDocument();
+    expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(
+      1,
+    );
+    expect(screen.getByText('Dependencias apontam para dentro.')).toBeInTheDocument();
   });
 
-  it('renders translated English content', async () => {
+  it('shows a retry action when loading fails', async () => {
+    vi.mocked(getAllDocumentations).mockRejectedValueOnce(new Error('network'));
+    renderPage();
+
+    expect(await screen.findByText('Nao foi possivel carregar as documentacoes.')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Tentar novamente' })).toBeInTheDocument();
+  });
+
+  it('renders translated English interface text', async () => {
     renderPage('ingles');
 
     expect(
       await screen.findByRole('heading', { name: /Study Documentations/i }),
     ).toBeInTheDocument();
     expect(screen.getByLabelText('Search documentations')).toBeInTheDocument();
-    expect(screen.getAllByText('Token optimization in LLMs').length).toBeGreaterThan(0);
   });
 
-  it('shows admin actions only for the authorized administrator', () => {
+  it('shows admin actions only for the authorized administrator', async () => {
     useAuthMock.mockReturnValue({
       user: {
         email: 'sergioevandocosta@gmail.com',
@@ -88,7 +129,11 @@ describe('StudyDocumentationsPage', () => {
 
     renderPage();
 
-    expect(screen.getByRole('button', { name: 'Nova documentacao' })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: 'Editar' })).toBeInTheDocument();
+    expect(
+      await screen.findByRole('link', { name: 'Nova documentacao' }),
+    ).toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.getByRole('link', { name: 'Editar' })).toBeInTheDocument(),
+    );
   });
 });

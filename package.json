@@ -13,7 +13,7 @@
     "test:run": "vitest run --exclude src/test/rules/**",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
-    "test:rules": "firebase emulators:exec --only firestore \"vitest run src/test/rules\"",
+    "test:rules": "firebase emulators:exec --only firestore,database \"vitest run src/test/rules\"",
     "validate:i18n": "tsx scripts/validate-dicionario.ts",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\" \"e2e/**/*.{ts,tsx}\" \"*.{js,mjs,ts,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,md}\" \"e2e/**/*.{ts,tsx}\" \"*.{js,mjs,ts,json,md}\"",
@@ -30,6 +30,8 @@
     "next-themes": "latest",
     "react": "latest",
     "react-dom": "latest",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "tailwind-merge": "latest"
   },
   "devDependencies": {

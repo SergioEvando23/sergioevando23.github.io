@@ -138,8 +138,7 @@ src/
   components/layout/   Header e Footer
   components/admin/    Formulario administrativo de estudos
   components/gallery/  Galeria publica alimentada pelo Firebase
-  components/study/    Administracao CRUD da Galeria de estudos
-  components/study/    Documentacoes de estudo com filtros e leitor Markdown
+  components/study/    Administracao CRUD da Galeria e Documentacoes de estudo
   components/chat/     Sergio AI, interface de chatbot integrada ao n8n
   components/carousel/ Carousel acessivel e responsivo
   config/              Marca, navegacao, curriculos e tema
@@ -186,11 +185,11 @@ Nunca versione `.env.local`, service accounts, chaves privadas ou tokens.
 
 ### Emuladores
 
-O projeto inclui `firebase.json`, `firestore.rules`, `storage.rules` e
-`firestore.indexes.json`.
+O projeto inclui `firebase.json`, `firestore.rules`, `storage.rules`,
+`database.rules.json` e `firestore.indexes.json`.
 
 ```bash
-firebase emulators:start --only auth,firestore,storage
+firebase emulators:start --only auth,firestore,database,storage
 npm run test:rules
 ```
 
@@ -265,19 +264,94 @@ A rota `/study/documentations` apresenta uma area publica de documentacoes de
 estudo com:
 
 - submenu de Estudos no Header;
-- filtros por categoria;
-- busca por titulo, resumo, categoria e tags;
+- filtros derivados das tags existentes;
+- busca por titulo, tags, autor e conteudo;
 - lista de documentacoes;
 - leitor Markdown com scroll interno;
 - tags e metadados de leitura;
 - acoes administrativas visiveis somente ao admin autenticado;
 - conteudo traduzido em PT/EN pelo dicionario macro.
 
-Os dados tecnicos ficam em `src/data/studyDocumentations.ts` e os textos em
-`dicionario.portugues.studyDocumentations` e
-`dicionario.ingles.studyDocumentations`. Para cadastrar uma nova documentacao,
-adicione o item tecnico com `translationKey` e crie a mesma chave nos dois
-idiomas.
+Os dados reais vem do Realtime Database, sem exigir novo build:
+
+```text
+GET https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations.json
+GET https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations/{id}.json
+```
+
+A raiz persistida e:
+
+```text
+studyDocumentations
+└── {documentationId}
+    ├── title
+    ├── tags
+    ├── updatedAt
+    ├── author
+    └── content
+```
+
+Modelo:
+
+```json
+{
+  "title": "Otimização de tokens em LLMs",
+  "tags": ["IA & LLMs", "Eficiência"],
+  "updatedAt": 1789873200000,
+  "author": "Sérgio Costa",
+  "content": "# Otimização de tokens em LLMs\n\nConteúdo..."
+}
+```
+
+O ID nao fica duplicado dentro do objeto; ele e derivado da chave gerada pelo
+Firebase. O campo `content` e salvo como Markdown original, nao HTML.
+
+### Administracao Das Documentacoes
+
+A rota `/study/documentations/admin` permite ao administrador criar, editar e
+excluir documentacoes. Ela funciona como pagina estatica do App Router e faz
+chamadas REST diretamente do navegador para o Realtime Database:
+
+```text
+POST   /studyDocumentations.json?auth=FIREBASE_ID_TOKEN
+PATCH  /studyDocumentations/{id}.json?auth=FIREBASE_ID_TOKEN
+DELETE /studyDocumentations/{id}.json?auth=FIREBASE_ID_TOKEN
+```
+
+A interface exige login Google pelo Firebase e libera a administracao somente
+para `sergioevandocosta@gmail.com` com e-mail verificado. A seguranca definitiva
+continua em `database.rules.json`.
+
+O formulario possui somente campos editaveis de `title`, `tags` e `content`.
+Os campos abaixo sao controlados pelo service:
+
+- `author`: sempre `Sérgio Costa`;
+- `updatedAt`: sempre timestamp do servidor com `{ ".sv": "timestamp" }`;
+- `id`: chave gerada pelo Firebase no `POST`.
+
+Nenhum Firebase ID Token e salvo em `localStorage`, `sessionStorage`, logs ou
+codigo-fonte. Ele e obtido por `user.getIdToken()` apenas no momento das
+operacoes administrativas.
+
+As regras locais da raiz `studyDocumentations` permitem leitura publica e escrita
+apenas ao administrador autenticado, com autor fixo, timestamp do servidor,
+campos obrigatorios e bloqueio de campos desconhecidos.
+
+Depois de revisar o Pull Request, o proximo passo manual para publicar as regras
+sera:
+
+```bash
+firebase login
+firebase use sergioevando23
+firebase deploy --only database
+```
+
+Ou pelo Console:
+
+```text
+Firebase Console -> Realtime Database -> Regras
+-> colar o conteudo revisado de database.rules.json -> Publicar
+```
 
 ## Administracao Da Galeria
 
