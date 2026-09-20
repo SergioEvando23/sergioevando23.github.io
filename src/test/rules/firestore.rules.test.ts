@@ -13,6 +13,10 @@ let testEnv: RulesTestEnvironment | undefined;
 const adminUid = 'admin-user';
 const regularUid = 'regular-user';
 const adminEmail = 'sergioevandocosta@gmail.com';
+const rulesDescribe =
+  process.env.FIREBASE_EMULATOR_HUB || process.env.FIRESTORE_EMULATOR_HOST
+    ? describe
+    : describe.skip;
 
 function projectData(createdBy: string, portfolioEligible = true) {
   return {
@@ -45,7 +49,7 @@ function projectData(createdBy: string, portfolioEligible = true) {
   };
 }
 
-describe('Firestore rules', () => {
+rulesDescribe('Firestore rules', () => {
   beforeAll(async () => {
     testEnv = await initializeTestEnvironment({
       projectId: 'sergio-portfolio-test',

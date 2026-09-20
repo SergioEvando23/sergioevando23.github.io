@@ -13,6 +13,10 @@ let testEnv: RulesTestEnvironment;
 const adminUid = 'admin-user';
 const regularUid = 'regular-user';
 const adminEmail = 'sergioevandocosta@gmail.com';
+const rulesDescribe =
+  process.env.FIREBASE_EMULATOR_HUB || process.env.FIREBASE_DATABASE_EMULATOR_HOST
+    ? describe
+    : describe.skip;
 
 function documentationData(overrides: Record<string, unknown> = {}) {
   return {
@@ -66,7 +70,7 @@ function adminDatabase(emailVerified = true) {
     .database();
 }
 
-describe('Realtime Database rules', () => {
+rulesDescribe('Realtime Database rules', () => {
   beforeAll(async () => {
     testEnv = await initializeTestEnvironment({
       projectId: 'sergio-portfolio-rtdb-test',
