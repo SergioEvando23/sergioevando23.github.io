@@ -84,6 +84,15 @@ jobs:
       - name: Unit tests
         run: npm run test:run
 
+      - name: Setup Java for Firebase emulators
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Firebase rules tests
+        run: npm run test:rules
+
       - name: Build static export
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ vars.NEXT_PUBLIC_FIREBASE_API_KEY || secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}

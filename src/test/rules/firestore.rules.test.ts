@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { doc, getDoc, setDoc, Timestamp } from 'firebase/firestore';
 
-let testEnv: RulesTestEnvironment;
+let testEnv: RulesTestEnvironment | undefined;
 
 const adminUid = 'admin-user';
 const regularUid = 'regular-user';
@@ -74,10 +74,12 @@ describe('Firestore rules', () => {
   });
 
   afterAll(async () => {
-    await testEnv.cleanup();
+    await testEnv?.cleanup();
   });
 
   it('allows public reads only for portfolio eligible projects', async () => {
+    expect(testEnv, 'Run rules tests with `npm run test:rules`.').toBeDefined();
+    if (!testEnv) return;
     const db = testEnv.unauthenticatedContext().firestore();
 
     await assertSucceeds(getDoc(doc(db, 'studyProjects', 'public-study')));
@@ -85,6 +87,8 @@ describe('Firestore rules', () => {
   });
 
   it('blocks regular users from creating projects', async () => {
+    expect(testEnv, 'Run rules tests with `npm run test:rules`.').toBeDefined();
+    if (!testEnv) return;
     const db = testEnv
       .authenticatedContext(regularUid, {
         email: 'user@example.com',
@@ -98,6 +102,8 @@ describe('Firestore rules', () => {
   });
 
   it('allows the verified active admin to create projects', async () => {
+    expect(testEnv, 'Run rules tests with `npm run test:rules`.').toBeDefined();
+    if (!testEnv) return;
     const db = testEnv
       .authenticatedContext(adminUid, {
         email: adminEmail,
@@ -111,6 +117,8 @@ describe('Firestore rules', () => {
   });
 
   it('blocks client writes to admins collection', async () => {
+    expect(testEnv, 'Run rules tests with `npm run test:rules`.').toBeDefined();
+    if (!testEnv) return;
     const db = testEnv
       .authenticatedContext(adminUid, {
         email: adminEmail,
@@ -128,6 +136,8 @@ describe('Firestore rules', () => {
   });
 
   it('blocks forged createdBy values', async () => {
+    expect(testEnv, 'Run rules tests with `npm run test:rules`.').toBeDefined();
+    if (!testEnv) return;
     const db = testEnv
       .authenticatedContext(adminUid, {
         email: adminEmail,
