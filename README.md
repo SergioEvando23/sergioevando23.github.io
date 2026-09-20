@@ -139,6 +139,7 @@ src/
   components/admin/    Formulario administrativo de estudos
   components/gallery/  Galeria publica alimentada pelo Firebase
   components/study/    Administracao CRUD da Galeria de estudos
+  components/study/    Documentacoes de estudo com filtros e leitor Markdown
   components/chat/     Sergio AI, interface de chatbot integrada ao n8n
   components/carousel/ Carousel acessivel e responsivo
   config/              Marca, navegacao, curriculos e tema
@@ -257,6 +258,26 @@ A aplicacao normaliza o objeto retornado, lista somente registros com
 `portfolioEligible === true` e ordena pelos mais recentes. Escritas REST em
 `/study/{id}.json` devem enviar `?auth=FIREBASE_ID_TOKEN`; a galeria publica usa
 apenas leitura. Estados de loading, vazio, erro e retry sao traduzidos em PT/EN.
+
+## Documentacoes De Estudo
+
+A rota `/study/documentations` apresenta uma area publica de documentacoes de
+estudo com:
+
+- submenu de Estudos no Header;
+- filtros por categoria;
+- busca por titulo, resumo, categoria e tags;
+- lista de documentacoes;
+- leitor Markdown com scroll interno;
+- tags e metadados de leitura;
+- acoes administrativas visiveis somente ao admin autenticado;
+- conteudo traduzido em PT/EN pelo dicionario macro.
+
+Os dados tecnicos ficam em `src/data/studyDocumentations.ts` e os textos em
+`dicionario.portugues.studyDocumentations` e
+`dicionario.ingles.studyDocumentations`. Para cadastrar uma nova documentacao,
+adicione o item tecnico com `translationKey` e crie a mesma chave nos dois
+idiomas.
 
 ## Administracao Da Galeria
 

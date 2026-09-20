@@ -9,6 +9,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useAuth } from '@/components/auth';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { ThemeSwitcher } from '@/components/theme';
@@ -66,15 +67,42 @@ export function Header() {
           aria-label={textos.accessibility.mainNavigation}
           className="hidden items-center gap-6 lg:flex"
         >
-          {navigationItems.map((item) => (
-            <Link
-              className="text-sm font-semibold text-text-muted transition-colors hover:text-text"
-              href={item.href}
-              key={item.href}
-            >
-              {textos.navigation[item.translationKey]}
-            </Link>
-          ))}
+          {navigationItems.map((item) =>
+            item.translationKey === 'studies' ? (
+              <div className="group relative" key={item.href}>
+                <Link
+                  aria-haspopup="true"
+                  className="inline-flex items-center gap-1 text-sm font-semibold text-text-muted transition-colors hover:text-text"
+                  href={item.href}
+                >
+                  {textos.navigation[item.translationKey]}
+                  <KeyboardArrowDownIcon aria-hidden="true" fontSize="small" />
+                </Link>
+                <div className="invisible absolute left-0 top-full z-50 min-w-56 translate-y-2 rounded-[var(--radius-lg)] border border-border bg-overlay p-2 opacity-0 shadow-[var(--shadow-card)] backdrop-blur-xl transition-all group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
+                  <Link
+                    className="block rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted hover:bg-surface-secondary hover:text-text"
+                    href="/study"
+                  >
+                    {textos.studyMenu.gallery}
+                  </Link>
+                  <Link
+                    className="block rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted hover:bg-surface-secondary hover:text-text"
+                    href="/study/documentations"
+                  >
+                    {textos.studyMenu.documentations}
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <Link
+                className="text-sm font-semibold text-text-muted transition-colors hover:text-text"
+                href={item.href}
+                key={item.href}
+              >
+                {textos.navigation[item.translationKey]}
+              </Link>
+            ),
+          )}
           {canAccessStudyAdmin ? (
             <Link
               className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary-hover"
@@ -154,16 +182,44 @@ export function Header() {
         ref={mobilePanelRef}
       >
         <Container className="flex flex-col gap-3 py-4">
-          {navigationItems.map((item) => (
-            <Link
-              className="rounded-[var(--radius-md)] px-3 py-3 text-base font-semibold text-text-muted transition-colors hover:bg-surface-secondary hover:text-text"
-              href={item.href}
-              key={item.href}
-              onClick={closeMobileMenu}
-            >
-              {textos.navigation[item.translationKey]}
-            </Link>
-          ))}
+          {navigationItems.map((item) =>
+            item.translationKey === 'studies' ? (
+              <div key={item.href}>
+                <Link
+                  className="block rounded-[var(--radius-md)] px-3 py-3 text-base font-semibold text-text-muted transition-colors hover:bg-surface-secondary hover:text-text"
+                  href={item.href}
+                  onClick={closeMobileMenu}
+                >
+                  {textos.navigation[item.translationKey]}
+                </Link>
+                <div className="ml-3 grid gap-1 border-l border-border pl-3">
+                  <Link
+                    className="rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted transition-colors hover:bg-surface-secondary hover:text-text"
+                    href="/study"
+                    onClick={closeMobileMenu}
+                  >
+                    {textos.studyMenu.gallery}
+                  </Link>
+                  <Link
+                    className="rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted transition-colors hover:bg-surface-secondary hover:text-text"
+                    href="/study/documentations"
+                    onClick={closeMobileMenu}
+                  >
+                    {textos.studyMenu.documentations}
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <Link
+                className="rounded-[var(--radius-md)] px-3 py-3 text-base font-semibold text-text-muted transition-colors hover:bg-surface-secondary hover:text-text"
+                href={item.href}
+                key={item.href}
+                onClick={closeMobileMenu}
+              >
+                {textos.navigation[item.translationKey]}
+              </Link>
+            ),
+          )}
           {canAccessStudyAdmin ? (
             <Link
               className="inline-flex items-center gap-2 rounded-[var(--radius-md)] px-3 py-3 text-base font-semibold text-primary transition-colors hover:bg-surface-secondary"
