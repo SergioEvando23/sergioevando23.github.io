@@ -15,7 +15,7 @@ vi.mock('@/hooks/useCreateStudyProject', () => ({
 }));
 
 function renderForm() {
-  localStorage.setItem('sergio-portfolio-language', 'portugues');
+  localStorage.setItem('Sérgio-portfolio-language', 'portugues');
 
   return render(
     <ThemeProvider>

@@ -47,14 +47,14 @@ export function ChatInput({
 
   return (
     <form className="border-t border-border p-4" onSubmit={onSubmit}>
-      <label className="sr-only" htmlFor="sergio-ai-message">
+      <label className="sr-only" htmlFor="Sérgio-ai-message">
         {label}
       </label>
       <div className="flex items-end gap-2">
         <textarea
           className="min-h-12 max-h-32 flex-1 resize-none rounded-[var(--radius-lg)] border border-border bg-surface-secondary px-4 py-3 text-sm leading-5 text-text placeholder:text-primary focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/25 disabled:cursor-not-allowed disabled:opacity-60 dark:placeholder:text-primary"
           disabled={disabled}
-          id="sergio-ai-message"
+          id="Sérgio-ai-message"
           maxLength={CHAT_MESSAGE_MAX_LENGTH}
           onChange={(event) => setMessage(event.target.value)}
           onKeyDown={onKeyDown}

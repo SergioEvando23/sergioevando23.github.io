@@ -9,8 +9,8 @@ test('theme preference persists and keeps carousel state', async ({ page }) => {
   });
 
   await page.addInitScript(() => {
-    localStorage.setItem('sergio-portfolio-language', 'portugues');
-    localStorage.setItem('sergio-portfolio-entry-choice', 'visitor');
+    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-entry-choice', 'visitor');
   });
   await page.goto('/');
   await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();

@@ -50,7 +50,7 @@ vi.mock('@/services/firebase/studyDocumentationService', async (importOriginal) 
 const documentationItems = [
   {
     id: 'doc-1',
-    title: 'Documentacao Firebase',
+    title: 'documentação Firebase',
     tags: ['Firebase'],
     updatedAt: 1789873200000,
     author: 'Sérgio Costa' as const,
@@ -70,7 +70,7 @@ function renderAdmin() {
 
 describe('StudyDocumentationsAdminPage', () => {
   beforeEach(() => {
-    localStorage.setItem('sergio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
     authState.user = null;
     authState.loading = false;
     authState.isAuthenticated = false;
@@ -113,7 +113,7 @@ describe('StudyDocumentationsAdminPage', () => {
 
     await user.click(await screen.findByRole('button', { name: 'Editar' }));
 
-    expect(screen.getByLabelText('Titulo')).toHaveValue('Documentacao Firebase');
+    expect(screen.getByLabelText('Titulo')).toHaveValue('documentação Firebase');
     expect(screen.getByLabelText('Conteudo Markdown')).toHaveValue(
       '# Firebase\n\nConteudo.',
     );
@@ -131,16 +131,16 @@ describe('StudyDocumentationsAdminPage', () => {
 
     renderAdmin();
 
-    await user.type(await screen.findByLabelText('Titulo'), 'Nova documentacao');
+    await user.type(await screen.findByLabelText('Titulo'), 'Nova documentação');
     await user.type(screen.getByLabelText('Nova tag'), 'React');
     await user.click(screen.getByRole('button', { name: 'Adicionar tag' }));
     await user.type(screen.getByLabelText('Conteudo Markdown'), '# React\n\nConteudo.');
-    await user.click(screen.getByRole('button', { name: 'Salvar documentacao' }));
+    await user.click(screen.getByRole('button', { name: 'Salvar documentação' }));
 
     expect(getIdToken).toHaveBeenCalledWith(true);
     expect(createDocumentation).toHaveBeenCalledWith(
       {
-        title: 'Nova documentacao',
+        title: 'Nova documentação',
         tags: ['React'],
         content: '# React\n\nConteudo.',
       },

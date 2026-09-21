@@ -4,7 +4,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 import { sendChatMessage } from '@/services/chat';
 import type { ChatMessage, ChatResponse, ChatStatus } from '@/types/chat';
 
-const CHAT_SESSION_STORAGE_KEY = 'sergio-ai-session-id';
+const CHAT_SESSION_STORAGE_KEY = 'Sérgio-ai-session-id';
 
 interface UseChatOptions {
   language: string;
@@ -31,7 +31,7 @@ function createId(prefix: string) {
 
 function createSessionId() {
   if (typeof window === 'undefined') {
-    return createId('sergio-ai');
+    return createId('Sérgio-ai');
   }
 
   const stored = window.sessionStorage.getItem(CHAT_SESSION_STORAGE_KEY);
@@ -40,7 +40,7 @@ function createSessionId() {
     return stored;
   }
 
-  const sessionId = createId('sergio-ai');
+  const sessionId = createId('Sérgio-ai');
   window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, sessionId);
   return sessionId;
 }
@@ -120,7 +120,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
     setStatus('idle');
     setError(null);
     setLastResponse(null);
-    const nextSessionId = createId('sergio-ai');
+    const nextSessionId = createId('Sérgio-ai');
     window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, nextSessionId);
     setSessionId(nextSessionId);
     lastUserMessageRef.current = null;

@@ -59,11 +59,11 @@ describe('StudyDocumentationsPage', () => {
     renderPage();
 
     expect(
-      screen.getByRole('heading', { name: /Documentacoes de Estudo/i }),
+      screen.getByRole('heading', { name: /documentações de Estudo/i }),
     ).toBeInTheDocument();
     expect(await screen.findAllByText('Otimizacao de tokens em LLMs')).toHaveLength(2);
     expect(
-      screen.getByLabelText('Leitor da documentacao selecionada'),
+      screen.getByLabelText('Leitor da documentação selecionada'),
     ).toBeInTheDocument();
   });
 
@@ -79,8 +79,8 @@ describe('StudyDocumentationsPage', () => {
     );
     expect(screen.queryByText('Otimizacao de tokens em LLMs')).not.toBeInTheDocument();
 
-    await user.clear(screen.getByLabelText('Buscar documentacoes'));
-    await user.type(screen.getByLabelText('Buscar documentacoes'), 'clean');
+    await user.clear(screen.getByLabelText('Buscar documentações'));
+    await user.type(screen.getByLabelText('Buscar documentações'), 'clean');
 
     expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(
       0,
@@ -105,7 +105,7 @@ describe('StudyDocumentationsPage', () => {
     vi.mocked(getAllDocumentations).mockRejectedValueOnce(new Error('network'));
     renderPage();
 
-    expect(await screen.findByText('Nao foi possivel carregar as documentacoes.')).toBeInTheDocument();
+    expect(await screen.findByText('Nao foi possivel carregar as documentações.')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Tentar novamente' })).toBeInTheDocument();
   });
 
@@ -130,7 +130,7 @@ describe('StudyDocumentationsPage', () => {
     renderPage();
 
     expect(
-      await screen.findByRole('link', { name: 'Nova documentacao' }),
+      await screen.findByRole('link', { name: 'Nova documentação' }),
     ).toBeInTheDocument();
     await waitFor(() =>
       expect(screen.getByRole('link', { name: 'Editar' })).toBeInTheDocument(),

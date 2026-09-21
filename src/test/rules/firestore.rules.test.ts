@@ -31,7 +31,7 @@ function projectData(createdBy: string, portfolioEligible = true) {
     startedAt: '2026-01-01',
     completedAt: '2026-01-02',
     date: '2026-01-02',
-    githubUrl: 'https://github.com/SergioEvando23/firebase-study',
+    githubUrl: 'https://github.com/SérgioEvando23/firebase-study',
     portfolioEligible,
     images: [
       {
@@ -52,7 +52,7 @@ function projectData(createdBy: string, portfolioEligible = true) {
 rulesDescribe('Firestore rules', () => {
   beforeAll(async () => {
     testEnv = await initializeTestEnvironment({
-      projectId: 'sergio-portfolio-test',
+      projectId: 'Sérgio-portfolio-test',
       firestore: {
         rules: readFileSync('firestore.rules', 'utf8'),
         host: '127.0.0.1',

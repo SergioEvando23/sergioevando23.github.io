@@ -1,6 +1,6 @@
 import type { Idioma } from './dicionario';
 
-export const LANGUAGE_STORAGE_KEY = 'sergio-portfolio-language';
+export const LANGUAGE_STORAGE_KEY = 'Sérgio-portfolio-language';
 
 export const idiomaConfig = {
   portugues: {
