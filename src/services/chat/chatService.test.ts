@@ -28,7 +28,7 @@ describe('chatService', () => {
 
   it('sends the expected payload to n8n', async () => {
     await sendChatMessage({
-      message: ' Qual experiencia Sergio possui com React? ',
+      message: ' Qual experiencia Sérgio possui com React? ',
       sessionId: 'session-1',
       language: 'pt-BR',
     });
@@ -38,7 +38,7 @@ describe('chatService', () => {
       expect.objectContaining({
         method: 'POST',
         body: JSON.stringify({
-          message: 'Qual experiencia Sergio possui com React?',
+          message: 'Qual experiencia Sérgio possui com React?',
           sessionId: 'session-1',
           language: 'pt-BR',
         }),

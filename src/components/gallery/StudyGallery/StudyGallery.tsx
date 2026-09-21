@@ -13,6 +13,19 @@ import { useStudyProjects } from '@/hooks/useStudyProjects';
 export function StudyGallery() {
   const { textos } = useLanguage();
   const { projects, loading, error, retry } = useStudyProjects();
+  const highlightedIndex = textos.studyGallery.title.indexOf(
+    textos.studyGallery.highlightedTitle,
+  );
+  const titleBeforeHighlight =
+    highlightedIndex >= 0
+      ? textos.studyGallery.title.slice(0, highlightedIndex)
+      : textos.studyGallery.title;
+  const titleAfterHighlight =
+    highlightedIndex >= 0
+      ? textos.studyGallery.title.slice(
+          highlightedIndex + textos.studyGallery.highlightedTitle.length,
+        )
+      : '';
 
   return (
     <section className="py-14" id="galeria-estudos">
@@ -20,7 +33,15 @@ export function StudyGallery() {
         <SectionHeading
           description={textos.studyGallery.description}
           eyebrow={textos.studyGallery.eyebrow}
-          title={textos.studyGallery.title}
+          title={
+            <>
+              {titleBeforeHighlight}
+              <span className="text-primary">
+                {textos.studyGallery.highlightedTitle}
+              </span>
+              {titleAfterHighlight}
+            </>
+          }
         />
 
         {loading ? (

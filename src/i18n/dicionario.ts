@@ -28,31 +28,32 @@ const portugues = {
     selectSlide: 'Selecionar slide',
   },
   metadata: {
-    title: 'Sergio Costa | Engenheiro de Software Fullstack Web & Mobile',
+    title: 'Sérgio Costa | Engenheiro de Software Fullstack Web & Mobile',
     description:
       'Transformo desafios complexos em produtos digitais escalaveis, acessiveis e confiaveis.',
   },
   navigation: {
     projects: 'Projetos',
     studies: 'Estudos',
-    documentations: 'Documentacoes',
+    documentations: 'Documentações',
     technologies: 'Tecnologias',
     experience: 'Experiencia',
     contact: 'Contato',
   },
   studyMenu: {
     label: 'Menu de estudos',
-    gallery: 'Galeria de estudos',
-    documentations: 'Documentacoes de estudo',
+    gallery: 'Galeria de projetos',
+    documentations: 'Documentações',
   },
   brand: {
-    name: 'Sergio Costa',
+    name: 'Sérgio Costa',
     initials: 'SC',
     role: 'Engenheiro de Software Fullstack Web & Mobile',
+    highlightedRole: 'Web & Mobile',
     description:
       'Transformo desafios complexos em produtos digitais escalaveis, acessiveis e confiaveis.',
     location: 'Paulista - PE | Remoto ou hibrido em Recife',
-    homeLabel: 'Sergio Costa, inicio',
+    homeLabel: 'Sérgio Costa, inicio',
   },
   hero: {
     eyebrow: 'Ola, eu sou',
@@ -65,8 +66,8 @@ const portugues = {
     description: 'Escolha o idioma do curriculo que deseja baixar.',
     downloadPortuguese: 'Baixar curriculo PT',
     downloadEnglish: 'Baixar curriculo EN',
-    portugueseFileLabel: 'Curriculo de Sergio Costa em portugues',
-    englishFileLabel: 'Curriculo de Sergio Costa em ingles',
+    portugueseFileLabel: 'Curriculo de Sérgio Costa em portugues',
+    englishFileLabel: 'Curriculo de Sérgio Costa em ingles',
   },
   language: {
     label: 'Idioma',
@@ -157,8 +158,9 @@ const portugues = {
     },
   },
   studyGallery: {
-    eyebrow: 'Estudos',
-    title: 'Galeria de estudos',
+    eyebrow: 'Projetos',
+    title: 'Galeria de projetos',
+    highlightedTitle: 'projetos',
     description:
       'Projetos publicados diretamente do Firebase para acompanhar estudos e experimentos.',
     loading: 'Carregando estudos...',
@@ -176,7 +178,7 @@ const portugues = {
     title: 'Administracao dos Estudos',
     description: 'Crie, edite e exclua estudos publicados na galeria.',
     loginTitle: 'Acesso administrativo',
-    loginDescription: 'Entre com Google para gerenciar a galeria de estudos.',
+    loginDescription: 'Entre com Google para gerenciar a Galeria de projetos.',
     deniedDescription: 'Use a conta autorizada sergioevandocosta@gmail.com.',
     githubTokenLabel: 'GitHub Personal Access Token',
     githubTokenHelp:
@@ -238,21 +240,21 @@ const portugues = {
     },
   },
   studyDocumentations: {
-    eyebrow: 'Documentacoes',
-    title: 'Documentacoes de Estudo',
-    highlightedTitle: 'Estudo',
+    eyebrow: 'Documentações',
+    title: 'Documentações de estudos',
+    highlightedTitle: 'estudos',
     description:
       'Registros dos meus estudos, anotacoes e resumos sobre temas que complementam minha jornada como desenvolvedor.',
     quote: 'Conhecimento bem documentado e um investimento que se multiplica.',
-    searchPlaceholder: 'Buscar documentacoes...',
-    searchLabel: 'Buscar documentacoes',
-    listLabel: 'Lista de documentacoes',
-    readerLabel: 'Leitor da documentacao selecionada',
-    allResults: 'Todas as documentacoes',
-    loading: 'Carregando documentacoes...',
-    error: 'Nao foi possivel carregar as documentacoes.',
+    searchPlaceholder: 'Buscar documentações...',
+    searchLabel: 'Buscar documentações',
+    listLabel: 'Lista de documentações',
+    readerLabel: 'Leitor da documentação selecionada',
+    allResults: 'Todas as documentações',
+    loading: 'Carregando documentações...',
+    error: 'Nao foi possivel carregar as documentações.',
     retry: 'Tentar novamente',
-    empty: 'Nenhuma documentacao encontrada para os filtros atuais.',
+    empty: 'Nenhuma documentação encontrada para os filtros atuais.',
     backToList: 'Voltar para a lista',
     continueReading: 'Continuar lendo',
     minutes: (minutes: number) => `${minutes} min de leitura`,
@@ -261,22 +263,22 @@ const portugues = {
     readTimeLabel: 'Tempo de leitura',
     tagsLabel: 'Tags',
     admin: {
-      newDocumentation: 'Nova documentacao',
-      title: 'Administracao das Documentacoes',
-      description: 'Crie, edite e exclua documentacoes publicadas no Firebase.',
+      newDocumentation: 'Nova documentação',
+      title: 'Administracao das documentações',
+      description: 'Crie, edite e exclua documentações publicadas no Firebase.',
       loginTitle: 'Acesso administrativo',
       loginDescription:
-        'Entre com Google para gerenciar as documentacoes de estudo.',
+        'Entre com Google para gerenciar as documentações de estudo.',
       deniedDescription: 'Use a conta autorizada sergioevandocosta@gmail.com.',
       edit: 'Editar',
       delete: 'Excluir',
-      save: 'Salvar documentacao',
+      save: 'Salvar documentação',
       saving: 'Salvando...',
       cancelEdit: 'Cancelar edicao',
       signIn: 'Entrar com Google',
       signOut: 'Sair',
       loadingAuth: 'Carregando autenticacao...',
-      loadingList: 'Carregando documentacoes...',
+      loadingList: 'Carregando documentações...',
       preview: 'Preview',
       readonlyId: 'ID gerado pelo Firebase',
       readonlyAuthor: 'Autor fixo',
@@ -290,16 +292,16 @@ const portugues = {
       suggestedTags: 'Tags sugeridas',
       confirmDelete: 'Confirmar exclusao',
       confirmDeleteMessage: (title: string) =>
-        `Excluir definitivamente a documentacao "${title}"?`,
-      success: 'Documentacao salva com sucesso.',
-      deleteSuccess: 'Documentacao excluida com sucesso.',
+        `Excluir definitivamente a documentação "${title}"?`,
+      success: 'documentação salva com sucesso.',
+      deleteSuccess: 'documentação excluida com sucesso.',
       moreActions: 'Mais acoes administrativas',
       readOnlyNotice: 'Visitantes possuem acesso somente de leitura.',
       unsavedChanges: 'Existem alteracoes nao salvas. Deseja sair?',
       errors: {
-        load: 'Nao foi possivel carregar as documentacoes.',
-        save: 'Nao foi possivel salvar a documentacao.',
-        delete: 'Nao foi possivel excluir a documentacao.',
+        load: 'Nao foi possivel carregar as documentações.',
+        save: 'Nao foi possivel salvar a documentação.',
+        delete: 'Nao foi possivel excluir a documentação.',
         auth: 'Autenticacao Firebase obrigatoria.',
         unauthorized: 'Acesso administrativo nao autorizado.',
         titleRequired: 'Informe o titulo.',
@@ -381,7 +383,7 @@ const portugues = {
           '## Praticas',
           '- Scripts npm claros.',
           '- Validacoes antes de commit.',
-          '- Documentacao objetiva de variaveis e comandos.',
+          '- documentação objetiva de variaveis e comandos.',
           '## Resultado',
           'Menos tempo preparando ambiente e mais tempo resolvendo problemas reais do produto.',
         ],
@@ -452,20 +454,20 @@ const portugues = {
   },
   chatbot: {
     floatingButton: 'Pergunte a minha IA',
-    title: 'Sergio AI',
-    subtitle: 'Assistente profissional de Sergio Costa',
+    title: 'Sérgio AI',
+    subtitle: 'Assistente profissional de Sérgio Costa',
     initialMessage:
-      'Ola! Posso responder perguntas sobre a experiencia profissional, tecnologias, projetos, formacao e atuacao de Sergio como engenheiro de software. O que voce gostaria de saber?',
-    inputLabel: 'Mensagem para Sergio AI',
+      'Ola! Posso responder perguntas sobre a experiencia profissional, tecnologias, projetos, formacao e atuacao de Sérgio como engenheiro de software. O que voce gostaria de saber?',
+    inputLabel: 'Mensagem para Sérgio AI',
     inputPlaceholder: 'Pergunte sobre experiencia, projetos ou tecnologias...',
     send: 'Enviar mensagem',
-    close: 'Fechar Sergio AI',
-    open: 'Abrir Sergio AI',
-    messagesLabel: 'Historico da conversa com Sergio AI',
+    close: 'Fechar Sérgio AI',
+    open: 'Abrir Sérgio AI',
+    messagesLabel: 'Historico da conversa com Sérgio AI',
     userMessageLabel: 'Mensagem do visitante',
-    assistantMessageLabel: 'Resposta do Sergio AI',
+    assistantMessageLabel: 'Resposta do Sérgio AI',
     suggestionsLabel: 'Sugestoes de perguntas',
-    analyzing: 'Sergio AI esta analisando...',
+    analyzing: 'Sérgio AI esta analisando...',
     error: 'Nao consegui consultar minha base neste momento. Tente novamente.',
     retry: 'Tentar novamente',
     emptyError: 'Digite uma pergunta antes de enviar.',
@@ -480,13 +482,13 @@ const portugues = {
       'Experiencia profissional',
     ],
     suggestionQuestions: {
-      react: 'Qual e a experiencia de Sergio com React?',
-      projects: 'Quais projetos demonstram a experiencia de Sergio?',
-      mobile: 'Sergio possui experiencia mobile?',
-      architecture: 'Qual experiencia Sergio possui com arquitetura frontend?',
-      tests: 'Quais tipos de testes Sergio utiliza?',
-      stack: 'Qual e a stack tecnologica de Sergio?',
-      experience: 'Qual e a experiencia profissional de Sergio?',
+      react: 'Qual e a experiencia de Sérgio com React?',
+      projects: 'Quais projetos demonstram a experiencia de Sérgio?',
+      mobile: 'Sérgio possui experiencia mobile?',
+      architecture: 'Qual experiencia Sérgio possui com arquitetura frontend?',
+      tests: 'Quais tipos de testes Sérgio utiliza?',
+      stack: 'Qual e a stack tecnologica de Sérgio?',
+      experience: 'Qual e a experiencia profissional de Sérgio?',
     },
   },
   carousel: {
@@ -540,40 +542,53 @@ const portugues = {
     },
     architecture: {
       eyebrow: 'Arquitetura',
-      title: 'Pronto para evoluir',
+      title: 'Como Construo',
       description:
-        'Base preparada para receber paginas completas de projetos, experiencia e conteudo.',
-      continueEvolution: 'Continuar evolucao',
+        'Enquanto o desenvolvimento de código resolve como o software funciona por dentro, a arquitetura resolve onde cada peça se encaixa para que o sistema inteiro não colapse no futuro.',
+      continueEvolution: 'Leia documentações de estudos',
     },
+
   },
   skills: {
     groups: {
       frontend: {
         title: 'Frontend',
-        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Acessibilidade'],
+        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Redux', 'Recoil', 'Context.js', 'Webpack', 'Zustand', 'Jotai'],
       },
       mobile: {
         title: 'Mobile',
-        items: ['Flutter', 'Dart', 'UI responsiva', 'Integracoes nativas'],
+        items: ['Flutter', 'Dart', 'React Native', 'Typescript'],
       },
       backend: {
         title: 'Backend',
-        items: ['Node.js', 'APIs REST', 'Autenticacao', 'Bancos relacionais'],
+        items: ['Node.js', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless', 'REST APIs', 'RESTFULL APIs'],
       },
+      observabilidade: {
+        title: 'Observabilidade',
+        items: ['Datadog', 'Grafana', 'Dynatrace'],
+      },
+      testes: { 
+        title: 'Testes',
+        items: ['Unitários', 'E2E', 'Integração', 'Carga', 'Sinteticos'], 
+      }
     },
   },
   experience: {
     items: {
-      productEngineering: {
-        title: 'Engenharia orientada a produto',
+      mfeEngineering: {
+        title: 'Engenharia de micro-frontends',
         description:
-          'Construcao de solucoes digitais com foco em valor de negocio, qualidade e evolucao continua.',
+          'Construção de soluções fragmentadas, desacopladas e escalaveis para produtos web, regidas por um orquestrador central e integrações com APIs bem definidas.',
       },
-      designSystems: {
-        title: 'Design systems whitelabel',
+      componentzation: {
+        title: 'Componentização whitelabel',
         description:
           'Componentes desacoplados, tokens semanticos e temas adaptaveis para diferentes marcas.',
       },
+      monolithicServices:{
+        title: 'Engenharia de Monorepos',
+        description: 'Centralização de múltiplos projetos e pacotes em um único repositório, otimizada por ferramentas de build inteligente, compartilhamento eficiente de código e gerenciamento unificado de dependências.',
+      }
     },
   },
   projects: {
@@ -621,7 +636,7 @@ const ingles = {
     selectSlide: 'Select slide',
   },
   metadata: {
-    title: 'Sergio Costa | Fullstack Web & Mobile Software Engineer',
+    title: 'Sérgio Costa | Fullstack Web & Mobile Software Engineer',
     description:
       'I turn complex challenges into scalable, accessible and reliable digital products.',
   },
@@ -639,13 +654,14 @@ const ingles = {
     documentations: 'Study documentations',
   },
   brand: {
-    name: 'Sergio Costa',
+    name: 'Sérgio Costa',
     initials: 'SC',
     role: 'Fullstack Web & Mobile Software Engineer',
+    highlightedRole: 'Web & Mobile',
     description:
       'I turn complex challenges into scalable, accessible and reliable digital products.',
     location: 'Paulista - PE | Remote or hybrid in Recife',
-    homeLabel: 'Sergio Costa, home',
+    homeLabel: 'Sérgio Costa, home',
   },
   hero: {
     eyebrow: 'Hello, I am',
@@ -658,8 +674,8 @@ const ingles = {
     description: 'Choose the language of the resume you want to download.',
     downloadPortuguese: 'Download resume PT',
     downloadEnglish: 'Download resume EN',
-    portugueseFileLabel: 'Sergio Costa resume in Portuguese',
-    englishFileLabel: 'Sergio Costa resume in English',
+    portugueseFileLabel: 'Sérgio Costa resume in Portuguese',
+    englishFileLabel: 'Sérgio Costa resume in English',
   },
   language: {
     label: 'Language',
@@ -750,8 +766,9 @@ const ingles = {
     },
   },
   studyGallery: {
-    eyebrow: 'Studies',
-    title: 'Study gallery',
+    eyebrow: 'Projects',
+    title: 'Project gallery',
+    highlightedTitle: 'Project',
     description:
       'Projects published directly from Firebase to follow studies and experiments.',
     loading: 'Loading studies...',
@@ -1044,20 +1061,20 @@ const ingles = {
   },
   chatbot: {
     floatingButton: 'Ask my AI',
-    title: 'Sergio AI',
-    subtitle: 'Sergio Costa professional assistant',
+    title: 'Sérgio AI',
+    subtitle: 'Sérgio Costa professional assistant',
     initialMessage:
-      'Hello! I can answer questions about Sergio as a software engineer, including professional experience, technologies, projects, education and work style. What would you like to know?',
-    inputLabel: 'Message for Sergio AI',
+      'Hello! I can answer questions about Sérgio as a software engineer, including professional experience, technologies, projects, education and work style. What would you like to know?',
+    inputLabel: 'Message for Sérgio AI',
     inputPlaceholder: 'Ask about experience, projects or technologies...',
     send: 'Send message',
-    close: 'Close Sergio AI',
-    open: 'Open Sergio AI',
-    messagesLabel: 'Sergio AI conversation history',
+    close: 'Close Sérgio AI',
+    open: 'Open Sérgio AI',
+    messagesLabel: 'Sérgio AI conversation history',
     userMessageLabel: 'Visitor message',
-    assistantMessageLabel: 'Sergio AI answer',
+    assistantMessageLabel: 'Sérgio AI answer',
     suggestionsLabel: 'Question suggestions',
-    analyzing: 'Sergio AI is analyzing...',
+    analyzing: 'Sérgio AI is analyzing...',
     error: 'I could not query my knowledge base right now. Try again.',
     retry: 'Try again',
     emptyError: 'Type a question before sending.',
@@ -1072,13 +1089,13 @@ const ingles = {
       'Professional experience',
     ],
     suggestionQuestions: {
-      react: 'What experience does Sergio have with React?',
-      projects: 'Which projects demonstrate Sergio experience?',
-      mobile: 'Does Sergio have mobile experience?',
-      architecture: 'What experience does Sergio have with frontend architecture?',
-      tests: 'What types of tests does Sergio use?',
-      stack: 'What is Sergio technology stack?',
-      experience: 'What is Sergio professional experience?',
+      react: 'What experience does Sérgio have with React?',
+      projects: 'Which projects demonstrate Sérgio experience?',
+      mobile: 'Does Sérgio have mobile experience?',
+      architecture: 'What experience does Sérgio have with frontend architecture?',
+      tests: 'What types of tests does Sérgio use?',
+      stack: 'What is Sérgio technology stack?',
+      experience: 'What is Sérgio professional experience?',
     },
   },
   carousel: {
@@ -1132,40 +1149,52 @@ const ingles = {
     },
     architecture: {
       eyebrow: 'Architecture',
-      title: 'Ready to evolve',
+      title: 'How I Build',
       description:
-        'A foundation ready to receive complete project, experience and content pages.',
-      continueEvolution: 'Continue evolution',
+        'While code development solves how the software works internally, architecture solves where each piece fits so that the entire system does not collapse in the future.',
+      continueEvolution: 'Read study documentations',
     },
   },
   skills: {
     groups: {
       frontend: {
         title: 'Frontend',
-        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Accessibility'],
+        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Redux', 'Recoil', 'Context.js', 'Webpack', 'Zustand', 'Jotai'],
       },
       mobile: {
         title: 'Mobile',
-        items: ['Flutter', 'Dart', 'Responsive UI', 'Native integrations'],
+        items: ['Flutter', 'Dart', 'React Native', 'TypeScript'],
       },
       backend: {
         title: 'Backend',
-        items: ['Node.js', 'REST APIs', 'Authentication', 'Relational databases'],
+        items: ['Node.js', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless', 'REST APIs', 'RESTFULL APIs'],
+      },
+      observabilidade: {
+        title: 'Observability',
+        items: ['Datadog', 'Grafana', 'Dynatrace'],
+      },
+      testes: {
+        title: 'Testing',
+        items: ['Unit', 'E2E', 'Integration', 'Load', 'Synthetic'],
       },
     },
   },
   experience: {
     items: {
-      productEngineering: {
-        title: 'Product-driven engineering',
+      mfeEngineering: {
+        title: 'MFE engineering',
         description:
-          'Building digital solutions focused on business value, quality and continuous evolution.',
+          'Building fragmented, decoupled, and scalable solutions for web products, governed by a central orchestrator and well-defined API integrations',
       },
-      designSystems: {
-        title: 'Whitelabel design systems',
+      componentzation: {
+        title: 'Whitelabel componentzation',
         description:
-          'Decoupled components, semantic tokens and adaptable themes for different brands.',
+          'Decoupled components, semantic tokens, and adaptive themes for different brands.',
       },
+      monolithicServices:{
+        title: 'Monolithic Engineering ',
+        description: 'Centralization of multiple projects and packages in a single repository, optimized by intelligent build tools, efficient code sharing, and unified dependency management.',
+      }
     },
   },
   projects: {

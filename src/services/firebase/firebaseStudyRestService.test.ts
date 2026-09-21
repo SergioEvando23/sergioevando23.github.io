@@ -19,7 +19,7 @@ const study: StudyPayload = {
   startedAt: '2022-01-14',
   completedAt: '2022-01-14',
   date: '2022-01-14',
-  githubUrl: 'https://github.com/SergioEvando23/project-trybe-shopping-cart',
+  githubUrl: 'https://github.com/SérgioEvando23/project-trybe-shopping-cart',
   portfolioEligible: true,
   coverImage: '/images/studies/shopping-cart/cover.webp',
   images: ['/images/studies/shopping-cart/cover.webp'],
@@ -43,7 +43,7 @@ describe('firebaseStudyRestService', () => {
     const projects = await listPublicStudyProjectsFromRest();
 
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://sergioevando23-default-rtdb.firebaseio.com/study.json',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/study.json',
       { cache: 'no-store' },
     );
     expect(projects).toHaveLength(1);
@@ -58,7 +58,7 @@ describe('firebaseStudyRestService', () => {
     await createStudy(study, 'firebase-token');
 
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://sergioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
       expect.objectContaining({ method: 'PUT' }),
     );
   });
@@ -72,12 +72,12 @@ describe('firebaseStudyRestService', () => {
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      'https://sergioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
       expect.objectContaining({ method: 'PATCH' }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      'https://sergioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
       { method: 'DELETE' },
     );
   });

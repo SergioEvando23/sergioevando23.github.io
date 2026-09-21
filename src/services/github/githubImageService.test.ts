@@ -42,7 +42,7 @@ describe('githubImageService', () => {
     expect(result[0]?.publicPath).toBe('/images/studies/shopping-cart/cover.webp');
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      'https://api.github.com/repos/SergioEvando23/sergioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
+      'https://api.github.com/repos/SérgioEvando23/Sérgioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
       expect.objectContaining({
         headers: expect.objectContaining({ Authorization: 'Bearer github-token' }),
         method: 'PUT',
@@ -72,12 +72,12 @@ describe('githubImageService', () => {
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      'https://api.github.com/repos/SergioEvando23/sergioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
+      'https://api.github.com/repos/SérgioEvando23/Sérgioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
       expect.objectContaining({ headers: expect.any(Object) }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       3,
-      'https://api.github.com/repos/SergioEvando23/sergioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
+      'https://api.github.com/repos/SérgioEvando23/Sérgioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
       expect.objectContaining({
         body: expect.stringContaining('existing-sha'),
         method: 'PUT',

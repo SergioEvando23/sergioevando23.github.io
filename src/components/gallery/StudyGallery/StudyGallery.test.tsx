@@ -11,7 +11,7 @@ vi.mock('@/services/firebase/firebaseStudyRestService', () => ({
 
 describe('StudyGallery', () => {
   it('renders an empty state when the REST gallery has no published studies', async () => {
-    localStorage.setItem('sergio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
 
     render(
       <ThemeProvider>

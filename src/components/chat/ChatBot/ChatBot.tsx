@@ -61,11 +61,11 @@ export function ChatBot() {
         </Button>
       ) : (
         <section
-          aria-labelledby="sergio-ai-title"
+          aria-labelledby="Sérgio-ai-title"
           className="fixed inset-0 flex flex-col overflow-hidden border-border bg-overlay shadow-[var(--shadow-glow)] backdrop-blur-xl sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(720px,calc(100vh-48px))] sm:w-[min(420px,calc(100vw-48px))] sm:rounded-[var(--radius-xl)] sm:border"
           role="dialog"
         >
-          <span className="sr-only" id="sergio-ai-title">
+          <span className="sr-only" id="Sérgio-ai-title">
             {textos.chatbot.title}
           </span>
           <ChatHeader

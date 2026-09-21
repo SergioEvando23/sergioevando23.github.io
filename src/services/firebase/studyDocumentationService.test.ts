@@ -32,7 +32,7 @@ describe('studyDocumentationService', () => {
     const documentations = await getAllDocumentations();
 
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations.json',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations.json',
       { cache: 'no-store' },
     );
     expect(documentations.map((documentation) => documentation.id)).toEqual([
@@ -71,7 +71,7 @@ describe('studyDocumentationService', () => {
 
     expect(id).toBe('-firebase-id');
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations.json?auth=firebase-token',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations.json?auth=firebase-token',
       expect.objectContaining({
         method: 'POST',
         body: JSON.stringify({
@@ -98,12 +98,12 @@ describe('studyDocumentationService', () => {
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      'https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations/doc-1.json?auth=firebase-token',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations/doc-1.json?auth=firebase-token',
       expect.objectContaining({ method: 'PATCH' }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      'https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations/doc-1.json?auth=firebase-token',
+      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations/doc-1.json?auth=firebase-token',
       { method: 'DELETE' },
     );
   });

@@ -161,21 +161,21 @@ export function StudyDocumentationsPage() {
               {textos.studyDocumentations.description}
             </p>
           </div>
-          <blockquote className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 text-right text-text-muted shadow-[var(--shadow-card)]">
+          <blockquote className="rounded-[var(--radius-xl)] bg-surface/80 p-6 text-right text-text-muted shadow-[var(--shadow-card)]">
             <p className="text-lg italic leading-8">
               &quot;{textos.studyDocumentations.quote}&quot;
             </p>
             <cite className="mt-3 block text-sm font-semibold not-italic text-text">
-              - Sergio Costa
+              - Sérgio Costa
             </cite>
           </blockquote>
         </Container>
       </section>
 
-      <section className="py-10">
-        <Container className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(420px,0.9fr)]">
+      <section className="py-8 lg:py-12">
+        <Container className="grid gap-16 xl:grid-cols-[minmax(0,1fr)_minmax(380px,0.9fr)]">
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex flex-col gap-4 w-screen lg:flex-row lg:items-center lg:justify-beetween">
               <div
                 aria-label={textos.studyDocumentations.allResults}
                 className="flex flex-wrap gap-2"
@@ -189,7 +189,7 @@ export function StudyDocumentationsPage() {
                     <button
                       aria-pressed={selected}
                       className={cn(
-                        'inline-flex min-h-11 items-center gap-2 rounded-[var(--radius-full)] border px-4 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent',
+                        'inline-flex min-h-8 items-center gap-3 rounded-[var(--radius-full)] border px-8 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-30 focus-visible:outline-offset-3 focus-visible:outline-accent',
                         selected
                           ? 'border-primary bg-primary text-primary-foreground shadow-[var(--shadow-glow)]'
                           : 'border-border bg-surface/80 text-text-muted hover:border-primary hover:text-primary',
@@ -320,7 +320,7 @@ export function StudyDocumentationsPage() {
 
           <article
             aria-label={textos.studyDocumentations.readerLabel}
-            className="sticky top-24 flex max-h-[calc(100vh-8rem)] min-h-[640px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]"
+            className="sticky top-24 flex mt-18 max-h-[calc(100vh-8rem)] min-h-[640px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]"
           >
             {selectedDocumentation ? (
               <>
@@ -350,7 +350,7 @@ export function StudyDocumentationsPage() {
                   </div>
 
                   <div className="mb-6 flex items-start gap-4">
-                    <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-surface-secondary text-primary">
+                    <span className="flex h-12 w-14 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-surface-secondary text-primary">
                       {renderDocumentationIcon(selectedDocumentation, 'medium')}
                     </span>
                     <div>

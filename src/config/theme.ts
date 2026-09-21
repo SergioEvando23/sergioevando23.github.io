@@ -1,6 +1,6 @@
 import type { CarouselSize } from '@/types/carousel';
 
-export const THEME_STORAGE_KEY = 'sergio-costa-theme';
+export const THEME_STORAGE_KEY = 'Sérgio-costa-theme';
 
 export const carouselSizes: Record<CarouselSize, { width: number; height: number }> = {
   small: {

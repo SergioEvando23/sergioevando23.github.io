@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { useAuth } from '../AuthProvider';
 
-export const ENTRY_CHOICE_STORAGE_KEY = 'sergio-portfolio-entry-choice';
+export const ENTRY_CHOICE_STORAGE_KEY = 'Sérgio-portfolio-entry-choice';
 export type EntryChoice = 'google' | 'visitor';
 
 function isEntryChoice(value: unknown): value is EntryChoice {

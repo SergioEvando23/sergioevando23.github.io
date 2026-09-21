@@ -38,7 +38,7 @@ vi.mock('@/services/firebase/firebaseStudyRestService', () => ({
       startedAt: '2022-01-14',
       completedAt: '2022-01-14',
       date: '2022-01-14',
-      githubUrl: 'https://github.com/SergioEvando23/project-trybe-shopping-cart',
+      githubUrl: 'https://github.com/SérgioEvando23/project-trybe-shopping-cart',
       portfolioEligible: true,
       coverImage: '/images/studies/shopping-cart/cover.webp',
       images: ['/images/studies/shopping-cart/cover.webp'],
@@ -66,7 +66,7 @@ function renderAdmin() {
 
 describe('StudyAdminPage', () => {
   beforeEach(() => {
-    localStorage.setItem('sergio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
     authState.user = null;
     authState.loading = false;
     authState.isAuthenticated = false;

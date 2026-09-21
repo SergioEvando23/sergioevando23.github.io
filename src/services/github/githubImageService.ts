@@ -1,5 +1,5 @@
-const DEFAULT_OWNER = 'SergioEvando23';
-const DEFAULT_REPO = 'sergioevando23.github.io';
+const DEFAULT_OWNER = 'SérgioEvando23';
+const DEFAULT_REPO = 'Sérgioevando23.github.io';
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
 

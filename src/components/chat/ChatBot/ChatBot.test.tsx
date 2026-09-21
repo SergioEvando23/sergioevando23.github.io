@@ -42,7 +42,7 @@ describe('ChatBot', () => {
     sendChatMessageMock.mockReset();
     sendChatMessageMock.mockResolvedValue({
       success: true,
-      message: 'Sergio possui experiencia.',
+      message: 'Sérgio possui experiencia.',
       sessionId: 'session-1',
     });
   });
@@ -51,10 +51,10 @@ describe('ChatBot', () => {
     const user = userEvent.setup();
     renderChat();
 
-    await user.click(screen.getByRole('button', { name: 'Abrir Sergio AI' }));
+    await user.click(screen.getByRole('button', { name: 'Abrir Sérgio AI' }));
 
     expect(screen.getByRole('dialog')).toBeInTheDocument();
-    expect(screen.getByText('Assistente profissional de Sergio Costa')).toBeInTheDocument();
+    expect(screen.getByText('Assistente profissional de Sérgio Costa')).toBeInTheDocument();
 
     await user.keyboard('{Escape}');
 
@@ -65,7 +65,7 @@ describe('ChatBot', () => {
     const user = userEvent.setup();
     renderChat();
 
-    await user.click(screen.getByRole('button', { name: 'Abrir Sergio AI' }));
+    await user.click(screen.getByRole('button', { name: 'Abrir Sérgio AI' }));
 
     expect(screen.getByRole('button', { name: 'Enviar mensagem' })).toBeDisabled();
   });
@@ -74,15 +74,15 @@ describe('ChatBot', () => {
     const user = userEvent.setup();
     renderChat();
 
-    await user.click(screen.getByRole('button', { name: 'Abrir Sergio AI' }));
+    await user.click(screen.getByRole('button', { name: 'Abrir Sérgio AI' }));
     await user.type(
-      screen.getByLabelText('Mensagem para Sergio AI'),
+      screen.getByLabelText('Mensagem para Sérgio AI'),
       'Qual experiencia com React?',
     );
     await user.keyboard('{Enter}');
 
     expect(screen.getByText('Qual experiencia com React?')).toBeInTheDocument();
-    expect(await screen.findByText('Sergio possui experiencia.')).toBeInTheDocument();
+    expect(await screen.findByText('Sérgio possui experiencia.')).toBeInTheDocument();
     expect(sendChatMessageMock).toHaveBeenCalledWith(
       expect.objectContaining({
         message: 'Qual experiencia com React?',
@@ -95,12 +95,12 @@ describe('ChatBot', () => {
     const user = userEvent.setup();
     renderChat();
 
-    await user.click(screen.getByRole('button', { name: 'Abrir Sergio AI' }));
+    await user.click(screen.getByRole('button', { name: 'Abrir Sérgio AI' }));
     await user.click(screen.getByRole('button', { name: 'Experiencia com React' }));
 
     expect(sendChatMessageMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        message: 'Qual e a experiencia de Sergio com React?',
+        message: 'Qual e a experiencia de Sérgio com React?',
       }),
     );
   });
@@ -117,8 +117,8 @@ describe('ChatBot', () => {
 
     renderChat();
 
-    await user.click(screen.getByRole('button', { name: 'Abrir Sergio AI' }));
-    await user.type(screen.getByLabelText('Mensagem para Sergio AI'), 'E testes?');
+    await user.click(screen.getByRole('button', { name: 'Abrir Sérgio AI' }));
+    await user.type(screen.getByLabelText('Mensagem para Sérgio AI'), 'E testes?');
     await user.keyboard('{Enter}');
 
     expect(await screen.findByText(/Nao consegui consultar minha base/)).toBeInTheDocument();
@@ -133,8 +133,8 @@ describe('ChatBot', () => {
     const user = userEvent.setup();
     renderChat('ingles');
 
-    await user.click(await screen.findByRole('button', { name: 'Open Sergio AI' }));
-    await user.type(screen.getByLabelText('Message for Sergio AI'), 'React experience');
+    await user.click(await screen.findByRole('button', { name: 'Open Sérgio AI' }));
+    await user.type(screen.getByLabelText('Message for Sérgio AI'), 'React experience');
     await user.keyboard('{Enter}');
 
     await waitFor(() =>
@@ -154,8 +154,8 @@ describe('ChatBot', () => {
     await user.click(
       screen.getByRole('button', { name: 'Alterar idioma para ingles' }),
     );
-    await user.click(await screen.findByRole('button', { name: 'Open Sergio AI' }));
-    await user.type(screen.getByLabelText('Message for Sergio AI'), 'Tell me about React');
+    await user.click(await screen.findByRole('button', { name: 'Open Sérgio AI' }));
+    await user.type(screen.getByLabelText('Message for Sérgio AI'), 'Tell me about React');
     await user.keyboard('{Enter}');
 
     await waitFor(() =>

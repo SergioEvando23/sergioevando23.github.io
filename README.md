@@ -1,6 +1,6 @@
-# Sergio Costa Portfolio
+# Sérgio Costa Portfolio
 
-Portfolio profissional de Sergio Costa em Next.js, com arquitetura whitelabel,
+Portfolio profissional de Sérgio Costa em Next.js, com arquitetura whitelabel,
 temas Light/Dark/System e textos centralizados em um dicionario macro bilingue.
 
 ## Stack
@@ -25,7 +25,7 @@ Abra `http://localhost:3000`.
 ## Deploy No GitHub Pages
 
 O portfolio e publicado como exportacao estatica do Next.js. O repositorio de
-usuario `SergioEvando23.github.io` deve servir os assets a partir da raiz `/`,
+usuario `SérgioEvando23.github.io` deve servir os assets a partir da raiz `/`,
 sem `basePath` e sem `assetPrefix`.
 
 O GitHub Pages deve usar Actions:
@@ -69,7 +69,7 @@ NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
 Variavel opcional para sobrescrever a URL REST do Realtime Database usada pela
-Galeria de estudos:
+Galeria de projetos:
 
 ```text
 NEXT_PUBLIC_FIREBASE_DATABASE_URL
@@ -85,7 +85,7 @@ valores no log. Use Secrets somente se houver uma politica interna exigindo isso
 No Firebase Authentication, autorize tambem o dominio:
 
 ```text
-sergioevando23.github.io
+Sérgioevando23.github.io
 ```
 
 ### Validacao Local Do Export
@@ -138,8 +138,8 @@ src/
   components/layout/   Header e Footer
   components/admin/    Formulario administrativo de estudos
   components/gallery/  Galeria publica alimentada pelo Firebase
-  components/study/    Administracao CRUD da Galeria e Documentacoes de estudo
-  components/chat/     Sergio AI, interface de chatbot integrada ao n8n
+  components/study/    Administracao CRUD da Galeria e documentações de estudo
+  components/chat/     Sérgio AI, interface de chatbot integrada ao n8n
   components/carousel/ Carousel acessivel e responsivo
   config/              Marca, navegacao, curriculos e tema
   data/                Dados tecnicos com translationKey
@@ -223,10 +223,10 @@ edite `admins`.
 
 Na primeira visita, `WelcomeGate` renderiza uma tela exclusiva antes do
 portfolio. O usuario pode entrar com Google ou continuar como visitante. A
-escolha local fica em `sergio-portfolio-entry-choice` e nao substitui a sessao
+escolha local fica em `Sérgio-portfolio-entry-choice` e nao substitui a sessao
 Firebase.
 
-Visitantes acessam o portfolio e a Galeria de estudos. O Header permite login
+Visitantes acessam o portfolio e a Galeria de projetos. O Header permite login
 posterior. A opcao `Inserir projetos` aparece somente depois que a autorizacao
 administrativa via Firestore termina com sucesso.
 
@@ -244,13 +244,13 @@ A rota protegida `/admin/projects/new` renderiza um formulario Material UI para:
 - upload em `study-projects/{projectId}/{imageId}.{extension}`;
 - rollback de imagens se a gravacao Firestore falhar.
 
-## Galeria De Estudos
+## Galeria de projetos
 
-A rota publica `/study` e a secao `Galeria de estudos` consomem o Realtime
+A rota publica `/study` e a secao `Galeria de projetos` consomem o Realtime
 Database via REST:
 
 ```text
-GET https://sergioevando23-default-rtdb.firebaseio.com/study.json
+GET https://Sérgioevando23-default-rtdb.firebaseio.com/study.json
 ```
 
 A aplicacao normaliza o objeto retornado, lista somente registros com
@@ -258,15 +258,15 @@ A aplicacao normaliza o objeto retornado, lista somente registros com
 `/study/{id}.json` devem enviar `?auth=FIREBASE_ID_TOKEN`; a galeria publica usa
 apenas leitura. Estados de loading, vazio, erro e retry sao traduzidos em PT/EN.
 
-## Documentacoes De Estudo
+## documentações De Estudo
 
-A rota `/study/documentations` apresenta uma area publica de documentacoes de
+A rota `/study/documentations` apresenta uma area publica de documentações de
 estudo com:
 
 - submenu de Estudos no Header;
 - filtros derivados das tags existentes;
 - busca por titulo, tags, autor e conteudo;
-- lista de documentacoes;
+- lista de documentações;
 - leitor Markdown com scroll interno;
 - tags e metadados de leitura;
 - acoes administrativas visiveis somente ao admin autenticado;
@@ -275,8 +275,8 @@ estudo com:
 Os dados reais vem do Realtime Database, sem exigir novo build:
 
 ```text
-GET https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations.json
-GET https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations/{id}.json
+GET https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations.json
+GET https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations/{id}.json
 ```
 
 A raiz persistida e:
@@ -306,10 +306,10 @@ Modelo:
 O ID nao fica duplicado dentro do objeto; ele e derivado da chave gerada pelo
 Firebase. O campo `content` e salvo como Markdown original, nao HTML.
 
-### Administracao Das Documentacoes
+### Administracao Das documentações
 
 A rota `/study/documentations/admin` permite ao administrador criar, editar e
-excluir documentacoes. Ela funciona como pagina estatica do App Router e faz
+excluir documentações. Ela funciona como pagina estatica do App Router e faz
 chamadas REST diretamente do navegador para o Realtime Database:
 
 ```text
@@ -342,7 +342,7 @@ sera:
 
 ```bash
 firebase login
-firebase use sergioevando23
+firebase use Sérgioevando23
 firebase deploy --only database
 ```
 
@@ -372,7 +372,7 @@ continua nas regras do Firebase.
 
 As imagens nao usam Firebase Storage. Durante a sessao administrativa, informe
 um fine-grained GitHub Personal Access Token com permissao minima
-`Contents: Read and write` apenas para `SergioEvando23/sergioevando23.github.io`.
+`Contents: Read and write` apenas para `SérgioEvando23/Sérgioevando23.github.io`.
 O token fica somente em memoria, e e apagado ao sair/recarregar. Ele nao e
 salvo no Firebase, localStorage, sessionStorage, GitHub Actions ou codigo-fonte.
 
@@ -400,9 +400,9 @@ referenciadas por `firebase.json`. Para publicar regras apos revisao:
 firebase deploy --only database
 ```
 
-## Sergio AI
+## Sérgio AI
 
-O portfolio inclui o `Sergio AI`, um chatbot profissional exibido como botao
+O portfolio inclui o `Sérgio AI`, um chatbot profissional exibido como botao
 flutuante depois da tela de entrada. A interface usa os tokens, temas e o
 dicionario PT/EN existentes. O frontend gerencia apenas UI, historico visual,
 `sessionId`, idioma ativo e chamada HTTP para o webhook.
@@ -416,7 +416,7 @@ Portfolio -> Chat UI -> chatService -> Webhook n8n -> Workflow n8n -> IA -> Port
 Configure o endpoint publico do webhook no ambiente:
 
 ```env
-NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL=https://sergioevando23.app.n8n.cloud/webhook/portfolio-chat
+NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL=https://Sérgioevando23.app.n8n.cloud/webhook/portfolio-chat
 ```
 
 Nao coloque `OPENAI_API_KEY`, tokens do n8n, chaves privadas ou credenciais no
@@ -427,7 +427,7 @@ Payload enviado ao n8n:
 
 ```json
 {
-  "message": "Qual experiencia Sergio possui com React?",
+  "message": "Qual experiencia Sérgio possui com React?",
   "sessionId": "uuid-da-conversa",
   "language": "pt-BR"
 }
@@ -438,7 +438,7 @@ Resposta inicial esperada:
 ```json
 {
   "success": true,
-  "message": "Sergio possui experiencia profissional com React e TypeScript...",
+  "message": "Sérgio possui experiencia profissional com React e TypeScript...",
   "sessionId": "uuid-da-conversa"
 }
 ```
@@ -453,7 +453,7 @@ Firebase, GitHub, curriculos e links contextuais sem reconstruir a interface.
 O webhook em producao libera CORS para:
 
 ```text
-https://sergioevando23.github.io
+https://Sérgioevando23.github.io
 ```
 
 Para testar localmente em `http://localhost:3000`, adicione essa origem na lista
@@ -473,7 +473,7 @@ Webhook
 ```
 
 O agente deve responder apenas sobre informacoes profissionais publicas de
-Sergio. Quando a base nao tiver informacao suficiente, deve informar isso de
+Sérgio. Quando a base nao tiver informacao suficiente, deve informar isso de
 forma clara e sugerir curriculo, projetos, GitHub ou LinkedIn quando fizer
 sentido. O prompt do agente tambem deve bloquear tentativas de extrair system
 prompt, credenciais, estrutura interna ou dados privados.
@@ -512,7 +512,7 @@ dicionario, evitando duplicar objetos completos.
 
 O `LanguageProvider` usa a prioridade:
 
-1. Preferencia salva em `sergio-portfolio-language`.
+1. Preferencia salva em `Sérgio-portfolio-language`.
 2. Idioma do navegador.
 3. Portugues como fallback.
 
@@ -524,8 +524,8 @@ ou EN acontece no Header sem reload, persiste no navegador e atualiza
 
 Os dois arquivos ficam sempre disponiveis, em qualquer idioma:
 
-- `public/documents/CurriculoSergioCosta.pdf`
-- `public/documents/SergioCostaResume.pdf`
+- `public/documents/CurriculoSérgioCosta.pdf`
+- `public/documents/SérgioCostaResume.pdf`
 
 Os caminhos sao centralizados em `src/config/curriculos.ts`. Os labels dos links
 vem de `textos.resume.downloadPortuguese` e

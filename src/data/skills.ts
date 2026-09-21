@@ -18,4 +18,12 @@ export const skillGroups: SkillGroup[] = [
     id: 'backend',
     translationKey: 'backend',
   },
+  {
+    id: 'observabilidade',
+    translationKey: 'observabilidade',
+  },
+  {
+    id: 'testes',
+    translationKey: 'testes',
+  },
 ];

@@ -53,7 +53,7 @@ function studyData(overrides: Record<string, unknown> = {}) {
     startedAt: '2026-01-01',
     completedAt: '2026-01-02',
     date: '2026-01-02',
-    githubUrl: 'https://github.com/SergioEvando23/firebase-study',
+    githubUrl: 'https://github.com/SérgioEvando23/firebase-study',
     portfolioEligible: true,
     coverImage: '/images/studies/firebase-study/cover.webp',
     images: ['/images/studies/firebase-study/cover.webp'],
@@ -73,7 +73,7 @@ function adminDatabase(emailVerified = true) {
 rulesDescribe('Realtime Database rules', () => {
   beforeAll(async () => {
     testEnv = await initializeTestEnvironment({
-      projectId: 'sergio-portfolio-rtdb-test',
+      projectId: 'Sérgio-portfolio-rtdb-test',
       database: {
         rules: readFileSync('database.rules.json', 'utf8'),
         host: '127.0.0.1',

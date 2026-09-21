@@ -9,7 +9,7 @@ export const brandConfig: BrandConfig = {
   location: dicionario.portugues.brand.location,
   email: '',
   socialLinks: {
-    github: 'https://github.com/SergioEvando23',
-    linkedin: 'https://www.linkedin.com/in/sergiocosta23/',
+    github: 'https://github.com/SérgioEvando23',
+    linkedin: 'https://www.linkedin.com/in/Sérgiocosta23/',
   },
 };

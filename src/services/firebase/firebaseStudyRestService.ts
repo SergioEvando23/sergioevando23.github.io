@@ -2,7 +2,7 @@ import type { StudyProject, StudyProjectImage } from '@/types/firebase/studyProj
 import type { StudyPayload } from './studyRestTypes';
 
 const DEFAULT_REALTIME_DATABASE_URL =
-  'https://sergioevando23-default-rtdb.firebaseio.com';
+  'https://Sérgioevando23-default-rtdb.firebaseio.com';
 
 const databaseUrl =
   process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL ?? DEFAULT_REALTIME_DATABASE_URL;
