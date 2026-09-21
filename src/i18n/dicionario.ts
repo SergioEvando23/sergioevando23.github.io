@@ -49,6 +49,7 @@ const portugues = {
     name: 'Sérgio Costa',
     initials: 'SC',
     role: 'Engenheiro de Software Fullstack Web & Mobile',
+    highlightedRole: 'Web & Mobile',
     description:
       'Transformo desafios complexos em produtos digitais escalaveis, acessiveis e confiaveis.',
     location: 'Paulista - PE | Remoto ou hibrido em Recife',
@@ -157,8 +158,9 @@ const portugues = {
     },
   },
   studyGallery: {
-    eyebrow: 'Estudos',
+    eyebrow: 'Projetos',
     title: 'Galeria de projetos',
+    highlightedTitle: 'projetos',
     description:
       'Projetos publicados diretamente do Firebase para acompanhar estudos e experimentos.',
     loading: 'Carregando estudos...',
@@ -540,25 +542,26 @@ const portugues = {
     },
     architecture: {
       eyebrow: 'Arquitetura',
-      title: 'Pronto para evoluir',
+      title: 'Como Construo',
       description:
-        'Base preparada para receber paginas completas de projetos, experiencia e conteudo.',
-      continueEvolution: 'Continuar evolucao',
+        'Enquanto o desenvolvimento de código resolve como o software funciona por dentro, a arquitetura resolve onde cada peça se encaixa para que o sistema inteiro não colapse no futuro.',
+      continueEvolution: 'Leia documentações de estudos',
     },
+
   },
   skills: {
     groups: {
       frontend: {
         title: 'Frontend',
-        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Vue.js', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Acessibilidade'],
+        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Redux', 'Recoil', 'Context.js', 'Webpack', 'Zustand', 'Jotai'],
       },
       mobile: {
         title: 'Mobile',
-        items: ['Flutter', 'Dart', 'React Native', 'Typescript', 'Styled Components'],
+        items: ['Flutter', 'Dart', 'React Native', 'Typescript'],
       },
       backend: {
         title: 'Backend',
-        items: ['Node.js', 'APIs REST', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless'],
+        items: ['Node.js', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless', 'REST APIs', 'RESTFULL APIs'],
       },
       observabilidade: {
         title: 'Observabilidade',
@@ -572,16 +575,20 @@ const portugues = {
   },
   experience: {
     items: {
-      productEngineering: {
-        title: 'Engenharia orientada a produto',
+      mfeEngineering: {
+        title: 'Engenharia de micro-frontends',
         description:
-          'Construcao de solucoes digitais com foco em valor de negocio, qualidade e evolucao continua.',
+          'Construção de soluções fragmentadas, desacopladas e escalaveis para produtos web, regidas por um orquestrador central e integrações com APIs bem definidas.',
       },
-      designSystems: {
-        title: 'Design systems whitelabel',
+      componentzation: {
+        title: 'Componentização whitelabel',
         description:
           'Componentes desacoplados, tokens semanticos e temas adaptaveis para diferentes marcas.',
       },
+      monolithicServices:{
+        title: 'Engenharia de Monorepos',
+        description: 'Centralização de múltiplos projetos e pacotes em um único repositório, otimizada por ferramentas de build inteligente, compartilhamento eficiente de código e gerenciamento unificado de dependências.',
+      }
     },
   },
   projects: {
@@ -650,6 +657,7 @@ const ingles = {
     name: 'Sérgio Costa',
     initials: 'SC',
     role: 'Fullstack Web & Mobile Software Engineer',
+    highlightedRole: 'Web & Mobile',
     description:
       'I turn complex challenges into scalable, accessible and reliable digital products.',
     location: 'Paulista - PE | Remote or hybrid in Recife',
@@ -758,8 +766,9 @@ const ingles = {
     },
   },
   studyGallery: {
-    eyebrow: 'Studies',
-    title: 'Study gallery',
+    eyebrow: 'Projects',
+    title: 'Project gallery',
+    highlightedTitle: 'Project',
     description:
       'Projects published directly from Firebase to follow studies and experiments.',
     loading: 'Loading studies...',
@@ -1140,25 +1149,25 @@ const ingles = {
     },
     architecture: {
       eyebrow: 'Architecture',
-      title: 'Ready to evolve',
+      title: 'How I Build',
       description:
-        'A foundation ready to receive complete project, experience and content pages.',
-      continueEvolution: 'Continue evolution',
+        'While code development solves how the software works internally, architecture solves where each piece fits so that the entire system does not collapse in the future.',
+      continueEvolution: 'Read study documentations',
     },
   },
   skills: {
     groups: {
       frontend: {
         title: 'Frontend',
-        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Vue.js', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Accessibility'],
+        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Redux', 'Recoil', 'Context.js', 'Webpack', 'Zustand', 'Jotai'],
       },
       mobile: {
         title: 'Mobile',
-        items: ['Flutter', 'Dart', 'React Native', 'TypeScript', 'Styled Components'],
+        items: ['Flutter', 'Dart', 'React Native', 'TypeScript'],
       },
       backend: {
         title: 'Backend',
-        items: ['Node.js', 'REST APIs', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless'],
+        items: ['Node.js', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless', 'REST APIs', 'RESTFULL APIs'],
       },
       observabilidade: {
         title: 'Observability',
@@ -1172,16 +1181,20 @@ const ingles = {
   },
   experience: {
     items: {
-      productEngineering: {
-        title: 'Product-driven engineering',
+      mfeEngineering: {
+        title: 'MFE engineering',
         description:
-          'Building digital solutions focused on business value, quality and continuous evolution.',
+          'Building fragmented, decoupled, and scalable solutions for web products, governed by a central orchestrator and well-defined API integrations',
       },
-      designSystems: {
-        title: 'Whitelabel design systems',
+      componentzation: {
+        title: 'Whitelabel componentzation',
         description:
-          'Decoupled components, semantic tokens and adaptable themes for different brands.',
+          'Decoupled components, semantic tokens, and adaptive themes for different brands.',
       },
+      monolithicServices:{
+        title: 'Monolithic Engineering ',
+        description: 'Centralization of multiple projects and packages in a single repository, optimized by intelligent build tools, efficient code sharing, and unified dependency management.',
+      }
     },
   },
   projects: {

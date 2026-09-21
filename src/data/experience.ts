@@ -8,10 +8,14 @@ export interface ExperienceItem {
 export const experienceItems: ExperienceItem[] = [
   {
     id: 'product-engineering',
-    translationKey: 'productEngineering',
+    translationKey: 'mfeEngineering',
   },
   {
     id: 'design-systems',
-    translationKey: 'designSystems',
+    translationKey: 'componentzation',
+  },
+  {
+    id: 'monolithic-services',
+    translationKey: 'monolithicServices',
   },
 ];

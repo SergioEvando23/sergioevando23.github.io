@@ -46,6 +46,17 @@ function HomeContent() {
       })),
     [textos],
   );
+  const highlightedRoleIndex = textos.brand.role.indexOf(textos.brand.highlightedRole);
+  const roleBeforeHighlight =
+    highlightedRoleIndex >= 0
+      ? textos.brand.role.slice(0, highlightedRoleIndex)
+      : textos.brand.role;
+  const roleAfterHighlight =
+    highlightedRoleIndex >= 0
+      ? textos.brand.role.slice(
+          highlightedRoleIndex + textos.brand.highlightedRole.length,
+        )
+      : '';
 
   return (
     <>
@@ -63,7 +74,9 @@ function HomeContent() {
                   {textos.hero.eyebrow} {textos.brand.name}
                 </p>
                 <h1 className="max-w-4xl text-4xl font-black leading-tight text-text sm:text-5xl lg:text-6xl">
-                  {textos.brand.role}
+                  {roleBeforeHighlight}
+                  <span className="text-primary">{textos.brand.highlightedRole}</span>
+                  {roleAfterHighlight}
                 </h1>
                 <p className="max-w-2xl text-lg leading-8 text-text-muted">
                   {textos.brand.description}
@@ -71,7 +84,7 @@ function HomeContent() {
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button
-                  href="#projetos"
+                  href="#galeria-estudos"
                   leftIcon={<FolderOutlinedIcon aria-hidden="true" />}
                 >
                   {textos.hero.viewProjects}
@@ -126,35 +139,6 @@ function HomeContent() {
           </Container>
         </section>
 
-        <section className="py-14" id="projetos">
-          <Container className="flex flex-col gap-10">
-            <SectionHeading
-              description={textos.sections.carouselPlayground.description}
-              eyebrow={textos.sections.carouselPlayground.eyebrow}
-              title={textos.sections.carouselPlayground.title}
-            />
-            <div className="grid gap-8">
-              <Carousel
-                ariaLabel={textos.carousel.smallLabel}
-                items={translatedCarouselItems}
-                size="small"
-              />
-              <Carousel
-                ariaLabel={textos.carousel.mediumLabel}
-                items={translatedCarouselItems}
-                size="medium"
-              />
-              <Carousel
-                ariaLabel={textos.carousel.largeLabel}
-                autoPlay
-                items={translatedCarouselItems}
-                loop
-                size="large"
-              />
-            </div>
-          </Container>
-        </section>
-
         <section className="py-14" id="tecnologias">
           <Container className="flex flex-col gap-10">
             <SectionHeading
@@ -203,7 +187,7 @@ function HomeContent() {
 
                 return (
                   <article
-                    className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 shadow-[var(--shadow-card)]"
+                    className="flex h-full flex-col rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 shadow-[var(--shadow-card)]"
                     key={item.id}
                   >
                     <h3 className="text-xl font-bold text-text">
@@ -212,10 +196,13 @@ function HomeContent() {
                     <p className="mt-3 leading-7 text-text-muted">
                       {translatedItem.description}
                     </p>
-                    <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+                    <Link
+                      className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-primary transition-colors hover:text-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                      href="/study/documentations/"
+                    >
                       {textos.sections.architecture.continueEvolution}
                       <ArrowForwardIcon aria-hidden="true" fontSize="small" />
-                    </span>
+                    </Link>
                   </article>
                 );
               })}
