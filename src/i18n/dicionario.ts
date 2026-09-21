@@ -564,6 +564,10 @@ const portugues = {
         title: 'Observabilidade',
         items: ['Datadog', 'Grafana', 'Dynatrace'],
       },
+      testes: { 
+        title: 'Testes',
+        items: ['Unitários', 'E2E', 'Integração', 'Carga', 'Sinteticos'], 
+      }
     },
   },
   experience: {
@@ -1159,6 +1163,10 @@ const ingles = {
       observabilidade: {
         title: 'Observability',
         items: ['Datadog', 'Grafana', 'Dynatrace'],
+      },
+      testes: {
+        title: 'Testing',
+        items: ['Unit', 'E2E', 'Integration', 'Load', 'Synthetic'],
       },
     },
   },

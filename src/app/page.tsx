@@ -10,6 +10,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CodeIcon from '@mui/icons-material/Code';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import StorageIcon from '@mui/icons-material/Storage';
+import MonitorHeartOutlinedIcon from '@mui/icons-material/MonitorHeartOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import { Carousel } from '@/components/carousel/Carousel';
 import { StudyGallery } from '@/components/gallery';
 import { useLanguage } from '@/components/language';
@@ -26,7 +28,13 @@ import { experienceItems } from '@/data/experience';
 import { skillGroups } from '@/data/skills';
 import type { CarouselImage } from '@/types/carousel';
 
-const domainIcons = [CodeIcon, SmartphoneIcon, StorageIcon];
+const domainIcons = [
+  CodeIcon,
+  SmartphoneIcon,
+  StorageIcon,
+  MonitorHeartOutlinedIcon,
+  FactCheckOutlinedIcon,
+];
 
 function HomeContent() {
   const { textos } = useLanguage();
