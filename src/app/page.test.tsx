@@ -39,6 +39,24 @@ describe('Home i18n integration', () => {
     expect(englishResume).toHaveAttribute('download', curriculos.ingles.fileName);
   });
 
+  it('renders the highlighted gallery title and documentation links', () => {
+    renderHome();
+
+    expect(
+      screen.getByRole('heading', { name: 'Galeria de projetos' }),
+    ).toBeInTheDocument();
+    expect(screen.getByText('projetos')).toHaveClass('text-primary');
+
+    const documentationLinks = screen.getAllByRole('link', {
+      name: 'Leia documentações de estudos',
+    });
+
+    expect(documentationLinks).toHaveLength(3);
+    documentationLinks.forEach((link) => {
+      expect(link).toHaveAttribute('href', '/study/documentations');
+    });
+  });
+
   it('updates header hero sections footer and keeps carousel state after language change', async () => {
     const user = userEvent.setup();
     renderHome();
