@@ -8,7 +8,7 @@ import { readFileSync } from 'node:fs';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { get, ref, remove, serverTimestamp, set, update } from 'firebase/database';
 
-let testEnv: RulesTestEnvironment;
+let testEnv!: RulesTestEnvironment;
 
 const adminUid = 'admin-user';
 const regularUid = 'regular-user';
@@ -73,7 +73,7 @@ function adminDatabase(emailVerified = true) {
 rulesDescribe('Realtime Database rules', () => {
   beforeAll(async () => {
     testEnv = await initializeTestEnvironment({
-      projectId: 'Sérgio-portfolio-rtdb-test',
+      projectId: 'sergio-portfolio-rtdb-test',
       database: {
         rules: readFileSync('database.rules.json', 'utf8'),
         host: '127.0.0.1',
@@ -91,7 +91,7 @@ rulesDescribe('Realtime Database rules', () => {
   });
 
   afterAll(async () => {
-    await testEnv.cleanup();
+    await testEnv?.cleanup();
   });
 
   it('allows public reads for study documentations', async () => {

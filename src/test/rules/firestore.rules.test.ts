@@ -52,7 +52,7 @@ function projectData(createdBy: string, portfolioEligible = true) {
 rulesDescribe('Firestore rules', () => {
   beforeAll(async () => {
     testEnv = await initializeTestEnvironment({
-      projectId: 'Sérgio-portfolio-test',
+      projectId: 'sergio-portfolio-test',
       firestore: {
         rules: readFileSync('firestore.rules', 'utf8'),
         host: '127.0.0.1',
