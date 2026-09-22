@@ -1,7 +1,9 @@
 'use client';
 
+import { useRef, useState } from 'react';
 import Image from 'next/image';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { useLanguage } from '@/components/language';
 import { Button } from '@/components/ui/Button';
@@ -9,10 +11,15 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Tag } from '@/components/ui/Tag';
 import { useStudyProjects } from '@/hooks/useStudyProjects';
+import { ProjectPlayground } from '@/components/gallery/ProjectPlayground';
+import { canRunProject } from '@/services/study/projectPreview';
+import type { StudyProject } from '@/types/firebase/studyProject';
 
 export function StudyGallery() {
   const { textos } = useLanguage();
   const { projects, loading, error, retry } = useStudyProjects();
+  const [selectedProject, setSelectedProject] = useState<StudyProject | null>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
   const highlightedIndex = textos.studyGallery.title.indexOf(
     textos.studyGallery.highlightedTitle,
   );
@@ -145,6 +152,17 @@ export function StudyGallery() {
                     >
                       {textos.studyGallery.github}
                     </Button>
+                    {canRunProject(project) ? (
+                      <Button
+                        leftIcon={<PlayArrowIcon aria-hidden="true" />}
+                        onClick={(event) => {
+                          triggerRef.current = event.currentTarget;
+                          setSelectedProject(project);
+                        }}
+                      >
+                        {textos.studyGallery.playground.run}
+                      </Button>
+                    ) : null}
                   </div>
                 </article>
               );
@@ -152,6 +170,16 @@ export function StudyGallery() {
           </div>
         ) : null}
       </Container>
+      {selectedProject ? (
+        <ProjectPlayground
+          key={selectedProject.id}
+          onClose={() => {
+            setSelectedProject(null);
+            window.setTimeout(() => triggerRef.current?.focus(), 0);
+          }}
+          project={selectedProject}
+        />
+      ) : null}
     </section>
   );
 }

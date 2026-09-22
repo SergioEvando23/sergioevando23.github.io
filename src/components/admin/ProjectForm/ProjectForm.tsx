@@ -30,6 +30,7 @@ import {
   type LocalProjectImage,
 } from '@/services/firebase/projectImages';
 import type { StudyProjectInput } from '@/types/firebase/studyProject';
+import { isValidProjectUrl } from '@/services/study/projectPreview';
 
 type FormErrors = Partial<Record<keyof StudyProjectInput | 'images', string>>;
 
@@ -47,6 +48,8 @@ const initialInput: StudyProjectInput = {
   date: '',
   githubUrl: '',
   portfolioEligible: true,
+  demoUrl: '',
+  preview: { enabled: false, type: 'iframe' },
 };
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -190,6 +193,10 @@ export function ProjectForm() {
 
     if (!input.githubUrl.startsWith('https://github.com/')) {
       nextErrors.githubUrl = textos.admin.form.errors.invalidGithub;
+    }
+
+    if (input.preview?.enabled && !isValidProjectUrl(input.demoUrl)) {
+      nextErrors.demoUrl = textos.admin.form.errors.invalidDemoUrl;
     }
 
     if (images.length === 0) {
@@ -344,6 +351,13 @@ export function ProjectForm() {
             onChange={(event) => update('githubUrl', event.target.value)}
             value={input.githubUrl}
           />
+          <TextField
+            error={Boolean(errors.demoUrl)}
+            helperText={errors.demoUrl ?? textos.admin.form.helpers.demoUrl}
+            label={textos.admin.form.fields.demoUrl}
+            onChange={(event) => update('demoUrl', event.target.value)}
+            value={input.demoUrl}
+          />
         </div>
 
         <div className="flex flex-col gap-3 rounded-[var(--radius-lg)] border border-border bg-surface/80 p-4">
@@ -474,6 +488,10 @@ export function ProjectForm() {
             />
           }
           label={textos.admin.form.fields.portfolioEligible}
+        />
+        <FormControlLabel
+          control={<Checkbox checked={input.preview?.enabled === true} onChange={(event) => update('preview', { enabled: event.target.checked, type: 'iframe' })} />}
+          label={textos.admin.form.fields.previewEnabled}
         />
 
         <Button

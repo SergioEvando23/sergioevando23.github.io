@@ -1,4 +1,4 @@
-import type { StudyProject } from '@/types/firebase/studyProject';
+import type { StudyProject, StudyProjectPreview } from '@/types/firebase/studyProject';
 
 export interface StudyPayload {
   id: string;
@@ -14,6 +14,8 @@ export interface StudyPayload {
   date: string;
   githubUrl: string;
   portfolioEligible: boolean;
+  demoUrl?: string;
+  preview?: StudyProjectPreview;
   coverImage?: string;
   images?: string[];
 }
