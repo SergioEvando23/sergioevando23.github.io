@@ -42,6 +42,25 @@ function readStringArray(record: Record<string, unknown>, key: string) {
   return value.filter((item): item is string => typeof item === 'string');
 }
 
+function normalizePreview(value: unknown): StudyProject['preview'] {
+  if (!isRecord(value) || value.enabled !== true || value.type !== 'iframe') {
+    return undefined;
+  }
+
+  const sandbox = Array.isArray(value.sandbox)
+    ? value.sandbox.filter((item): item is string => typeof item === 'string')
+    : undefined;
+
+  return {
+    enabled: true,
+    type: 'iframe',
+    ...(sandbox?.length ? { sandbox } : {}),
+    ...(typeof value.allowFullscreen === 'boolean'
+      ? { allowFullscreen: value.allowFullscreen }
+      : {}),
+  };
+}
+
 function legacyImageObjects(value: unknown): StudyProjectImage[] {
   const images = Array.isArray(value)
     ? value
@@ -123,6 +142,8 @@ export function normalizeStudyProject(id: string, value: unknown): StudyProject 
     date: readString(value, 'date'),
     githubUrl: readString(value, 'githubUrl'),
     portfolioEligible: readBoolean(value, 'portfolioEligible'),
+    demoUrl: readString(value, 'demoUrl') || undefined,
+    preview: normalizePreview(value.preview),
     coverImage: imageData.coverImage,
     images: imageData.images,
     galleryImages: imageData.galleryImages,
@@ -147,6 +168,7 @@ export function serializeStudyPayload(study: StudyPayload): StudyPayload {
     completedAt: study.completedAt.trim(),
     date: study.date.trim(),
     githubUrl: study.githubUrl.trim(),
+    demoUrl: study.demoUrl?.trim(),
     coverImage: study.coverImage?.trim(),
     images: study.images?.map((image) => image.trim()).filter(Boolean),
   };

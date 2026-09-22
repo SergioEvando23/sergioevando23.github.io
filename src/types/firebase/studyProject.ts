@@ -2,6 +2,13 @@ import type { Timestamp } from 'firebase/firestore';
 
 export type StudyProjectTimestamp = Timestamp | string | number | null;
 
+export interface StudyProjectPreview {
+  enabled: boolean;
+  type: 'iframe';
+  sandbox?: string[];
+  allowFullscreen?: boolean;
+}
+
 export interface StudyProjectInput {
   id: string;
   repository: string;
@@ -16,6 +23,8 @@ export interface StudyProjectInput {
   date: string;
   githubUrl: string;
   portfolioEligible: boolean;
+  demoUrl?: string;
+  preview?: StudyProjectPreview;
   coverImage?: string;
   images?: string[];
 }
