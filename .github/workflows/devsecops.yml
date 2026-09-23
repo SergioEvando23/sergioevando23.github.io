@@ -36,6 +36,11 @@ jobs:
           name: static-site-${{ github.sha }}
           path: out
           retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: coverage-${{ github.sha }}
+          path: coverage/lcov.info
+          retention-days: 7
 
   sonar:
     name: Sonar quality gate
@@ -50,6 +55,10 @@ jobs:
         with:
           name: static-site-${{ github.sha }}
           path: out
+      - uses: actions/download-artifact@v4
+        with:
+          name: coverage-${{ github.sha }}
+          path: coverage
       - uses: actions/checkout@v4
       - uses: SonarSource/sonarqube-scan-action@v5
         env:
