@@ -18,6 +18,20 @@ export function isValidProjectUrl(value: string | undefined): value is string {
   }
 }
 
+export function createProjectPreview(
+  demoUrl: string | undefined,
+  current?: StudyProject['preview'],
+): NonNullable<StudyProject['preview']> {
+  return {
+    enabled: isValidProjectUrl(demoUrl),
+    type: 'iframe',
+    ...(current?.sandbox?.length ? { sandbox: current.sandbox } : {}),
+    ...(typeof current?.allowFullscreen === 'boolean'
+      ? { allowFullscreen: current.allowFullscreen }
+      : {}),
+  };
+}
+
 export function canRunProject(project: StudyProject) {
   return project.preview?.enabled === true &&
     project.preview.type === 'iframe' &&

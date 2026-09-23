@@ -13,7 +13,6 @@ import StorageIcon from '@mui/icons-material/Storage';
 import MonitorHeartOutlinedIcon from '@mui/icons-material/MonitorHeartOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import { Carousel } from '@/components/carousel/Carousel';
-import { StudyGallery } from '@/components/gallery';
 import { useLanguage } from '@/components/language';
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
@@ -209,8 +208,6 @@ function HomeContent() {
             </div>
           </Container>
         </section>
-
-        <StudyGallery />
       </main>
       <Footer />
     </>
