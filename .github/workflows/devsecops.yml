@@ -30,6 +30,8 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run test:coverage
+      - name: Verify LCOV coverage report
+        run: test -f coverage/lcov.info
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
@@ -40,6 +42,7 @@ jobs:
         with:
           name: coverage-${{ github.sha }}
           path: coverage/lcov.info
+          if-no-files-found: error
           retention-days: 7
 
   sonar:
