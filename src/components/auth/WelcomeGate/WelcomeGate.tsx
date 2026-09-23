@@ -6,6 +6,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
+import { Logo } from '@/components/brand/Logo';
 import { ThemeSwitcher } from '@/components/theme';
 import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
@@ -75,9 +76,7 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
       <Container className="flex min-h-screen flex-col py-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-[var(--radius-lg)] bg-primary text-lg font-black text-primary-foreground shadow-[var(--shadow-glow)]">
-              {textos.brand.initials}
-            </div>
+            <Logo />
             <div>
               <p className="text-sm font-bold">{textos.brand.name}</p>
               <p className="text-xs text-text-muted">{textos.brand.location}</p>
