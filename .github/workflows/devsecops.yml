@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [main]
   push:
-    branches: [main]
+    branches: [main, 'feature/**']
   workflow_dispatch:
 
 permissions:
@@ -100,7 +100,7 @@ jobs:
 
   deploy_development:
     name: Deploy DSV
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: codeql
     runs-on: ubuntu-latest
     environment: development
@@ -123,7 +123,7 @@ jobs:
 
   deploy_homologation:
     name: Deploy HML
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: deploy_development
     runs-on: ubuntu-latest
     environment: homologation
@@ -145,7 +145,7 @@ jobs:
 
   e2e_homologation:
     name: E2E against HML
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: deploy_homologation
     runs-on: ubuntu-latest
     environment: homologation
@@ -170,7 +170,7 @@ jobs:
 
   deploy_production:
     name: Deploy production
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: e2e_homologation
     runs-on: ubuntu-latest
     environment:
