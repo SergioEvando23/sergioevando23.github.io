@@ -15,11 +15,12 @@ const firebaseDocumentation = {
   content: '# Tokens\n\nConteudo',
 };
 
-describe('studyDocumentationService', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
+function firebaseUrl(path: string) {
+  return new URL(`https://Sérgioevando23-default-rtdb.firebaseio.com${path}`).toString();
+}
 
+describe('studyDocumentationService', () => {
+  afterEach(() => vi.unstubAllGlobals());
   it('lists and sorts documentations from Realtime Database REST', async () => {
     const fetchMock = vi.fn(async () =>
       Response.json({
@@ -28,38 +29,35 @@ describe('studyDocumentationService', () => {
       }),
     );
     vi.stubGlobal('fetch', fetchMock);
-
     const documentations = await getAllDocumentations();
-
-    expect(fetchMock).toHaveBeenCalledWith(
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations.json',
-      { cache: 'no-store' },
-    );
+    expect(fetchMock).toHaveBeenCalledWith(firebaseUrl('/studyDocumentations.json'), {
+      cache: 'no-store',
+    });
     expect(documentations.map((documentation) => documentation.id)).toEqual([
       'newer',
       'older',
     ]);
   });
-
   it('loads a single documentation by id', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => Response.json(firebaseDocumentation)));
-
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json(firebaseDocumentation)),
+    );
     await expect(getDocumentationById('doc-1')).resolves.toMatchObject({
       id: 'doc-1',
       title: 'Tokens em LLMs',
     });
   });
-
   it('returns an empty list for a null response', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => Response.json(null)));
-
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json(null)),
+    );
     await expect(getAllDocumentations()).resolves.toEqual([]);
   });
-
   it('creates with POST, Firebase token, fixed author and server timestamp', async () => {
     const fetchMock = vi.fn(async () => Response.json({ name: '-firebase-id' }));
     vi.stubGlobal('fetch', fetchMock);
-
     const id = await createDocumentation(
       {
         title: ' Tokens em LLMs ',
@@ -68,10 +66,9 @@ describe('studyDocumentationService', () => {
       },
       'firebase-token',
     );
-
     expect(id).toBe('-firebase-id');
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations.json?auth=firebase-token',
+      firebaseUrl('/studyDocumentations.json?auth=firebase-token'),
       expect.objectContaining({
         method: 'POST',
         body: JSON.stringify({
@@ -84,39 +81,33 @@ describe('studyDocumentationService', () => {
       }),
     );
   });
-
   it('updates with PATCH and deletes with DELETE', async () => {
     const fetchMock = vi.fn(async () => Response.json({ ok: true }));
     vi.stubGlobal('fetch', fetchMock);
-
     await updateDocumentation(
       'doc-1',
       { title: 'Title', tags: ['React'], content: 'Content' },
       'firebase-token',
     );
     await deleteDocumentation('doc-1', 'firebase-token');
-
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations/doc-1.json?auth=firebase-token',
+      firebaseUrl('/studyDocumentations/doc-1.json?auth=firebase-token'),
       expect.objectContaining({ method: 'PATCH' }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations/doc-1.json?auth=firebase-token',
+      firebaseUrl('/studyDocumentations/doc-1.json?auth=firebase-token'),
       { method: 'DELETE' },
     );
   });
-
   it('rejects unauthorized responses and invalid create payloads', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(async () => new Response('{}', { status: 403 })),
     );
-
     await expect(getAllDocumentations()).rejects.toThrow('documentation-unauthorized');
   });
-
   it('rejects invalid inputs and missing tokens before writing', async () => {
     await expect(
       createDocumentation({ title: '', tags: ['React'], content: 'Content' }, 'token'),
@@ -131,10 +122,11 @@ describe('studyDocumentationService', () => {
       createDocumentation({ title: 'Title', tags: ['React'], content: 'Content' }, ''),
     ).rejects.toThrow('documentation-token-required');
   });
-
   it('rejects invalid Firebase create response', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => Response.json({ id: 'wrong' })));
-
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json({ id: 'wrong' })),
+    );
     await expect(
       createDocumentation(
         { title: 'Title', tags: ['React'], content: 'Content' },

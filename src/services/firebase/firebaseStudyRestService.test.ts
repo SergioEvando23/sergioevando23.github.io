@@ -25,10 +25,12 @@ const study: StudyPayload = {
   images: ['/images/studies/shopping-cart/cover.webp'],
 };
 
+function firebaseUrl(path: string) {
+  return new URL(`https://Sérgioevando23-default-rtdb.firebaseio.com${path}`).toString();
+}
+
 describe('firebaseStudyRestService', () => {
-  afterEach(() => {
-    vi.unstubAllGlobals();
-  });
+  afterEach(() => vi.unstubAllGlobals());
 
   it('loads eligible studies from the Realtime Database REST endpoint', async () => {
     const fetchMock = vi.fn(async () =>
@@ -37,15 +39,11 @@ describe('firebaseStudyRestService', () => {
         'shopping-cart': study,
       }),
     );
-
     vi.stubGlobal('fetch', fetchMock);
-
     const projects = await listPublicStudyProjectsFromRest();
-
-    expect(fetchMock).toHaveBeenCalledWith(
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/study.json',
-      { cache: 'no-store' },
-    );
+    expect(fetchMock).toHaveBeenCalledWith(firebaseUrl('/study.json'), {
+      cache: 'no-store',
+    });
     expect(projects).toHaveLength(1);
     expect(projects[0]?.id).toBe('shopping-cart');
     expect(projects[0]?.galleryImages[0]?.url).toBe(study.coverImage);
@@ -54,11 +52,9 @@ describe('firebaseStudyRestService', () => {
   it('creates studies with PUT and the Firebase ID token', async () => {
     const fetchMock = vi.fn(async () => Response.json(study));
     vi.stubGlobal('fetch', fetchMock);
-
     await createStudy(study, 'firebase-token');
-
     expect(fetchMock).toHaveBeenCalledWith(
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
+      firebaseUrl('/study/shopping-cart.json?auth=firebase-token'),
       expect.objectContaining({ method: 'PUT' }),
     );
   });
@@ -66,25 +62,25 @@ describe('firebaseStudyRestService', () => {
   it('edits studies with PATCH and deletes with DELETE', async () => {
     const fetchMock = vi.fn(async () => Response.json(study));
     vi.stubGlobal('fetch', fetchMock);
-
     await updateStudy(study, 'firebase-token');
     await deleteStudy(study.id, 'firebase-token');
-
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
+      firebaseUrl('/study/shopping-cart.json?auth=firebase-token'),
       expect.objectContaining({ method: 'PATCH' }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      'https://Sérgioevando23-default-rtdb.firebaseio.com/study/shopping-cart.json?auth=firebase-token',
+      firebaseUrl('/study/shopping-cart.json?auth=firebase-token'),
       { method: 'DELETE' },
     );
   });
 
   it('returns an empty list when the REST endpoint has no studies', async () => {
-    vi.stubGlobal('fetch', vi.fn(async () => Response.json(null)));
-
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => Response.json(null)),
+    );
     await expect(listPublicStudyProjectsFromRest()).resolves.toEqual([]);
   });
 });
