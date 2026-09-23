@@ -189,7 +189,7 @@ jobs:
         with:
           name: static-site-${{ github.sha }}
           path: out
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: out
       - uses: actions/deploy-pages@v4
