@@ -10,7 +10,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useAuth } from '@/components/auth';
+import { UserAvatar, useAuth } from '@/components/auth';
+import { Logo } from '@/components/brand/Logo';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { ThemeSwitcher } from '@/components/theme';
 import { Container } from '@/components/ui/Container';
@@ -55,13 +56,14 @@ export function Header() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-overlay backdrop-blur-xl">
       <Container className="flex h-[var(--header-height)] items-center justify-between gap-4">
-        <Link
-          aria-label={textos.brand.homeLabel}
-          className="text-xl font-black tracking-normal text-text"
-          href="/"
-        >
-          {textos.brand.initials}.
-        </Link>
+        <div className="flex min-w-0 items-center gap-2">
+          <Link aria-label={textos.brand.homeLabel} href="/">
+            <Logo />
+          </Link>
+          {isAuthenticated ? (
+            <UserAvatar email={user?.email ?? null} photoUrl={user?.photoURL ?? null} />
+          ) : null}
+        </div>
 
         <nav
           aria-label={textos.accessibility.mainNavigation}
