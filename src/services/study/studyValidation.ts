@@ -1,4 +1,5 @@
 import type { StudyPayload } from '@/services/firebase/studyRestTypes';
+import { isValidProjectUrl } from './projectPreview';
 
 export type StudyFormErrors = Partial<Record<keyof StudyPayload | 'githubToken', string>>;
 
@@ -30,6 +31,8 @@ export function emptyStudyPayload(): StudyPayload {
     date: '',
     githubUrl: '',
     portfolioEligible: true,
+    demoUrl: '',
+    preview: { enabled: false, type: 'iframe' },
     coverImage: '',
     images: [],
   };
@@ -70,6 +73,10 @@ export function validateStudyPayload(study: StudyPayload) {
 
   if (study.githubUrl && !isGithubUrl(study.githubUrl)) {
     errors.githubUrl = 'Informe uma URL valida do GitHub.';
+  }
+
+  if (study.demoUrl && !isValidProjectUrl(study.demoUrl)) {
+    errors.demoUrl = 'Informe uma URL HTTPS valida para executar o projeto.';
   }
 
   if (study.technologies.length === 0) {

@@ -30,7 +30,7 @@ import {
   type LocalProjectImage,
 } from '@/services/firebase/projectImages';
 import type { StudyProjectInput } from '@/types/firebase/studyProject';
-import { isValidProjectUrl } from '@/services/study/projectPreview';
+import { createProjectPreview, isValidProjectUrl } from '@/services/study/projectPreview';
 
 type FormErrors = Partial<Record<keyof StudyProjectInput | 'images', string>>;
 
@@ -92,7 +92,15 @@ export function ProjectForm() {
     key: Key,
     value: StudyProjectInput[Key],
   ) => {
-    setInput((current) => ({ ...current, [key]: value }));
+    setInput((current) =>
+      key === 'demoUrl'
+        ? {
+            ...current,
+            demoUrl: value as string,
+            preview: createProjectPreview(value as string, current.preview),
+          }
+        : { ...current, [key]: value },
+    );
     setSuccess(false);
   };
 
@@ -195,7 +203,7 @@ export function ProjectForm() {
       nextErrors.githubUrl = textos.admin.form.errors.invalidGithub;
     }
 
-    if (input.preview?.enabled && !isValidProjectUrl(input.demoUrl)) {
+    if (input.demoUrl && !isValidProjectUrl(input.demoUrl)) {
       nextErrors.demoUrl = textos.admin.form.errors.invalidDemoUrl;
     }
 
@@ -488,10 +496,6 @@ export function ProjectForm() {
             />
           }
           label={textos.admin.form.fields.portfolioEligible}
-        />
-        <FormControlLabel
-          control={<Checkbox checked={input.preview?.enabled === true} onChange={(event) => update('preview', { enabled: event.target.checked, type: 'iframe' })} />}
-          label={textos.admin.form.fields.previewEnabled}
         />
 
         <Button

@@ -39,6 +39,8 @@ vi.mock('@/services/firebase/firebaseStudyRestService', () => ({
       completedAt: '2022-01-14',
       date: '2022-01-14',
       githubUrl: 'https://github.com/SérgioEvando23/project-trybe-shopping-cart',
+      demoUrl: 'https://example.com/shopping-cart',
+      preview: { enabled: true, type: 'iframe' },
       portfolioEligible: true,
       coverImage: '/images/studies/shopping-cart/cover.webp',
       images: ['/images/studies/shopping-cart/cover.webp'],
@@ -107,5 +109,8 @@ describe('StudyAdminPage', () => {
 
     expect(screen.getByLabelText('Titulo')).toHaveValue('Shopping Cart');
     expect(screen.getByLabelText('ID')).toHaveValue('shopping-cart');
+    expect(screen.getByLabelText('URL da demonstracao')).toHaveValue(
+      'https://example.com/shopping-cart',
+    );
   });
 });

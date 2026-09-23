@@ -45,6 +45,7 @@ import {
   validateStudyPayload,
   type StudyFormErrors,
 } from '@/services/study/studyValidation';
+import { createProjectPreview } from '@/services/study/projectPreview';
 import type { StudyProject } from '@/types/firebase/studyProject';
 
 const ADMIN_EMAIL = 'sergioevandocosta@gmail.com';
@@ -83,6 +84,8 @@ function projectToPayload(project: StudyProject): StudyPayload {
     date: project.date,
     githubUrl: project.githubUrl,
     portfolioEligible: project.portfolioEligible,
+    demoUrl: project.demoUrl ?? '',
+    preview: createProjectPreview(project.demoUrl, project.preview),
     coverImage: project.coverImage,
     images: project.images ?? [],
   };
@@ -172,10 +175,16 @@ export function StudyAdminPage() {
     key: Key,
     value: StudyPayload[Key],
   ) => {
-    setForm((current) => ({
-      ...current,
-      [key]: key === 'id' && !editingId ? slugifyStudyId(String(value)) : value,
-    }));
+    setForm((current) => {
+      const nextValue = key === 'id' && !editingId ? slugifyStudyId(String(value)) : value;
+      return key === 'demoUrl'
+        ? {
+            ...current,
+            demoUrl: nextValue as string,
+            preview: createProjectPreview(nextValue as string, current.preview),
+          }
+        : { ...current, [key]: nextValue };
+    });
     setDirty(true);
     setStatus(null);
   };
@@ -315,7 +324,12 @@ export function StudyAdminPage() {
       }
 
       const token = await user.getIdToken(true);
-      const payload = { ...form, images: imagePaths, coverImage };
+      const payload = {
+        ...form,
+        images: imagePaths,
+        coverImage,
+        preview: createProjectPreview(form.demoUrl, form.preview),
+      };
 
       if (editingId) {
         await updateStudy(payload, token);
@@ -526,6 +540,13 @@ export function StudyAdminPage() {
               label={textos.studyAdmin.fields.githubUrl}
               onChange={(event) => updateField('githubUrl', event.target.value)}
               value={form.githubUrl}
+            />
+            <TextField
+              error={Boolean(errors.demoUrl)}
+              helperText={errors.demoUrl ?? textos.studyAdmin.fields.demoUrlHelp}
+              label={textos.studyAdmin.fields.demoUrl}
+              onChange={(event) => updateField('demoUrl', event.target.value)}
+              value={form.demoUrl}
             />
           </div>
 
