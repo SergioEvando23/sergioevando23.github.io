@@ -31,12 +31,12 @@ jobs:
       - run: npm run typecheck
       - run: npm run test:coverage
       - run: npm run build
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: static-site-${{ github.sha }}
           path: out
           retention-days: 7
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: coverage-${{ github.sha }}
           path: coverage/lcov.info
@@ -161,7 +161,7 @@ jobs:
       - run: npm run test:e2e
         env:
           E2E_BASE_URL: ${{ vars.DEPLOY_URL }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with:
           name: playwright-report-${{ github.sha }}
