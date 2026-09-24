@@ -5,6 +5,16 @@ import {
   type SelectedStudyImage,
 } from './githubImageService';
 
+const DEFAULT_OWNER = 'SérgioEvando23';
+const DEFAULT_REPO = 'Sérgioevando23.github.io';
+
+function githubContentsUrl(path: string) {
+  const owner = process.env.NEXT_PUBLIC_GITHUB_OWNER ?? DEFAULT_OWNER;
+  const repo = process.env.NEXT_PUBLIC_GITHUB_REPO ?? DEFAULT_REPO;
+
+  return `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path).replaceAll('%2F', '/')}`;
+}
+
 describe('githubImageService', () => {
   afterEach(() => {
     vi.unstubAllGlobals();
@@ -42,7 +52,7 @@ describe('githubImageService', () => {
     expect(result[0]?.publicPath).toBe('/images/studies/shopping-cart/cover.webp');
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      'https://api.github.com/repos/SérgioEvando23/Sérgioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
+      githubContentsUrl('public/images/studies/shopping-cart/cover.webp'),
       expect.objectContaining({
         headers: expect.objectContaining({ Authorization: 'Bearer github-token' }),
         method: 'PUT',
@@ -72,12 +82,12 @@ describe('githubImageService', () => {
 
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      'https://api.github.com/repos/SérgioEvando23/Sérgioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
+      githubContentsUrl('public/images/studies/shopping-cart/cover.webp'),
       expect.objectContaining({ headers: expect.any(Object) }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       3,
-      'https://api.github.com/repos/SérgioEvando23/Sérgioevando23.github.io/contents/public/images/studies/shopping-cart/cover.webp',
+      githubContentsUrl('public/images/studies/shopping-cart/cover.webp'),
       expect.objectContaining({
         body: expect.stringContaining('existing-sha'),
         method: 'PUT',
