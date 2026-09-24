@@ -5,7 +5,10 @@ test('carousel supports mouse, indicators, keyboard and mobile layout', async ({
 }) => {
   await page.addInitScript(() => {
     localStorage.setItem('Sérgio-portfolio-language', 'portugues');
-    localStorage.setItem('Sérgio-portfolio-entry-choice', 'visitor');
+    localStorage.setItem(
+      'Sérgio-portfolio-entry-choice',
+      JSON.stringify({ choice: 'visitor', expiresAt: Date.now() + 48 * 60 * 60 * 1000 }),
+    );
   });
   await page.goto('/');
   await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();
