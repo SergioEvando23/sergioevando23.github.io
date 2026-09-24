@@ -4,7 +4,9 @@ The `DevSecOps pipeline` promotes one validated static artifact through developm
 
 ## Required GitHub setup
 
-Create `development`, `homologation` and `production` environments. Set `FIREBASE_PROJECT_ID` and `DEPLOY_URL` as environment variables. Store `FIREBASE_SERVICE_ACCOUNT` only as an environment/repository secret.
+Create `development`, `homologation` and `production` environments. The Firebase deployment jobs use environment-scoped configuration: in both `development` and `homologation`, create the `FIREBASE_SERVICE_ACCOUNT` secret and the `FIREBASE_PROJECT_ID` and `DEPLOY_URL` variables. The environment names must match the workflow exactly.
+
+`FIREBASE_SERVICE_ACCOUNT` must contain the complete JSON key of the Firebase/GCP service account for that environment's project. In GitHub, open **Settings → Environments → development** (then repeat for `homologation`), select **Add secret**, use that exact name, and paste the complete JSON. Do not put the JSON in the repository, workflow, variables, or logs. Set `FIREBASE_PROJECT_ID` to the key's `project_id` and `DEPLOY_URL` to the URL checked after deployment.
 
 Create Firebase Hosting targets named `development` and `homologation` for isolated Firebase projects/sites. Do not reuse production Firebase data. Production remains GitHub Pages.
 

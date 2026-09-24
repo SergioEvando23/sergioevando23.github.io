@@ -77,6 +77,23 @@ jobs:
         with:
           name: static-site-${{ github.sha }}
           path: out
+      - name: Validate Firebase deployment configuration
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
+          DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+        run: |
+          for name in FIREBASE_SERVICE_ACCOUNT FIREBASE_PROJECT_ID DEPLOY_URL; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing required environment configuration: $name."
+              exit 1
+            fi
+          done
+
+          node --input-type=module -e 'try { const key = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT); if (!key.project_id || !key.client_email || !key.private_key || key.project_id !== process.env.FIREBASE_PROJECT_ID) process.exit(1); } catch { process.exit(1); }' || {
+            echo "::error::FIREBASE_SERVICE_ACCOUNT must be a valid service-account JSON key for FIREBASE_PROJECT_ID."
+            exit 1
+          }
       - name: Deploy validated artifact
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -100,6 +117,23 @@ jobs:
         with:
           name: static-site-${{ github.sha }}
           path: out
+      - name: Validate Firebase deployment configuration
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
+          DEPLOY_URL: ${{ vars.DEPLOY_URL }}
+        run: |
+          for name in FIREBASE_SERVICE_ACCOUNT FIREBASE_PROJECT_ID DEPLOY_URL; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Missing required environment configuration: $name."
+              exit 1
+            fi
+          done
+
+          node --input-type=module -e 'try { const key = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT); if (!key.project_id || !key.client_email || !key.private_key || key.project_id !== process.env.FIREBASE_PROJECT_ID) process.exit(1); } catch { process.exit(1); }' || {
+            echo "::error::FIREBASE_SERVICE_ACCOUNT must be a valid service-account JSON key for FIREBASE_PROJECT_ID."
+            exit 1
+          }
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
