@@ -18,7 +18,7 @@ test('first visit shows welcome screen and visitor can enter portfolio', async (
 
   await page.getByRole('button', { name: 'Continue as visitor' }).click();
   await expect(page.getByRole('heading', { name: /Fullstack Web/ })).toBeVisible();
-  await expect(page.getByRole('heading', { name: 'Study gallery' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'View projects' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Insert projects' })).not.toBeVisible();
 
   await page.goto('/admin/projects/new');

@@ -55,18 +55,18 @@ test('language selection persists and keeps theme carousel and resume links', as
   const portugueseResume = page.getByRole('link', { name: 'Download resume PT' });
   await expect(portugueseResume).toHaveAttribute(
     'href',
-    '/documents/CurriculoSérgioCosta.pdf',
+    '/documents/CurriculoSergioCosta.pdf',
   );
-  await expect(portugueseResume).toHaveAttribute('download', 'CurriculoSérgioCosta.pdf');
+  await expect(portugueseResume).toHaveAttribute('download', 'CurriculoSergioCosta.pdf');
   await expect(page.getByRole('link', { name: 'Download resume EN' })).toHaveAttribute(
     'download',
-    'SérgioCostaResume.pdf',
+    'SergioCostaResume.pdf',
   );
 
   const portugueseResponse = await page.request.get(
-    '/documents/CurriculoSérgioCosta.pdf',
+    '/documents/CurriculoSergioCosta.pdf',
   );
-  const englishResponse = await page.request.get('/documents/SérgioCostaResume.pdf');
+  const englishResponse = await page.request.get('/documents/SergioCostaResume.pdf');
   expect(portugueseResponse.status()).toBe(200);
   expect(englishResponse.status()).toBe(200);
 

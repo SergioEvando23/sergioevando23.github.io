@@ -2,11 +2,11 @@ import type { Idioma } from '@/i18n/dicionario';
 
 export const curriculos = {
   portugues: {
-    href: '/documents/CurriculoSérgioCosta.pdf',
-    fileName: 'CurriculoSérgioCosta.pdf',
+    href: '/documents/CurriculoSergioCosta.pdf',
+    fileName: 'CurriculoSergioCosta.pdf',
   },
   ingles: {
-    href: '/documents/SérgioCostaResume.pdf',
-    fileName: 'SérgioCostaResume.pdf',
+    href: '/documents/SergioCostaResume.pdf',
+    fileName: 'SergioCostaResume.pdf',
   },
 } as const satisfies Record<Idioma, { href: string; fileName: string }>;
