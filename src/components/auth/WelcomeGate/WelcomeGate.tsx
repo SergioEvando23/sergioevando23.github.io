@@ -13,10 +13,48 @@ import { Container } from '@/components/ui/Container';
 import { useAuth } from '../AuthProvider';
 
 export const ENTRY_CHOICE_STORAGE_KEY = 'Sérgio-portfolio-entry-choice';
+export const ENTRY_CHOICE_TTL_MS = 48 * 60 * 60 * 1000;
 export type EntryChoice = 'google' | 'visitor';
+
+interface StoredEntryChoice {
+  choice: EntryChoice;
+  expiresAt: number;
+}
 
 function isEntryChoice(value: unknown): value is EntryChoice {
   return value === 'google' || value === 'visitor';
+}
+
+function readEntryChoice(value: string | null): EntryChoice | null {
+  if (!value) {
+    return null;
+  }
+
+  try {
+    const stored = JSON.parse(value) as Partial<StoredEntryChoice>;
+
+    if (
+      isEntryChoice(stored.choice) &&
+      typeof stored.expiresAt === 'number' &&
+      stored.expiresAt > Date.now()
+    ) {
+      return stored.choice;
+    }
+  } catch {
+    // Legacy and malformed values must be confirmed again.
+  }
+
+  localStorage.removeItem(ENTRY_CHOICE_STORAGE_KEY);
+  return null;
+}
+
+function storeEntryChoice(choice: EntryChoice) {
+  const value: StoredEntryChoice = {
+    choice,
+    expiresAt: Date.now() + ENTRY_CHOICE_TTL_MS,
+  };
+
+  localStorage.setItem(ENTRY_CHOICE_STORAGE_KEY, JSON.stringify(value));
 }
 
 export function WelcomeGate({ children }: { children: React.ReactNode }) {
@@ -28,8 +66,7 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
-      const stored = localStorage.getItem(ENTRY_CHOICE_STORAGE_KEY);
-      setChoice(isEntryChoice(stored) ? stored : null);
+      setChoice(readEntryChoice(localStorage.getItem(ENTRY_CHOICE_STORAGE_KEY)));
       setMounted(true);
     }, 0);
 
@@ -37,14 +74,14 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
   }, []);
 
   const continueAsVisitor = () => {
-    localStorage.setItem(ENTRY_CHOICE_STORAGE_KEY, 'visitor');
+    storeEntryChoice('visitor');
     setChoice('visitor');
   };
 
   const signIn = async () => {
     try {
       await signInWithGoogle();
-      localStorage.setItem(ENTRY_CHOICE_STORAGE_KEY, 'google');
+      storeEntryChoice('google');
       setChoice('google');
     } catch {
       localStorage.removeItem(ENTRY_CHOICE_STORAGE_KEY);
