@@ -39,13 +39,10 @@ describe('Home i18n integration', () => {
     expect(englishResume).toHaveAttribute('download', curriculos.ingles.fileName);
   });
 
-  it('renders the highlighted gallery title and documentation links', () => {
+  it('renders the study gallery navigation and documentation links', () => {
     renderHome();
 
-    expect(
-      screen.getByRole('heading', { name: 'Galeria de projetos' }),
-    ).toBeInTheDocument();
-    expect(screen.getByText('projetos')).toHaveClass('text-primary');
+    expect(screen.getAllByRole('link', { name: 'Galeria de projetos' })).toHaveLength(2);
 
     const documentationLinks = screen.getAllByRole('link', {
       name: 'Leia documentações de estudos',
