@@ -1,8 +1,6 @@
 name: DevSecOps pipeline
 
 on:
-  pull_request:
-    branches: [main]
   push:
     branches: [main]
   workflow_dispatch:
@@ -17,7 +15,7 @@ concurrency:
 jobs:
   build_test:
     name: Build, tests and coverage
-    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
@@ -104,7 +102,7 @@ jobs:
 
   e2e_build:
     name: E2E against build artifact
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     needs: codeql
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -132,7 +130,7 @@ jobs:
 
   deploy_production:
     name: Deploy production
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'
     needs: e2e_build
     runs-on: ubuntu-latest
     environment:
