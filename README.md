@@ -38,7 +38,12 @@ Nao deixe `Deploy from a branch` apontando para `main /(root)`. Essa configuraca
 faz o Pages processar os arquivos-fonte com Jekyll e pode renderizar o
 `README.md` no lugar da aplicacao.
 
-O workflow `.github/workflows/deploy-pages.yml` executa:
+O workflow `.github/workflows/devsecops.yml` e o responsavel pelo deploy automatico
+em producao. O workflow `.github/workflows/deploy-pages.yml` permanece disponivel
+somente para execucao manual de recuperacao. Ambos validam as variaveis publicas
+antes de gerar um artefato estatico.
+
+O fluxo oficial executa:
 
 ```text
 checkout -> setup Node -> configure Pages -> npm ci -> validacoes -> npm run build
@@ -68,8 +73,8 @@ NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 NEXT_PUBLIC_FIREBASE_APP_ID
 ```
 
-Variavel opcional para sobrescrever a URL REST do Realtime Database usada pela
-Galeria de projetos:
+Variaveis publicas adicionais exigidas pelo build para os recursos de banco,
+galeria e chat:
 
 ```text
 NEXT_PUBLIC_FIREBASE_DATABASE_URL
@@ -81,6 +86,13 @@ NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL
 Esses valores `NEXT_PUBLIC_*` sao incorporados ao bundle estatico durante o
 `npm run build`. O workflow falha cedo se algum nome estiver ausente e nao imprime
 valores no log. Use Secrets somente se houver uma politica interna exigindo isso.
+Cadastre-os como Repository Actions Variables: o job de build do DevSecOps nao
+usa o environment `production` e, portanto, nao acessa variaveis exclusivas desse
+environment.
+
+O DevSecOps e o unico deploy automatico em push na `main`. O workflow
+`deploy-pages.yml` e manual, destinado a recuperacao controlada, para impedir que
+um segundo artefato sobrescreva a versao publicada.
 
 No Firebase Authentication, autorize tambem o dominio:
 
