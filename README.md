@@ -250,7 +250,7 @@ A rota publica `/study` e a secao `Galeria de projetos` consomem o Realtime
 Database via REST:
 
 ```text
-GET https://Sérgioevando23-default-rtdb.firebaseio.com/study.json
+GET https://sergioevando23-default-rtdb.firebaseio.com/study.json
 ```
 
 A aplicacao normaliza o objeto retornado, lista somente registros com
@@ -275,8 +275,8 @@ estudo com:
 Os dados reais vem do Realtime Database, sem exigir novo build:
 
 ```text
-GET https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations.json
-GET https://Sérgioevando23-default-rtdb.firebaseio.com/studyDocumentations/{id}.json
+GET https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations.json
+GET https://sergioevando23-default-rtdb.firebaseio.com/studyDocumentations/{id}.json
 ```
 
 A raiz persistida e:

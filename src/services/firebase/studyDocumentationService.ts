@@ -5,7 +5,7 @@ import {
 } from '@/types/firebase/studyDocumentation';
 
 const DEFAULT_REALTIME_DATABASE_URL =
-  'https://Sérgioevando23-default-rtdb.firebaseio.com';
+  'https://sergioevando23-default-rtdb.firebaseio.com';
 const databaseUrl =
   process.env.NEXT_PUBLIC_FIREBASE_DATABASE_URL ?? DEFAULT_REALTIME_DATABASE_URL;
 const SERVER_TIMESTAMP = { '.sv': 'timestamp' } as const;

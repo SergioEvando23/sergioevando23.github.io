@@ -16,7 +16,7 @@ const firebaseDocumentation = {
 };
 
 function firebaseUrl(path: string) {
-  return new URL(`https://Sérgioevando23-default-rtdb.firebaseio.com${path}`).toString();
+  return new URL(`https://sergioevando23-default-rtdb.firebaseio.com${path}`).toString();
 }
 
 describe('studyDocumentationService', () => {
