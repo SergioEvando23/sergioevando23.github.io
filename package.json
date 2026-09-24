@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest --exclude src/test/rules/**",
     "test:run": "vitest run --exclude src/test/rules/**",
-    "test:coverage": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage --exclude src/test/rules/**",
     "test:e2e": "playwright test",
     "test:rules": "firebase emulators:exec --only firestore,database \"vitest run src/test/rules\"",
     "validate:i18n": "tsx scripts/validate-dicionario.ts",
