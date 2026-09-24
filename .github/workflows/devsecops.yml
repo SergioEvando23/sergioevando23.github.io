@@ -65,91 +65,10 @@ jobs:
           languages: javascript-typescript
       - uses: github/codeql-action/analyze@v3
 
-  deploy_development:
-    name: Deploy DSV
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+  e2e_build:
+    name: E2E against build artifact
     needs: codeql
     runs-on: ubuntu-latest
-    environment: development
-    timeout-minutes: 20
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: static-site-${{ github.sha }}
-          path: out
-      - name: Validate Firebase deployment configuration
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
-          DEPLOY_URL: ${{ vars.DEPLOY_URL }}
-        run: |
-          for name in FIREBASE_SERVICE_ACCOUNT FIREBASE_PROJECT_ID DEPLOY_URL; do
-            if [ -z "${!name}" ]; then
-              echo "::error::Missing required environment configuration: $name."
-              exit 1
-            fi
-          done
-
-          node --input-type=module -e 'try { const key = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT); if (!key.project_id || !key.client_email || !key.private_key || key.project_id !== process.env.FIREBASE_PROJECT_ID) process.exit(1); } catch { process.exit(1); }' || {
-            echo "::error::FIREBASE_SERVICE_ACCOUNT must be a valid service-account JSON key for FIREBASE_PROJECT_ID."
-            exit 1
-          }
-      - name: Deploy validated artifact
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ vars.FIREBASE_PROJECT_ID }}
-          target: development
-      - run: curl --fail --retry 5 --retry-delay 5 --max-time 60 "$DSV_URL"
-        env:
-          DSV_URL: ${{ vars.DEPLOY_URL }}
-
-  deploy_homologation:
-    name: Deploy HML
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: deploy_development
-    runs-on: ubuntu-latest
-    environment: homologation
-    timeout-minutes: 20
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: static-site-${{ github.sha }}
-          path: out
-      - name: Validate Firebase deployment configuration
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_PROJECT_ID: ${{ vars.FIREBASE_PROJECT_ID }}
-          DEPLOY_URL: ${{ vars.DEPLOY_URL }}
-        run: |
-          for name in FIREBASE_SERVICE_ACCOUNT FIREBASE_PROJECT_ID DEPLOY_URL; do
-            if [ -z "${!name}" ]; then
-              echo "::error::Missing required environment configuration: $name."
-              exit 1
-            fi
-          done
-
-          node --input-type=module -e 'try { const key = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT); if (!key.project_id || !key.client_email || !key.private_key || key.project_id !== process.env.FIREBASE_PROJECT_ID) process.exit(1); } catch { process.exit(1); }' || {
-            echo "::error::FIREBASE_SERVICE_ACCOUNT must be a valid service-account JSON key for FIREBASE_PROJECT_ID."
-            exit 1
-          }
-      - uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          projectId: ${{ vars.FIREBASE_PROJECT_ID }}
-          target: homologation
-      - run: curl --fail --retry 5 --retry-delay 5 --max-time 60 "$HML_URL"
-        env:
-          HML_URL: ${{ vars.DEPLOY_URL }}
-
-  e2e_homologation:
-    name: E2E against HML
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: deploy_homologation
-    runs-on: ubuntu-latest
-    environment: homologation
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -158,10 +77,14 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - uses: actions/download-artifact@v4
+        with:
+          name: static-site-${{ github.sha }}
+          path: out
       - run: npx playwright install --with-deps chromium
       - run: npm run test:e2e
         env:
-          E2E_BASE_URL: ${{ vars.DEPLOY_URL }}
+          E2E_USE_STATIC_BUILD: 'true'
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
@@ -172,7 +95,7 @@ jobs:
   deploy_production:
     name: Deploy production
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: e2e_homologation
+    needs: e2e_build
     runs-on: ubuntu-latest
     environment:
       name: production
