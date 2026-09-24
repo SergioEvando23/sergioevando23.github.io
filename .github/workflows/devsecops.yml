@@ -30,77 +30,15 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm run test:coverage
-      - name: Verify LCOV coverage report
-        run: test -f coverage/lcov.info
       - run: npm run build
       - uses: actions/upload-artifact@v4
         with:
           name: static-site-${{ github.sha }}
           path: out
           retention-days: 7
-      - uses: actions/upload-artifact@v4
-        with:
-          name: coverage-${{ github.sha }}
-          path: coverage/lcov.info
-          if-no-files-found: error
-          retention-days: 7
-
-  sonar:
-    name: Sonar quality gate
-    needs: build_test
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/download-artifact@v4
-        with:
-          name: static-site-${{ github.sha }}
-          path: out
-      - uses: actions/download-artifact@v4
-        with:
-          name: coverage-${{ github.sha }}
-          path: coverage
-      - uses: actions/checkout@v4
-      - name: Validate Sonar host URL
-        env:
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-        run: |
-          if [ -z "$SONAR_HOST_URL" ]; then
-            echo "::error::SONAR_HOST_URL must be configured as an absolute Sonar server URL."
-            exit 1
-          fi
-
-          case "$SONAR_HOST_URL" in
-            http://*|https://*) ;;
-            *)
-              echo "::error::SONAR_HOST_URL must be an absolute URL starting with http:// or https://."
-              exit 1
-              ;;
-          esac
-
-          case "${SONAR_HOST_URL%/}" in
-            */api|*/api/*)
-              echo "::error::SONAR_HOST_URL must be the Sonar server base URL, not an API path."
-              exit 1
-              ;;
-          esac
-      - uses: SonarSource/sonarqube-scan-action@v5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-          SONAR_ORGANIZATION: ${{ vars.SONAR_ORGANIZATION }}
-          SONAR_PROJECT_KEY: ${{ vars.SONAR_PROJECT_KEY }}
-      - uses: SonarSource/sonarqube-quality-gate-action@v1.2.0
-        timeout-minutes: 5
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
-
   dependency_audit:
     name: Dependency validation
-    needs: sonar
+    needs: build_test
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

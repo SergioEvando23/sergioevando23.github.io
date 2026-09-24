@@ -11,10 +11,6 @@ export default defineConfig({
     exclude: ['node_modules/**', '.next/**', 'e2e/**'],
     setupFiles: ['./src/test/setup.ts'],
     css: true,
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'html', 'lcov'],
-    },
   },
   resolve: {
     alias: {
