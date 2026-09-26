@@ -52,6 +52,7 @@ describe('Firebase client', () => {
   });
 
   it('reports the missing public Firebase configuration', () => {
+    Object.keys(config).forEach((name) => vi.stubEnv(name, ''));
     getApps.mockReturnValue([]);
 
     expect(hasFirebaseConfig()).toBe(false);
