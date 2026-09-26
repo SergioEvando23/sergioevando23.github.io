@@ -1,7 +1,7 @@
 import type { StudyPayload } from '@/services/firebase/studyRestTypes';
 import { isValidProjectUrl } from './projectPreview';
 
-export type StudyFormErrors = Partial<Record<keyof StudyPayload | 'githubToken', string>>;
+export type StudyFormErrors = Partial<Record<keyof StudyPayload, string>>;
 
 export const STUDY_CATEGORIES = ['frontend', 'backend', 'mobile', 'fullstack'] as const;
 export const STUDY_KINDS = ['course-project', 'personal-project', 'experiment'] as const;
