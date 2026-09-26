@@ -286,7 +286,7 @@ export function StudyAdminPage() {
     }
 
     if (!user) {
-      setErrors({ githubToken: textos.studyAdmin.errors.auth });
+      setStatus(textos.studyAdmin.errors.auth);
       return;
     }
 
