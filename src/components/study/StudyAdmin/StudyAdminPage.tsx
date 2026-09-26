@@ -7,6 +7,7 @@ import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import GoogleIcon from '@mui/icons-material/Google';
 import LogoutIcon from '@mui/icons-material/Logout';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 import {
   Alert,
   Checkbox,
@@ -619,9 +620,16 @@ export function StudyAdminPage() {
             <label className="text-sm font-bold text-text" htmlFor="study-images">
               {textos.studyAdmin.fields.images}
             </label>
+            <label
+              className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-[var(--color-primary-foreground)] shadow-[var(--shadow-glow)] transition-colors hover:bg-[var(--color-primary-hover)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary"
+              htmlFor="study-images"
+            >
+              <UploadFileIcon aria-hidden="true" fontSize="small" />
+              {textos.studyAdmin.fields.images}
+            </label>
             <input
               accept="image/png,image/jpeg,image/webp"
-              className="cursor-pointer text-sm text-text-muted file:mr-4 file:rounded-[var(--radius-md)] file:border-0 file:bg-[var(--color-primary)] file:px-4 file:py-2 file:font-semibold file:text-[var(--color-primary-foreground)] file:shadow-[var(--shadow-glow)] file:transition-colors hover:file:bg-[var(--color-primary-hover)]"
+              className="sr-only"
               id="study-images"
               multiple
               onChange={(event) => handleImages(event.target.files)}
