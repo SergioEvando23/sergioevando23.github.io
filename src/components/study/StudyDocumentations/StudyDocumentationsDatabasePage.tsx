@@ -175,64 +175,23 @@ export function StudyDocumentationsPage() {
       <section className="py-8 lg:py-12">
         <Container className="grid gap-8 xl:grid-cols-[minmax(320px,0.55fr)_minmax(0,1.45fr)]">
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4 lg:items-start">
-              <div
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-semibold text-text" htmlFor="documentation-tag-filter">
+                {textos.studyDocumentations.allResults}
+              </label>
+              <select
                 aria-label={textos.studyDocumentations.allResults}
-                className="flex flex-wrap gap-2"
+                className="min-h-12 w-full rounded-[var(--radius-lg)] border border-border bg-surface/80 px-4 text-sm font-semibold text-text focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                id="documentation-tag-filter"
+                onChange={(event) => setActiveTag(event.target.value)}
+                value={activeTag}
               >
-                {[ALL_TAG, ...availableTags].map((tag) => {
-                  const selected = activeTag === tag;
-                  const label =
-                    tag === ALL_TAG ? textos.studyDocumentations.filters.all : tag;
-
-                  return (
-                    <button
-                      aria-pressed={selected}
-                      className={cn(
-                        'inline-flex min-h-8 items-center gap-3 rounded-[var(--radius-full)] border px-8 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-30 focus-visible:outline-offset-3 focus-visible:outline-accent',
-                        selected
-                          ? 'border-primary bg-primary text-primary-foreground shadow-[var(--shadow-glow)]'
-                          : 'border-border bg-surface/80 text-text-muted hover:border-primary hover:text-primary',
-                      )}
-                      key={tag}
-                      onClick={() => setActiveTag(tag)}
-                      type="button"
-                    >
-                      <ArticleOutlinedIcon aria-hidden="true" fontSize="small" />
-                      {label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              <div className="flex flex-col gap-3 lg:flex-row">
-                <label className="relative block min-w-0 lg:w-96">
-                  <span className="sr-only">
-                    {textos.studyDocumentations.searchLabel}
-                  </span>
-                  <SearchIcon
-                    aria-hidden="true"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted"
-                    fontSize="small"
-                  />
-                  <input
-                    className="min-h-12 w-full rounded-[var(--radius-lg)] border border-border bg-surface/80 py-3 pl-12 pr-4 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
-                    onChange={(event) => setSearch(event.target.value)}
-                    placeholder={textos.studyDocumentations.searchPlaceholder}
-                    type="search"
-                    value={search}
-                  />
-                </label>
-                {adminAllowed ? (
-                  <Button
-                    href="/study/documentations/admin"
-                    leftIcon={<AddIcon aria-hidden="true" />}
-                    size="medium"
-                  >
-                    {textos.studyDocumentations.admin.newDocumentation}
-                  </Button>
-                ) : null}
-              </div>
+                {[ALL_TAG, ...availableTags].map((tag) => (
+                  <option key={tag} value={tag}>
+                    {tag === ALL_TAG ? textos.studyDocumentations.filters.all : tag}
+                  </option>
+                ))}
+              </select>
             </div>
 
             {loading ? (
@@ -318,10 +277,16 @@ export function StudyDocumentationsPage() {
             ) : null}
           </div>
 
-          <article
-            aria-label={textos.studyDocumentations.readerLabel}
-            className="sticky top-24 flex max-h-[calc(100vh-8rem)] min-h-[680px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]"
-          >
+          <div className="sticky top-24 flex flex-col gap-3">
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <label className="relative block min-w-0 flex-1">
+                <span className="sr-only">{textos.studyDocumentations.searchLabel}</span>
+                <SearchIcon aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" fontSize="small" />
+                <input className="min-h-12 w-full rounded-[var(--radius-lg)] border border-border bg-surface/80 py-3 pl-12 pr-4 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" onChange={(event) => setSearch(event.target.value)} placeholder={textos.studyDocumentations.searchPlaceholder} type="search" value={search} />
+              </label>
+              {adminAllowed ? <Button href="/study/documentations/admin" leftIcon={<AddIcon aria-hidden="true" />} size="medium">{textos.studyDocumentations.admin.newDocumentation}</Button> : null}
+            </div>
+          <article aria-label={textos.studyDocumentations.readerLabel} className="flex max-h-[calc(100vh-12rem)] min-h-[640px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]">
             {selectedDocumentation ? (
               <>
                 <div className="flex items-center justify-between gap-3 border-b border-border p-5">
@@ -397,7 +362,7 @@ export function StudyDocumentationsPage() {
             ) : (
               <div className="p-6 text-text-muted">{textos.studyDocumentations.empty}</div>
             )}
-          </article>
+          </article></div>
         </Container>
       </section>
     </main>
