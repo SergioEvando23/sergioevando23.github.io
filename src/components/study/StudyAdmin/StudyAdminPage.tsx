@@ -621,6 +621,7 @@ export function StudyAdminPage() {
             </label>
             <input
               accept="image/png,image/jpeg,image/webp"
+              className="cursor-pointer text-sm text-text-muted file:mr-4 file:rounded-[var(--radius-md)] file:border-0 file:bg-[var(--color-primary)] file:px-4 file:py-2 file:font-semibold file:text-[var(--color-primary-foreground)] file:shadow-[var(--shadow-glow)] file:transition-colors hover:file:bg-[var(--color-primary-hover)]"
               id="study-images"
               multiple
               onChange={(event) => handleImages(event.target.files)}
