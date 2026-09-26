@@ -33,10 +33,8 @@ import {
   updateStudy,
 } from '@/services/firebase/firebaseStudyRestService';
 import type { StudyPayload } from '@/services/firebase/studyRestTypes';
-import {
-  type SelectedStudyImage,
-  uploadStudyImagesToGithub,
-} from '@/services/github/githubImageService';
+import { uploadStudyImagesToCloudinary } from '@/services/cloudinary/cloudinaryImageService';
+import type { SelectedStudyImage } from '@/services/github/githubImageService';
 import {
   emptyStudyPayload,
   hasStudyErrors,
@@ -109,7 +107,6 @@ export function StudyAdminPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [errors, setErrors] = useState<StudyFormErrors>({});
   const [technology, setTechnology] = useState('');
-  const [githubToken, setGithubToken] = useState('');
   const [selectedImages, setSelectedImages] = useState<SelectedStudyImage[]>([]);
   const [status, setStatus] = useState<string | null>(null);
   const [loadError, setLoadError] = useState(false);
@@ -293,11 +290,6 @@ export function StudyAdminPage() {
       return;
     }
 
-    if (selectedImages.length > 0 && !githubToken.trim()) {
-      setErrors({ githubToken: textos.studyAdmin.errors.githubToken });
-      return;
-    }
-
     setSaving(true);
     setStatus(null);
 
@@ -315,10 +307,9 @@ export function StudyAdminPage() {
       let coverImage = form.coverImage ?? '';
 
       if (selectedImages.length > 0) {
-        const uploaded = await uploadStudyImagesToGithub(
+        const uploaded = await uploadStudyImagesToCloudinary(
           form.id,
           selectedImages,
-          githubToken.trim(),
         );
         imagePaths = uploaded.map((image) => image.publicPath);
         coverImage = imagePaths[0] ?? '';
@@ -373,7 +364,6 @@ export function StudyAdminPage() {
   };
 
   const logout = async () => {
-    setGithubToken('');
     resetForm();
     await signOut();
   };
@@ -606,15 +596,6 @@ export function StudyAdminPage() {
             }
             label={textos.studyAdmin.fields.portfolioEligible}
           />
-
-          <TextField
-            helperText={textos.studyAdmin.githubTokenHelp}
-            label={textos.studyAdmin.githubTokenLabel}
-            onChange={(event) => setGithubToken(event.target.value)}
-            type="password"
-            value={githubToken}
-          />
-          {errors.githubToken ? <Alert severity="error">{errors.githubToken}</Alert> : null}
 
           <div className="grid gap-3">
             <label className="text-sm font-bold text-text" htmlFor="study-images">
