@@ -173,9 +173,9 @@ export function StudyDocumentationsPage() {
       </section>
 
       <section className="py-8 lg:py-12">
-        <Container className="grid gap-16 xl:grid-cols-[minmax(0,1fr)_minmax(380px,0.9fr)]">
+        <Container className="grid gap-8 xl:grid-cols-[minmax(320px,0.55fr)_minmax(0,1.45fr)]">
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4 w-screen lg:flex-row lg:items-center lg:justify-beetween">
+            <div className="flex flex-col gap-4 lg:items-start">
               <div
                 aria-label={textos.studyDocumentations.allResults}
                 className="flex flex-wrap gap-2"
@@ -263,14 +263,14 @@ export function StudyDocumentationsPage() {
             {!loading && !error ? (
               <div
                 aria-label={textos.studyDocumentations.listLabel}
-                className="grid gap-4 lg:grid-cols-2"
+                className="grid gap-3"
               >
                 {filteredDocs.map((documentation) => {
                   const selected = documentation.id === selectedDocumentation?.id;
                   return (
                     <button
                       className={cn(
-                        'group rounded-[var(--radius-lg)] border bg-surface/80 p-5 text-left shadow-[var(--shadow-card)] transition-colors focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent',
+                        'group rounded-[var(--radius-lg)] border bg-surface/80 p-4 text-left shadow-[var(--shadow-card)] transition-colors focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent',
                         selected
                           ? 'border-primary shadow-[var(--shadow-glow)]'
                           : 'border-border hover:border-primary',
@@ -291,15 +291,15 @@ export function StudyDocumentationsPage() {
                               </Tag>
                             ))}
                           </span>
-                          <span className="mt-3 block text-lg font-black text-text">
+                          <span className="mt-2 block text-base font-black text-text">
                             {documentation.title}
                           </span>
-                          <span className="mt-2 line-clamp-3 block text-sm leading-6 text-text-muted">
+                          <span className="mt-1 line-clamp-2 block text-sm leading-6 text-text-muted">
                             {summarizeMarkdown(documentation.content)}
                           </span>
                         </span>
                       </div>
-                      <span className="mt-5 flex flex-wrap gap-4 text-xs text-text-muted">
+                      <span className="mt-3 flex flex-wrap gap-4 text-xs text-text-muted">
                         <span className="inline-flex items-center gap-2">
                           <CalendarTodayIcon aria-hidden="true" fontSize="small" />
                           {dateFormatter.format(new Date(documentation.updatedAt))}
@@ -320,7 +320,7 @@ export function StudyDocumentationsPage() {
 
           <article
             aria-label={textos.studyDocumentations.readerLabel}
-            className="sticky top-24 flex mt-18 max-h-[calc(100vh-8rem)] min-h-[640px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]"
+            className="sticky top-24 flex max-h-[calc(100vh-8rem)] min-h-[680px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]"
           >
             {selectedDocumentation ? (
               <>
