@@ -72,7 +72,7 @@ describe('StudyDocumentationsPage', () => {
     renderPage();
 
     await screen.findByText('Clean Architecture na pratica');
-    await user.click(screen.getAllByRole('button', { name: /Arquitetura/i })[0]);
+    await user.selectOptions(screen.getByLabelText('Todas as documentações'), 'Arquitetura');
 
     expect(screen.getAllByText('Clean Architecture na pratica').length).toBeGreaterThan(
       0,
