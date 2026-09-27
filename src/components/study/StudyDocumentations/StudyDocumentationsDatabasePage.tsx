@@ -44,10 +44,6 @@ function renderDocumentationIcon(documentation: StudyDocumentation, fontSize: 's
   );
 }
 
-function summarizeMarkdown(markdown: string) {
-  return markdown.replace(/[#*_`>|-]/g, '').replace(/\s+/g, ' ').trim().slice(0, 140);
-}
-
 function estimateReadTime(markdown: string) {
   return Math.max(1, Math.ceil(markdown.length / 900));
 }
@@ -238,37 +234,8 @@ export function StudyDocumentationsPage() {
                       onClick={() => setSelectedId(documentation.id)}
                       type="button"
                     >
-                      <div className="flex items-start gap-4">
-                        <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-surface-secondary text-primary">
-                          {renderDocumentationIcon(documentation, 'medium')}
-                        </span>
-                        <span className="min-w-0 flex-1">
-                          <span className="flex flex-wrap gap-2">
-                            {documentation.tags.slice(0, 2).map((tag) => (
-                              <Tag key={tag} variant="primary">
-                                {tag}
-                              </Tag>
-                            ))}
-                          </span>
-                          <span className="mt-2 block text-base font-black text-text">
-                            {documentation.title}
-                          </span>
-                          <span className="mt-1 line-clamp-2 block text-sm leading-6 text-text-muted">
-                            {summarizeMarkdown(documentation.content)}
-                          </span>
-                        </span>
-                      </div>
-                      <span className="mt-3 flex flex-wrap gap-4 text-xs text-text-muted">
-                        <span className="inline-flex items-center gap-2">
-                          <CalendarTodayIcon aria-hidden="true" fontSize="small" />
-                          {dateFormatter.format(new Date(documentation.updatedAt))}
-                        </span>
-                        <span className="inline-flex items-center gap-2">
-                          <AccessTimeIcon aria-hidden="true" fontSize="small" />
-                          {textos.studyDocumentations.minutes(
-                            estimateReadTime(documentation.content),
-                          )}
-                        </span>
+                      <span className="block text-base font-black text-text">
+                        {documentation.title}
                       </span>
                     </button>
                   );
