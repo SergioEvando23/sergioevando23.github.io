@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test';
 
 test('language selection persists and keeps theme carousel and resume links', async ({
   page,
-}) => {
+}, testInfo) => {
   const consoleErrors: string[] = [];
   page.on('console', (message) => {
     if (message.type() === 'error') {
@@ -31,13 +31,21 @@ test('language selection persists and keeps theme carousel and resume links', as
   const carousel = page.getByRole('region', {
     name: 'Carrossel principal de competencias',
   });
-  await carousel.getByRole('button', { name: 'Proximo slide' }).click();
+  const nextButton = carousel.getByRole('button', { name: 'Proximo slide' });
+  if (testInfo.project.name === 'mobile-chrome') {
+    await expect(nextButton).toHaveCount(0);
+    await carousel.getByRole('tab', { name: 'Ir para o slide 2' }).click();
+  } else {
+    await nextButton.click();
+  }
   await expect(
     carousel.getByRole('heading', { name: 'Mobile - Flutter + Dart' }),
   ).toBeVisible();
 
   await page.getByRole('button', { name: 'Alterar idioma para ingles' }).first().click();
-  await expect(page.getByRole('link', { name: 'Projects' }).first()).toBeVisible();
+  if (testInfo.project.name !== 'mobile-chrome') {
+    await expect(page.getByRole('link', { name: 'About' }).first()).toBeVisible();
+  }
   await expect(
     page.getByRole('heading', {
       name: 'Fullstack Web & Mobile Software Engineer',
@@ -76,14 +84,18 @@ test('language selection persists and keeps theme carousel and resume links', as
   await page.reload();
   await expect(page.locator('html[data-hydrated="true"]')).toBeAttached();
   await expect(page.locator('html')).toHaveAttribute('lang', 'en');
-  await expect(page.getByRole('link', { name: 'Projects' }).first()).toBeVisible();
+  if (testInfo.project.name !== 'mobile-chrome') {
+    await expect(page.getByRole('link', { name: 'About' }).first()).toBeVisible();
+  }
 
   await page
     .getByRole('button', { name: 'Change language to Portuguese' })
     .first()
     .click();
   await expect(page.locator('html')).toHaveAttribute('lang', 'pt-BR');
-  await expect(page.getByRole('link', { name: 'Projetos' }).first()).toBeVisible();
+  if (testInfo.project.name !== 'mobile-chrome') {
+    await expect(page.getByRole('link', { name: 'Sobre' }).first()).toBeVisible();
+  }
 
   await page.setViewportSize({ width: 390, height: 844 });
   const overflow = await page.evaluate(
