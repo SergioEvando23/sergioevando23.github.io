@@ -61,7 +61,7 @@ export function Carousel({
       {...carousel.eventHandlers}
     >
       <div
-        className="relative mx-auto w-full overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface shadow-[var(--shadow-card)]"
+        className="group relative mx-auto w-full overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface shadow-[var(--shadow-card)]"
         style={getCarouselFrameStyle(size)}
       >
         <div aria-live="polite" className="sr-only">

@@ -33,7 +33,7 @@ export function CarouselControls({
   texts,
 }: CarouselControlsProps) {
   return (
-    <div className="pointer-events-none absolute inset-x-3 top-1/2 z-20 flex -translate-y-1/2 items-center justify-between">
+    <div className="pointer-events-none absolute inset-x-3 top-1/2 z-20 hidden -translate-y-1/2 items-center justify-between opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 sm:flex">
       <IconButton
         className="pointer-events-auto bg-overlay text-text shadow-[var(--shadow-card)] backdrop-blur"
         disabled={!canGoPrevious}
