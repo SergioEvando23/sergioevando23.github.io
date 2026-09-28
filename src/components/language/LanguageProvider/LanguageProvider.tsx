@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { dicionario, type ConteudoTraduzido, type Idioma } from '@/i18n/dicionario';
+import { dicionario, type ConteudoTraduzido, type Idioma } from '@/i18n';
 import {
   getIdiomaFromLocale,
   idiomaConfig,

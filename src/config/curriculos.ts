@@ -1,4 +1,4 @@
-import type { Idioma } from '@/i18n/dicionario';
+import type { Idioma } from '@/i18n';
 
 export const curriculos = {
   portugues: {

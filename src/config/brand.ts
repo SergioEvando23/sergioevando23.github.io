@@ -1,4 +1,4 @@
-import { dicionario } from '@/i18n/dicionario';
+import { dicionario } from '@/i18n';
 import type { BrandConfig } from '@/types/brand';
 
 export const brandConfig: BrandConfig = {

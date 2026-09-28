@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { LanguageProvider } from '@/components/language';
 import { carouselItems } from '@/data/carousel';
 import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
-import { dicionario } from '@/i18n/dicionario';
+import { dicionario } from '@/i18n';
 import type { CarouselImage } from '@/types/carousel';
 import { Carousel } from './Carousel';
 

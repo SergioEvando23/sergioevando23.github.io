@@ -65,7 +65,18 @@ describe('Home i18n integration', () => {
       screen.getAllByRole('button', { name: 'Alterar idioma para ingles' })[0],
     );
 
-    expect(screen.getAllByRole('link', { name: 'Projects' })[0]).toBeInTheDocument();
+    expect(screen.getAllByRole('link', { name: 'About' })[0]).toHaveAttribute(
+      'href',
+      '/',
+    );
+    expect(screen.getAllByRole('link', { name: 'Education' })[0]).toHaveAttribute(
+      'href',
+      '/formacao',
+    );
+    expect(screen.getAllByRole('link', { name: 'Experience' })[0]).toHaveAttribute(
+      'href',
+      '/experiencia',
+    );
     expect(
       screen.getByRole('heading', {
         name: 'Fullstack Web & Mobile Software Engineer',
