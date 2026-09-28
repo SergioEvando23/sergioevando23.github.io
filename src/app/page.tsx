@@ -85,7 +85,9 @@ function HomeContent() {
                   {roleAfterHighlight}
                 </h1>
                 <div className="max-w-2xl text-lg leading-8 text-text-muted">
-                  <p>{showFullDescription ? textos.brand.description : visibleDescription}</p>
+                  <p>
+                    {showFullDescription ? textos.brand.description : `${visibleDescription}…`}
+                  </p>
                   {descriptionLimitIndex >= 0 ? (
                     <button
                       className="mt-3 text-sm font-semibold text-primary transition-colors hover:text-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
