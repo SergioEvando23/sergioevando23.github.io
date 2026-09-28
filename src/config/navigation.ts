@@ -9,5 +9,5 @@ export const navigationItems: NavigationItem[] = [
   { translationKey: 'about', href: '/' },
   { translationKey: 'studies', href: '/study' },
   { translationKey: 'education', href: '/formacao' },
-  { translationKey: 'experience', href: '/#experiencia' },
+  { translationKey: 'experience', href: '/experiencia' },
 ];
