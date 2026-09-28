@@ -45,11 +45,11 @@ export default function ExperienciaPage() {
       <Header />
       <main className="min-h-[calc(100vh-var(--header-height))]">
         <Container className="max-w-[800px] py-4 sm:py-5">
-          <section className="rounded-[13px] border border-border bg-surface/85 px-5 py-4 shadow-[var(--shadow-card)] sm:px-6 sm:py-4.5">
+          <section className="rounded-[13px] border border-transparent bg-surface/85 px-5 py-4 shadow-[var(--shadow-card)] sm:px-6 sm:py-4.5">
             <h1 className="text-[25px] font-black tracking-[-0.03em] text-text sm:text-[28px]">{textos.navigation.experience}</h1>
           </section>
 
-          <section aria-label="Destaques profissionais" className="mt-4 grid overflow-hidden rounded-[10px] border border-border bg-surface/85 shadow-[var(--shadow-card)] sm:grid-cols-3">
+          <section aria-label="Destaques profissionais" className="mt-4 grid overflow-hidden rounded-[10px] border border-transparent bg-surface/85 shadow-[var(--shadow-card)] sm:grid-cols-3">
             {highlights.map(({ title, subtitle, Icon }) => (
               <div className="flex items-center gap-3 border-b border-border px-4 py-3 sm:border-r sm:border-b-0 last:border-r-0 last:border-b-0" key={title}>
                 <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-primary/20 text-primary"><Icon aria-hidden="true" sx={{ fontSize: 18 }} /></span>
@@ -60,7 +60,7 @@ export default function ExperienciaPage() {
 
           <section aria-label="Histórico profissional" className="relative mt-3 space-y-3 border-l border-primary/35 pl-7 sm:ml-3 sm:pl-7">
             {experiences.map((experience) => (
-              <article className="relative rounded-[10px] border border-border bg-surface/90 px-5 py-3.5 shadow-[var(--shadow-card)]" key={experience.company}>
+              <article className="relative rounded-[10px] border border-transparent bg-surface/90 px-5 py-3.5 shadow-[var(--shadow-card)]" key={experience.company}>
                 <span aria-hidden="true" className="absolute -left-[2.42rem] top-1 h-5 w-5 rounded-full border-[3px] border-primary bg-surface shadow-[0_0_0_3px_color-mix(in_srgb,var(--color-primary)_16%,transparent)]" />
                 <h2 className="text-[15px] font-black leading-5 text-text">{experience.role}</h2>
                 <p className="mt-0.5 text-[10px] font-semibold text-text-muted">{experience.company}</p>
