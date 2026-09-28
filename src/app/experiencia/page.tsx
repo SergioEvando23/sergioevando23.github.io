@@ -7,7 +7,12 @@ import { Footer } from '@/components/layout/Footer';
 import { useLanguage } from '@/components/language';
 import { Header } from '@/components/layout/Header';
 import { Container } from '@/components/ui/Container';
-import { experienceItems } from '@/data/experience';
+import { Tag } from '@/components/ui/Tag';
+
+const professionalExperiences = [
+  { role: 'Engenheiro de Software Fullstack Web & Mobile', company: 'XP Inc.', period: 'Set. 2022 — Atual', description: 'Atuação no desenvolvimento e manutenção de aplicações web escaláveis com React e TypeScript, além de aplicações mobile com Flutter.', responsibilities: ['Decisões arquiteturais e adoção de micro-frontends', 'Testes automatizados unitários, integração e E2E', 'Code reviews, mentoria e onboarding de engenheiros', 'Incidentes em produção e melhoria da estabilidade', 'Monitoramento com Dynatrace e releases com feature flags'], technologies: ['React', 'TypeScript', 'Flutter', 'Dart', 'Node.js', 'CI/CD', 'Playwright'] },
+  { role: 'Desenvolvedor Frontend & Mobile', company: 'Eduardo Costa Software Solutions', period: '2021', description: 'Desenvolvimento e evolução de aplicações frontend com foco em interfaces modernas, performance e boa experiência do usuário.', responsibilities: ['Aplicações frontend com React e TypeScript', 'Componentes reutilizáveis e escalabilidade', 'Integração com APIs REST e times backend', 'Correção de bugs e otimizações de performance'], technologies: ['React', 'React Native', 'JavaScript', 'Styled Components', 'REST APIs'] },
+];
 
 export default function ExperienciaPage() {
   const { textos } = useLanguage();
@@ -33,15 +38,19 @@ export default function ExperienciaPage() {
             })}
           </div>
           <div className="relative space-y-6 border-l border-primary/40 pl-7 sm:pl-10">
-            {experienceItems.map((item) => {
-              const experience = textos.experience.items[item.translationKey];
+            {professionalExperiences.map((experience) => {
               return (
-                <article className="relative rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 shadow-[var(--shadow-card)]" key={item.id}>
+                <article className="relative rounded-[var(--radius-xl)] border border-border bg-surface/80 p-5 shadow-[var(--shadow-card)]" key={experience.company}>
                   <span className="absolute -left-[2.35rem] top-7 flex h-10 w-10 items-center justify-center rounded-[var(--radius-full)] border border-primary bg-surface text-primary sm:-left-[3.1rem]">
                     <AddBusinessOutlinedIcon aria-hidden="true" fontSize="small" />
                   </span>
-                  <h2 className="text-2xl font-black text-text">{experience.title}</h2>
-                  <p className="mt-3 leading-7 text-text-muted">{experience.description}</p>
+                  <h2 className="text-xl font-black text-text">{experience.role}</h2>
+                  <p className="mt-1 font-semibold text-primary">{experience.company}</p>
+                  <p className="mt-2 text-sm text-text-muted">{experience.period} · Brasil</p>
+                  <p className="mt-3 text-sm leading-6 text-text-muted">{experience.description}</p>
+                  <h3 className="mt-4 text-sm font-bold text-text">Principais responsabilidades e resultados</h3>
+                  <ul className="mt-2 space-y-2 text-sm text-text-muted">{experience.responsibilities.map((responsibility) => <li className="flex gap-2" key={responsibility}><span className="text-primary">✦</span>{responsibility}</li>)}</ul>
+                  <div className="mt-4 border-t border-border pt-3"><p className="mb-2 text-xs font-bold text-text-muted">Tecnologias</p><div className="flex flex-wrap gap-2">{experience.technologies.map((technology) => <Tag key={technology} variant="primary">{technology}</Tag>)}</div></div>
                 </article>
               );
             })}
