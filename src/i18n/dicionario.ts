@@ -30,14 +30,20 @@ const portugues = {
   metadata: {
     title: 'Sérgio Costa | Engenheiro de Software Fullstack Web & Mobile',
     description:
-      'Transformo desafios complexos em produtos digitais escalaveis, acessiveis e confiaveis.',
+      `Sou Engenheiro de Software Full Stack atualmente na XP Inc., especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
+    Minha experiência envolve arquitetura de software, micro-frontends, modernização de sistemas legados, qualidade de código e CI/CD, além da atuação cotidiana na investigação e resolução de incidentes em produção, analisando falhas, identificando causas e atuando para soluções que aumentem a estabilidade das aplicações.
+    Também exploro o uso de IA e agentes inteligentes aplicados à Engenharia de Software, buscando otimizar processos de desenvolvimento e evolução de código.
+    Este portfólio reúne projetos, estudos e documentações técnicas que refletem minha evolução profissional e minha forma de pensar, construir e evoluir software.
+    Atualmente, curso Engenharia de Software na Estácio, conectando fundamentos acadêmicos à experiência prática do dia a dia.`,
   },
   navigation: {
+    about: 'Sobre',
     projects: 'Projetos',
     studies: 'Estudos',
     documentations: 'Documentações',
     technologies: 'Tecnologias',
     experience: 'Experiencia',
+    education: 'Formação',
     contact: 'Contato',
   },
   studyMenu: {
@@ -51,8 +57,12 @@ const portugues = {
     role: 'Engenheiro de Software Fullstack Web & Mobile',
     highlightedRole: 'Web & Mobile',
     description:
-      'Transformo desafios complexos em produtos digitais escalaveis, acessiveis e confiaveis.',
-    location: 'Paulista - PE | Remoto ou hibrido em Recife',
+      `Sou Engenheiro de Software Full Stack atualmente na XP Inc., especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
+    Minha experiência envolve arquitetura de software, micro-frontends, modernização de sistemas legados, qualidade de código e CI/CD, além da atuação cotidiana na investigação e resolução de incidentes em produção, analisando falhas, identificando causas e atuando para soluções que aumentem a estabilidade das aplicações.
+    Também exploro o uso de IA e agentes inteligentes aplicados à Engenharia de Software, buscando otimizar processos de desenvolvimento e evolução de código.
+    Este portfólio reúne projetos, estudos e documentações técnicas que refletem minha evolução profissional e minha forma de pensar, construir e evoluir software.
+    Atualmente, curso Engenharia de Software na Estácio, conectando fundamentos acadêmicos à experiência prática do dia a dia.`,
+    location: 'Paulista - PE | Remoto | hibrido no grande Recife',
     homeLabel: 'Sérgio Costa, inicio',
   },
   hero: {
@@ -60,6 +70,8 @@ const portugues = {
     viewProjects: 'Ver projetos',
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
+    viewFullDescription: 'Visualizar descrição completa',
+    hideFullDescription: 'Mostrar menos',
   },
   resume: {
     title: 'Curriculos',
@@ -653,14 +665,20 @@ const ingles = {
   metadata: {
     title: 'Sérgio Costa | Fullstack Web & Mobile Software Engineer',
     description:
-      'I turn complex challenges into scalable, accessible and reliable digital products.',
+      `I am a Full Stack Software Engineer currently at XP Inc., specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
+    My experience includes software architecture, micro-frontends, legacy-system modernization, code quality, and CI/CD, as well as the day-to-day investigation and resolution of production incidents—analyzing failures, identifying root causes, and delivering solutions that improve application stability.
+    I also explore the use of AI and intelligent agents applied to Software Engineering, seeking to optimize development processes and code evolution.
+    This portfolio brings together projects, studies, and technical documentation that reflect my professional growth and the way I think about, build, and evolve software.
+    I am currently pursuing a Software Engineering degree at Estácio, connecting academic foundations with hands-on professional experience.`,
   },
   navigation: {
+    about: 'About',
     projects: 'Projects',
     studies: 'Studies',
     documentations: 'Documentations',
     technologies: 'Technologies',
     experience: 'Experience',
+    education: 'Education',
     contact: 'Contact',
   },
   studyMenu: {
@@ -674,7 +692,11 @@ const ingles = {
     role: 'Fullstack Web & Mobile Software Engineer',
     highlightedRole: 'Web & Mobile',
     description:
-      'I turn complex challenges into scalable, accessible and reliable digital products.',
+      `I am a Full Stack Software Engineer currently at XP Inc., specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
+    My experience includes software architecture, micro-frontends, legacy-system modernization, code quality, and CI/CD, as well as the day-to-day investigation and resolution of production incidents—analyzing failures, identifying root causes, and delivering solutions that improve application stability.
+    I also explore the use of AI and intelligent agents applied to Software Engineering, seeking to optimize development processes and code evolution.
+    This portfolio brings together projects, studies, and technical documentation that reflect my professional growth and the way I think about, build, and evolve software.
+    I am currently pursuing a Software Engineering degree at Estácio, connecting academic foundations with hands-on professional experience.`,
     location: 'Paulista - PE | Remote or hybrid in Recife',
     homeLabel: 'Sérgio Costa, home',
   },
@@ -683,6 +705,8 @@ const ingles = {
     viewProjects: 'View projects',
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
+    viewFullDescription: 'View complete description',
+    hideFullDescription: 'Show less',
   },
   resume: {
     title: 'Resumes',

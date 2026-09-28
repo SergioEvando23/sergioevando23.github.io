@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
@@ -36,7 +36,8 @@ const domainIcons = [
 ];
 
 function HomeContent() {
-  const { textos } = useLanguage();
+  const { idioma, textos } = useLanguage();
+  const [showFullDescription, setShowFullDescription] = useState(false);
   const translatedCarouselItems = useMemo<CarouselImage[]>(
     () =>
       carouselItems.map((item) => ({
@@ -56,6 +57,12 @@ function HomeContent() {
           highlightedRoleIndex + textos.brand.highlightedRole.length,
         )
       : '';
+  const descriptionLimit = idioma === 'portugues' ? 'incidentes em produção' : 'production incidents';
+  const descriptionLimitIndex = textos.brand.description.indexOf(descriptionLimit);
+  const visibleDescription =
+    descriptionLimitIndex >= 0
+      ? textos.brand.description.slice(0, descriptionLimitIndex + descriptionLimit.length)
+      : textos.brand.description;
 
   return (
     <>
@@ -77,9 +84,20 @@ function HomeContent() {
                   <span className="text-primary">{textos.brand.highlightedRole}</span>
                   {roleAfterHighlight}
                 </h1>
-                <p className="max-w-2xl text-lg leading-8 text-text-muted">
-                  {textos.brand.description}
-                </p>
+                <div className="max-w-2xl text-lg leading-8 text-text-muted">
+                  <p>
+                    {showFullDescription ? textos.brand.description : `${visibleDescription}…`}
+                  </p>
+                  {descriptionLimitIndex >= 0 ? (
+                    <button
+                      className="mt-3 text-sm font-semibold text-primary transition-colors hover:text-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                      onClick={() => setShowFullDescription((current) => !current)}
+                      type="button"
+                    >
+                      {showFullDescription ? textos.hero.hideFullDescription : textos.hero.viewFullDescription}
+                    </button>
+                  ) : null}
+                </div>
               </div>
               <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button
