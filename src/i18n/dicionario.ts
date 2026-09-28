@@ -70,6 +70,8 @@ const portugues = {
     viewProjects: 'Ver projetos',
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
+    viewFullDescription: 'Visualizar descrição completa',
+    hideFullDescription: 'Mostrar menos',
   },
   resume: {
     title: 'Curriculos',
@@ -703,6 +705,8 @@ const ingles = {
     viewProjects: 'View projects',
     githubLabel: 'GitHub',
     linkedinLabel: 'LinkedIn',
+    viewFullDescription: 'View complete description',
+    hideFullDescription: 'Show less',
   },
   resume: {
     title: 'Resumes',
