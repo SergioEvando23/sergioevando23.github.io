@@ -44,7 +44,7 @@ export default function ExperienciaPage() {
     <>
       <Header />
       <main className="min-h-[calc(100vh-var(--header-height))]">
-        <Container className="max-w-[800px] py-4 sm:py-5">
+        <Container className="py-4 sm:py-5">
           <section className="rounded-[13px] border border-transparent bg-surface/85 px-5 py-4 shadow-[var(--shadow-card)] sm:px-6 sm:py-4.5">
             <h1 className="text-[25px] font-black tracking-[-0.03em] text-text sm:text-[28px]">{textos.navigation.experience}</h1>
           </section>
