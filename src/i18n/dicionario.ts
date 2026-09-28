@@ -33,11 +33,13 @@ const portugues = {
       'Transformo desafios complexos em produtos digitais escalaveis, acessiveis e confiaveis.',
   },
   navigation: {
+    about: 'Sobre',
     projects: 'Projetos',
     studies: 'Estudos',
     documentations: 'Documentações',
     technologies: 'Tecnologias',
     experience: 'Experiencia',
+    education: 'Formação',
     contact: 'Contato',
   },
   studyMenu: {
@@ -656,11 +658,13 @@ const ingles = {
       'I turn complex challenges into scalable, accessible and reliable digital products.',
   },
   navigation: {
+    about: 'About',
     projects: 'Projects',
     studies: 'Studies',
     documentations: 'Documentations',
     technologies: 'Technologies',
     experience: 'Experience',
+    education: 'Education',
     contact: 'Contact',
   },
   studyMenu: {
