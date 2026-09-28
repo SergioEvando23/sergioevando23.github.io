@@ -1,4 +1,4 @@
-import type { ConteudoTraduzido } from '@/i18n/dicionario';
+import type { ConteudoTraduzido } from '@/i18n';
 
 export type CarouselSize = 'small' | 'medium' | 'large';
 export type CarouselTranslationKey = keyof ConteudoTraduzido['carousel']['items'];

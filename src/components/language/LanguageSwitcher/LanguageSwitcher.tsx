@@ -2,7 +2,7 @@
 
 import LanguageIcon from '@mui/icons-material/Language';
 import { idiomaConfig } from '@/i18n/config';
-import type { Idioma } from '@/i18n/dicionario';
+import type { Idioma } from '@/i18n';
 import { cn } from '@/lib/cn';
 import { useLanguage } from '../LanguageProvider';
 
