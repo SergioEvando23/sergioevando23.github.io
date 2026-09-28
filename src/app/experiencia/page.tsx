@@ -1,6 +1,6 @@
 'use client';
 
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
+import AddBusinessOutlinedIcon from '@mui/icons-material/AddBusinessOutlined';
 import { Footer } from '@/components/layout/Footer';
 import { useLanguage } from '@/components/language';
 import { Header } from '@/components/layout/Header';
@@ -30,7 +30,7 @@ export default function ExperienciaPage() {
               return (
                 <article className="relative rounded-[var(--radius-xl)] border border-border bg-surface/80 p-6 shadow-[var(--shadow-card)]" key={item.id}>
                   <span className="absolute -left-[2.35rem] top-7 flex h-10 w-10 items-center justify-center rounded-[var(--radius-full)] border border-primary bg-surface text-primary sm:-left-[3.1rem]">
-                    <WorkOutlineIcon aria-hidden="true" fontSize="small" />
+                    <AddBusinessOutlinedIcon aria-hidden="true" fontSize="small" />
                   </span>
                   <h2 className="text-2xl font-black text-text">{experience.title}</h2>
                   <p className="mt-3 leading-7 text-text-muted">{experience.description}</p>
