@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('theme preference persists and keeps carousel state', async ({ page }) => {
+test('theme preference persists and keeps carousel state', async ({ page }, testInfo) => {
   const consoleErrors: string[] = [];
   page.on('console', (message) => {
     if (message.type() === 'error') {
@@ -25,7 +25,13 @@ test('theme preference persists and keeps carousel state', async ({ page }) => {
   const carousel = page.getByRole('region', {
     name: 'Carrossel principal de competencias',
   });
-  await carousel.getByRole('button', { name: 'Proximo slide' }).click();
+  const nextButton = carousel.getByRole('button', { name: 'Proximo slide' });
+  if (testInfo.project.name === 'mobile-chrome') {
+    await expect(nextButton).toHaveCount(0);
+    await carousel.getByRole('tab', { name: 'Ir para o slide 2' }).click();
+  } else {
+    await nextButton.click();
+  }
   await expect(
     carousel.getByRole('heading', { name: 'Mobile - Flutter + Dart' }),
   ).toBeVisible();
