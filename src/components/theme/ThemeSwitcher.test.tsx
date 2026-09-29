@@ -8,7 +8,7 @@ import { ThemeProvider } from './ThemeProvider';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 function renderThemeSwitcher() {
-  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portugues');
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portuguese');
 
   return render(
     <ThemeProvider>

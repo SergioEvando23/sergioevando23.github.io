@@ -24,9 +24,9 @@ export function Carousel({
   ariaLabel,
   onSlideChange,
 }: CarouselProps) {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const dimensions = carouselSizes[size];
-  const label = ariaLabel ?? textos.carousel.defaultLabel;
+  const label = ariaLabel ?? translations.carousel.defaultLabel;
   const carousel = useCarousel({
     items,
     initialIndex,
@@ -46,7 +46,7 @@ export function Carousel({
           className,
         )}
       >
-        {textos.carousel.empty}
+        {translations.carousel.empty}
       </section>
     );
   }
@@ -65,7 +65,7 @@ export function Carousel({
         style={getCarouselFrameStyle(size)}
       >
         <div aria-live="polite" className="sr-only">
-          {textos.carousel.slidePosition(carousel.activeIndex + 1, items.length)}:{' '}
+          {translations.carousel.slidePosition(carousel.activeIndex + 1, items.length)}:{' '}
           {items[carousel.activeIndex]?.title}
         </div>
         {items.map((item, index) => (
@@ -90,10 +90,10 @@ export function Carousel({
             onPrevious={carousel.previous}
             onResume={carousel.resume}
             texts={{
-              nextSlide: textos.carousel.nextSlide,
-              pause: textos.carousel.pause,
-              previousSlide: textos.carousel.previousSlide,
-              resume: textos.carousel.resume,
+              nextSlide: translations.carousel.nextSlide,
+              pause: translations.carousel.pause,
+              previousSlide: translations.carousel.previousSlide,
+              resume: translations.carousel.resume,
             }}
           />
         ) : null}
@@ -103,9 +103,9 @@ export function Carousel({
             count={items.length}
             onSelect={carousel.goTo}
             texts={{
-              currentSlide: textos.carousel.currentSlide,
-              goToSlide: textos.carousel.goToSlide,
-              selectSlide: textos.carousel.selectSlide,
+              currentSlide: translations.carousel.currentSlide,
+              goToSlide: translations.carousel.goToSlide,
+              selectSlide: translations.carousel.selectSlide,
             }}
           />
         ) : null}

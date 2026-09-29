@@ -11,7 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 
 export default function NewStudyProjectPage() {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { isAdmin, adminLoading, loading } = useAuth();
 
   if (loading || adminLoading) {
@@ -21,7 +21,7 @@ export default function NewStudyProjectPage() {
         <main className="py-20">
           <Container>
             <p className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-              {textos.admin.checkingAccess}
+              {translations.admin.checkingAccess}
             </p>
           </Container>
         </main>
@@ -37,17 +37,17 @@ export default function NewStudyProjectPage() {
         <main className="py-20">
           <Container className="flex flex-col gap-5">
             <h1 className="text-3xl font-black text-text">
-              {textos.admin.accessDeniedTitle}
+              {translations.admin.accessDeniedTitle}
             </h1>
             <p className="max-w-2xl leading-7 text-text-muted">
-              {textos.admin.accessDeniedDescription}
+              {translations.admin.accessDeniedDescription}
             </p>
             <Button
               href="/"
               leftIcon={<ArrowBackIcon aria-hidden="true" />}
               variant="secondary"
             >
-              {textos.common.previous}
+              {translations.common.previous}
             </Button>
           </Container>
         </main>
@@ -66,7 +66,7 @@ export default function NewStudyProjectPage() {
             href="/"
           >
             <ArrowBackIcon aria-hidden="true" fontSize="small" />
-            {textos.common.previous}
+            {translations.common.previous}
           </Link>
           <ProjectForm />
         </Container>

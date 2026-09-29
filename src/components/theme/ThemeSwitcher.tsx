@@ -31,7 +31,7 @@ const themes = [
 export function ThemeSwitcher() {
   const mounted = useMounted();
   const { theme, setTheme } = useTheme();
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const selectedTheme = mounted ? (theme ?? 'system') : 'system';
 
   const applyTheme = (value: (typeof themes)[number]['value']) => {
@@ -48,7 +48,7 @@ export function ThemeSwitcher() {
 
   return (
     <div
-      aria-label={textos.theme.label}
+      aria-label={translations.theme.label}
       className="inline-flex rounded-[var(--radius-full)] border border-border bg-overlay p-1 shadow-[var(--shadow-card)] backdrop-blur"
       role="radiogroup"
     >
@@ -65,7 +65,7 @@ export function ThemeSwitcher() {
                 'bg-primary text-primary-foreground shadow-[var(--shadow-glow)]',
             )}
             key={item.value}
-            label={textos.theme.optionLabel(textos.theme[item.labelKey])}
+            label={translations.theme.optionLabel(translations.theme[item.labelKey])}
             onClick={() => applyTheme(item.value)}
             role="radio"
             size="small"

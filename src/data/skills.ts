@@ -1,8 +1,8 @@
-import type { ConteudoTraduzido } from '@/i18n';
+import type { TranslatedContent } from '@/i18n';
 
 export interface SkillGroup {
   id: string;
-  translationKey: keyof ConteudoTraduzido['skills']['groups'];
+  translationKey: keyof TranslatedContent['skills']['groups'];
 }
 
 export const skillGroups: SkillGroup[] = [

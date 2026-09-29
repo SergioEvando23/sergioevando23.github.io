@@ -60,7 +60,7 @@ function storeEntryChoice(choice: EntryChoice) {
 export function WelcomeGate({ children }: { children: React.ReactNode }) {
   const [choice, setChoice] = useState<EntryChoice | null>(null);
   const [mounted, setMounted] = useState(false);
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { signInWithGoogle, authError, loading } = useAuth();
   const pathname = usePathname();
 
@@ -91,7 +91,7 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
   if (!mounted) {
     return (
       <main className="min-h-screen bg-background" aria-busy="true">
-        <span className="sr-only">{textos.common.loading}</span>
+        <span className="sr-only">{translations.common.loading}</span>
       </main>
     );
   }
@@ -115,8 +115,8 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-3">
             <Logo />
             <div>
-              <p className="text-sm font-bold">{textos.brand.name}</p>
-              <p className="text-xs text-text-muted">{textos.brand.location}</p>
+              <p className="text-sm font-bold">{translations.brand.name}</p>
+              <p className="text-xs text-text-muted">{translations.brand.location}</p>
             </div>
           </div>
           <div className="flex items-center gap-2">
@@ -128,17 +128,17 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
         <section className="grid flex-1 items-center gap-10 py-12 lg:grid-cols-[1fr_0.85fr]">
           <div className="flex max-w-3xl flex-col gap-6">
             <span className="w-fit rounded-[var(--radius-full)] border border-border bg-surface-secondary px-4 py-2 text-sm font-semibold text-accent">
-              {textos.brand.role}
+              {translations.brand.role}
             </span>
             <div className="space-y-5">
               <h1 className="text-4xl font-black leading-tight text-text sm:text-6xl">
-                {textos.auth.welcomeTitle}
+                {translations.auth.welcomeTitle}
               </h1>
               <p className="max-w-2xl text-xl font-semibold text-primary">
-                {textos.auth.welcomeSubtitle}
+                {translations.auth.welcomeSubtitle}
               </p>
               <p className="max-w-2xl text-base leading-7 text-text-muted">
-                {textos.auth.optionalLogin}
+                {translations.auth.optionalLogin}
               </p>
             </div>
 
@@ -149,7 +149,7 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
                 onClick={signIn}
                 size="large"
               >
-                {textos.auth.signInWithGoogle}
+                {translations.auth.signInWithGoogle}
               </Button>
               <Button
                 leftIcon={<PersonOutlineIcon aria-hidden="true" />}
@@ -157,16 +157,16 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
                 size="large"
                 variant="secondary"
               >
-                {textos.auth.continueAsVisitor}
+                {translations.auth.continueAsVisitor}
               </Button>
             </div>
 
             {authError ? (
               <p className="max-w-2xl rounded-[var(--radius-md)] border border-error/40 bg-surface-secondary px-4 py-3 text-sm font-semibold text-error">
                 {authError === 'missingConfig'
-                  ? textos.auth.missingConfig
-                  : (textos.auth.errors[authError as keyof typeof textos.auth.errors] ??
-                    textos.auth.errors.unknown)}
+                  ? translations.auth.missingConfig
+                  : (translations.auth.errors[authError as keyof typeof translations.auth.errors] ??
+                    translations.auth.errors.unknown)}
               </p>
             ) : null}
           </div>
@@ -176,11 +176,11 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
               <div className="mb-8 flex items-center justify-between">
                 <LoginIcon aria-hidden="true" className="text-primary" />
                 <span className="text-xs font-bold uppercase text-text-muted">
-                  {textos.brand.initials}
+                  {translations.brand.initials}
                 </span>
               </div>
-              <p className="text-2xl font-black text-text">{textos.brand.name}</p>
-              <p className="mt-3 leading-7 text-text-muted">{textos.brand.description}</p>
+              <p className="text-2xl font-black text-text">{translations.brand.name}</p>
+              <p className="mt-3 leading-7 text-text-muted">{translations.brand.description}</p>
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
                 <span className="rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-text-muted">
                   React

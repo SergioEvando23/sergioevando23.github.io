@@ -99,7 +99,7 @@ function isAdminUser(user: ReturnType<typeof useAuth>['user']) {
 }
 
 export function StudyAdminPage() {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { user, loading, isAuthenticated, authError, signInWithGoogle, signOut } =
     useAuth();
   const [studies, setStudies] = useState<StudyProject[]>([]);
@@ -232,12 +232,12 @@ export function StudyAdminPage() {
     const newImages = Array.from(files)
       .filter((file) => {
         if (!IMAGE_TYPES.includes(file.type)) {
-          nextErrors.images = textos.studyAdmin.errors.imageType;
+          nextErrors.images = translations.studyAdmin.errors.imageType;
           return false;
         }
 
         if (file.size > MAX_IMAGE_SIZE) {
-          nextErrors.images = textos.studyAdmin.errors.imageSize;
+          nextErrors.images = translations.studyAdmin.errors.imageSize;
           return false;
         }
 
@@ -286,7 +286,7 @@ export function StudyAdminPage() {
     }
 
     if (!user) {
-      setStatus(textos.studyAdmin.errors.auth);
+      setStatus(translations.studyAdmin.errors.auth);
       return;
     }
 
@@ -298,7 +298,7 @@ export function StudyAdminPage() {
         const existing = await getStudy(form.id);
 
         if (existing) {
-          setErrors({ id: textos.studyAdmin.errors.duplicate });
+          setErrors({ id: translations.studyAdmin.errors.duplicate });
           return;
         }
       }
@@ -331,12 +331,12 @@ export function StudyAdminPage() {
 
       await loadStudies();
       resetForm();
-      setStatus(textos.studyAdmin.success);
+      setStatus(translations.studyAdmin.success);
     } catch {
       setStatus(
         selectedImages.length > 0
-          ? textos.studyAdmin.uploadPartial
-          : textos.studyAdmin.errors.save,
+          ? translations.studyAdmin.uploadPartial
+          : translations.studyAdmin.errors.save,
       );
     } finally {
       setSaving(false);
@@ -355,9 +355,9 @@ export function StudyAdminPage() {
       await deleteStudy(deleteTarget.id, token);
       await loadStudies();
       setDeleteTarget(null);
-      setStatus(textos.studyAdmin.deleteSuccess);
+      setStatus(translations.studyAdmin.deleteSuccess);
     } catch {
-      setStatus(textos.studyAdmin.errors.delete);
+      setStatus(translations.studyAdmin.errors.delete);
     } finally {
       setSaving(false);
     }
@@ -371,7 +371,7 @@ export function StudyAdminPage() {
   if (loading) {
     return (
       <Container className="py-16">
-        <p className="text-text-muted">{textos.studyAdmin.loadingAuth}</p>
+        <p className="text-text-muted">{translations.studyAdmin.loadingAuth}</p>
       </Container>
     );
   }
@@ -380,14 +380,14 @@ export function StudyAdminPage() {
     return (
       <Container className="py-16">
         <div className="max-w-xl rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 shadow-[var(--shadow-card)]">
-          <h1 className="text-3xl font-black text-text">{textos.studyAdmin.loginTitle}</h1>
-          <p className="mt-3 text-text-muted">{textos.studyAdmin.loginDescription}</p>
+          <h1 className="text-3xl font-black text-text">{translations.studyAdmin.loginTitle}</h1>
+          <p className="mt-3 text-text-muted">{translations.studyAdmin.loginDescription}</p>
           <Button
             className="mt-6"
             leftIcon={<GoogleIcon aria-hidden="true" />}
             onClick={signInWithGoogle}
           >
-            {textos.studyAdmin.signIn}
+            {translations.studyAdmin.signIn}
           </Button>
           {authError ? <Alert className="mt-4" severity="error">{authError}</Alert> : null}
         </div>
@@ -399,15 +399,15 @@ export function StudyAdminPage() {
     return (
       <Container className="py-16">
         <div className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8">
-          <h1 className="text-3xl font-black text-text">{textos.admin.accessDeniedTitle}</h1>
-          <p className="mt-3 text-text-muted">{textos.studyAdmin.deniedDescription}</p>
+          <h1 className="text-3xl font-black text-text">{translations.admin.accessDeniedTitle}</h1>
+          <p className="mt-3 text-text-muted">{translations.studyAdmin.deniedDescription}</p>
           <Button
             className="mt-6"
             leftIcon={<LogoutIcon aria-hidden="true" />}
             onClick={logout}
             variant="secondary"
           >
-            {textos.studyAdmin.signOut}
+            {translations.studyAdmin.signOut}
           </Button>
         </div>
       </Container>
@@ -418,19 +418,19 @@ export function StudyAdminPage() {
     <Container className="flex flex-col gap-8 py-12">
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <div>
-          <h1 className="text-4xl font-black text-text">{textos.studyAdmin.title}</h1>
-          <p className="mt-3 text-text-muted">{textos.studyAdmin.description}</p>
+          <h1 className="text-4xl font-black text-text">{translations.studyAdmin.title}</h1>
+          <p className="mt-3 text-text-muted">{translations.studyAdmin.description}</p>
         </div>
         <div className="flex flex-wrap gap-3">
           <Button leftIcon={<AddIcon aria-hidden="true" />} onClick={resetForm}>
-            {textos.studyAdmin.newStudy}
+            {translations.studyAdmin.newStudy}
           </Button>
           <Button
             leftIcon={<LogoutIcon aria-hidden="true" />}
             onClick={logout}
             variant="secondary"
           >
-            {textos.studyAdmin.signOut}
+            {translations.studyAdmin.signOut}
           </Button>
         </div>
       </div>
@@ -446,40 +446,40 @@ export function StudyAdminPage() {
           }}
         >
           <h2 className="text-2xl font-black text-text">
-            {editingId ? textos.studyAdmin.editStudy : textos.studyAdmin.newStudy}
+            {editingId ? translations.studyAdmin.editStudy : translations.studyAdmin.newStudy}
           </h2>
           <div className="grid gap-4 md:grid-cols-2">
             <TextField
               disabled={Boolean(editingId)}
               error={Boolean(errors.id)}
               helperText={errors.id}
-              label={textos.studyAdmin.fields.id}
+              label={translations.studyAdmin.fields.id}
               onChange={(event) => updateField('id', event.target.value)}
               value={form.id}
             />
             <TextField
               error={Boolean(errors.repository)}
               helperText={errors.repository}
-              label={textos.studyAdmin.fields.repository}
+              label={translations.studyAdmin.fields.repository}
               onChange={(event) => updateField('repository', event.target.value)}
               value={form.repository}
             />
             <TextField
               error={Boolean(errors.title)}
               helperText={errors.title}
-              label={textos.studyAdmin.fields.title}
+              label={translations.studyAdmin.fields.title}
               onChange={(event) => updateField('title', event.target.value)}
               value={form.title}
             />
             <TextField
               error={Boolean(errors.focus)}
               helperText={errors.focus}
-              label={textos.studyAdmin.fields.focus}
+              label={translations.studyAdmin.fields.focus}
               onChange={(event) => updateField('focus', event.target.value)}
               value={form.focus}
             />
             <TextField
-              label={textos.studyAdmin.fields.category}
+              label={translations.studyAdmin.fields.category}
               onChange={(event) => updateField('category', event.target.value)}
               select
               value={form.category}
@@ -491,7 +491,7 @@ export function StudyAdminPage() {
               ))}
             </TextField>
             <TextField
-              label={textos.studyAdmin.fields.kind}
+              label={translations.studyAdmin.fields.kind}
               onChange={(event) => updateField('kind', event.target.value)}
               select
               value={form.kind}
@@ -503,14 +503,14 @@ export function StudyAdminPage() {
               ))}
             </TextField>
             <TextField
-              label={textos.studyAdmin.fields.startedAt}
+              label={translations.studyAdmin.fields.startedAt}
               onChange={(event) => updateField('startedAt', event.target.value)}
               slotProps={{ inputLabel: { shrink: true } }}
               type="date"
               value={form.startedAt}
             />
             <TextField
-              label={textos.studyAdmin.fields.completedAt}
+              label={translations.studyAdmin.fields.completedAt}
               onChange={(event) => updateField('completedAt', event.target.value)}
               slotProps={{ inputLabel: { shrink: true } }}
               type="date"
@@ -519,7 +519,7 @@ export function StudyAdminPage() {
             <TextField
               error={Boolean(errors.date)}
               helperText={errors.date}
-              label={textos.studyAdmin.fields.date}
+              label={translations.studyAdmin.fields.date}
               onChange={(event) => updateField('date', event.target.value)}
               slotProps={{ inputLabel: { shrink: true } }}
               type="date"
@@ -528,14 +528,14 @@ export function StudyAdminPage() {
             <TextField
               error={Boolean(errors.githubUrl)}
               helperText={errors.githubUrl}
-              label={textos.studyAdmin.fields.githubUrl}
+              label={translations.studyAdmin.fields.githubUrl}
               onChange={(event) => updateField('githubUrl', event.target.value)}
               value={form.githubUrl}
             />
             <TextField
               error={Boolean(errors.demoUrl)}
-              helperText={errors.demoUrl ?? textos.studyAdmin.fields.demoUrlHelp}
-              label={textos.studyAdmin.fields.demoUrl}
+              helperText={errors.demoUrl ?? translations.studyAdmin.fields.demoUrlHelp}
+              label={translations.studyAdmin.fields.demoUrl}
               onChange={(event) => updateField('demoUrl', event.target.value)}
               value={form.demoUrl}
             />
@@ -544,7 +544,7 @@ export function StudyAdminPage() {
           <TextField
             error={Boolean(errors.description)}
             helperText={errors.description}
-            label={textos.studyAdmin.fields.description}
+            label={translations.studyAdmin.fields.description}
             minRows={4}
             multiline
             onChange={(event) => updateField('description', event.target.value)}
@@ -556,7 +556,7 @@ export function StudyAdminPage() {
               <TextField
                 error={Boolean(errors.technologies)}
                 helperText={errors.technologies}
-                label={textos.studyAdmin.fields.addTechnology}
+                label={translations.studyAdmin.fields.addTechnology}
                 onChange={(event) => setTechnology(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
@@ -567,13 +567,13 @@ export function StudyAdminPage() {
                 value={technology}
               />
               <Button onClick={addTechnology} variant="secondary">
-                {textos.studyAdmin.actions.addTechnology}
+                {translations.studyAdmin.actions.addTechnology}
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
               {form.technologies.map((item) => (
                 <button
-                  aria-label={textos.studyAdmin.actions.removeTechnology(item)}
+                  aria-label={translations.studyAdmin.actions.removeTechnology(item)}
                   className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
                   key={item}
                   onClick={() => removeTechnology(item)}
@@ -594,19 +594,19 @@ export function StudyAdminPage() {
                 }
               />
             }
-            label={textos.studyAdmin.fields.portfolioEligible}
+            label={translations.studyAdmin.fields.portfolioEligible}
           />
 
           <div className="grid gap-3">
             <label className="text-sm font-bold text-text" htmlFor="study-images">
-              {textos.studyAdmin.fields.images}
+              {translations.studyAdmin.fields.images}
             </label>
             <label
               className="inline-flex w-fit cursor-pointer items-center gap-2 rounded-[var(--radius-md)] bg-[var(--color-primary)] px-4 py-2 text-sm font-semibold text-[var(--color-primary-foreground)] shadow-[var(--shadow-glow)] transition-colors hover:bg-[var(--color-primary-hover)] focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-primary"
               htmlFor="study-images"
             >
               <UploadFileIcon aria-hidden="true" fontSize="small" />
-              {textos.studyAdmin.fields.images}
+              {translations.studyAdmin.fields.images}
             </label>
             <input
               accept="image/png,image/jpeg,image/webp"
@@ -635,14 +635,14 @@ export function StudyAdminPage() {
                       size="small"
                       variant={image.isCover ? 'primary' : 'secondary'}
                     >
-                      {textos.studyAdmin.actions.setCover}
+                      {translations.studyAdmin.actions.setCover}
                     </Button>
                     <Button
                       onClick={() => removeImage(image.id)}
                       size="small"
                       variant="ghost"
                     >
-                      {textos.studyAdmin.actions.removeImage}
+                      {translations.studyAdmin.actions.removeImage}
                     </Button>
                   </div>
                 </div>
@@ -652,11 +652,11 @@ export function StudyAdminPage() {
 
           <div className="flex flex-wrap gap-3">
             <Button loading={saving} type="submit">
-              {saving ? textos.studyAdmin.saving : textos.studyAdmin.saveStudy}
+              {saving ? translations.studyAdmin.saving : translations.studyAdmin.saveStudy}
             </Button>
             {editingId ? (
               <Button onClick={resetForm} type="button" variant="secondary">
-                {textos.studyAdmin.cancelEdit}
+                {translations.studyAdmin.cancelEdit}
               </Button>
             ) : null}
           </div>
@@ -664,9 +664,9 @@ export function StudyAdminPage() {
 
         <aside className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-5 shadow-[var(--shadow-card)]">
           <div className="mb-4 flex items-center justify-between gap-3">
-            <h2 className="text-2xl font-black text-text">{textos.studyGallery.title}</h2>
+            <h2 className="text-2xl font-black text-text">{translations.studyGallery.title}</h2>
             <IconButton
-              label={textos.studyAdmin.actions.retry}
+              label={translations.studyAdmin.actions.retry}
               onClick={() => void loadStudies()}
               size="small"
               variant="ghost"
@@ -675,10 +675,10 @@ export function StudyAdminPage() {
             </IconButton>
           </div>
 
-          {loadingStudies ? <p className="text-text-muted">{textos.studyAdmin.loadingStudies}</p> : null}
-          {loadError ? <Alert severity="error">{textos.studyAdmin.errors.load}</Alert> : null}
+          {loadingStudies ? <p className="text-text-muted">{translations.studyAdmin.loadingStudies}</p> : null}
+          {loadError ? <Alert severity="error">{translations.studyAdmin.errors.load}</Alert> : null}
           {!loadingStudies && sortedStudies.length === 0 ? (
-            <p className="text-text-muted">{textos.studyAdmin.empty}</p>
+            <p className="text-text-muted">{translations.studyAdmin.empty}</p>
           ) : null}
 
           <div className="grid gap-3">
@@ -694,7 +694,7 @@ export function StudyAdminPage() {
                   </div>
                   <div className="flex gap-2">
                     <IconButton
-                      label={textos.studyAdmin.editStudy}
+                      label={translations.studyAdmin.editStudy}
                       onClick={() => startEdit(study)}
                       size="small"
                       variant="ghost"
@@ -702,7 +702,7 @@ export function StudyAdminPage() {
                       <EditOutlinedIcon aria-hidden="true" fontSize="inherit" />
                     </IconButton>
                     <IconButton
-                      label={textos.studyAdmin.deleteStudy}
+                      label={translations.studyAdmin.deleteStudy}
                       onClick={() => setDeleteTarget(study)}
                       size="small"
                       variant="ghost"
@@ -718,10 +718,10 @@ export function StudyAdminPage() {
       </section>
 
       <Dialog onClose={() => setDeleteTarget(null)} open={Boolean(deleteTarget)}>
-        <DialogTitle>{textos.studyAdmin.confirmDelete}</DialogTitle>
+        <DialogTitle>{translations.studyAdmin.confirmDelete}</DialogTitle>
         <DialogContent>
           {deleteTarget
-            ? textos.studyAdmin.confirmDeleteMessage(
+            ? translations.studyAdmin.confirmDeleteMessage(
                 deleteTarget.title || deleteTarget.id,
                 deleteTarget.id,
               )
@@ -729,10 +729,10 @@ export function StudyAdminPage() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDeleteTarget(null)} variant="secondary">
-            {textos.common.close}
+            {translations.common.close}
           </Button>
           <Button loading={saving} onClick={() => void confirmDelete()}>
-            {textos.studyAdmin.confirmDelete}
+            {translations.studyAdmin.confirmDelete}
           </Button>
         </DialogActions>
       </Dialog>

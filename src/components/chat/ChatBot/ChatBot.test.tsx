@@ -14,7 +14,7 @@ vi.mock('@/services/chat', () => ({
   sendChatMessage: sendChatMessageMock,
 }));
 
-function renderChat(language: 'portugues' | 'ingles' = 'portugues') {
+function renderChat(language: 'portuguese' | 'english' = 'portuguese') {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
 
   return render(
@@ -25,7 +25,7 @@ function renderChat(language: 'portugues' | 'ingles' = 'portugues') {
 }
 
 function renderChatWithLanguageSwitcher() {
-  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portugues');
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portuguese');
 
   return render(
     <LanguageProvider>
@@ -131,7 +131,7 @@ describe('ChatBot', () => {
 
   it('uses English labels and language payload', async () => {
     const user = userEvent.setup();
-    renderChat('ingles');
+    renderChat('english');
 
     await user.click(await screen.findByRole('button', { name: 'Open Sérgio AI' }));
     await user.type(screen.getByLabelText('Message for Sérgio AI'), 'React experience');

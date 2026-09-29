@@ -68,7 +68,7 @@ function renderAdmin() {
 
 describe('StudyAdminPage', () => {
   beforeEach(() => {
-    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-language', 'portuguese');
     authState.user = null;
     authState.loading = false;
     authState.isAuthenticated = false;

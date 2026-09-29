@@ -35,7 +35,7 @@ const documentationItems = [
   },
 ];
 
-function renderPage(language: 'portugues' | 'ingles' = 'portugues') {
+function renderPage(language: 'portuguese' | 'english' = 'portuguese') {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
 
   return render(
@@ -110,7 +110,7 @@ describe('StudyDocumentationsPage', () => {
   });
 
   it('renders translated English interface text', async () => {
-    renderPage('ingles');
+    renderPage('english');
 
     expect(
       await screen.findByRole('heading', { name: /Study Documentations/i }),

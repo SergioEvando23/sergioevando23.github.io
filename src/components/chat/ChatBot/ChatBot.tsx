@@ -5,7 +5,7 @@ import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlin
 import RestartAltOutlinedIcon from '@mui/icons-material/RestartAltOutlined';
 import { useLanguage } from '@/components/language';
 import { Button } from '@/components/ui/Button';
-import { idiomaConfig } from '@/i18n/config';
+import { languageConfig } from '@/i18n/config';
 import { useChat } from '@/hooks/useChat';
 import { ChatHeader } from './ChatHeader';
 import { ChatInput } from './ChatInput';
@@ -14,12 +14,12 @@ import { ChatSuggestions } from './ChatSuggestions';
 
 export function ChatBot() {
   const [open, setOpen] = useState(false);
-  const { idioma, textos } = useLanguage();
+  const { language, translations } = useLanguage();
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const { messages, status, error, sendMessage, retry } = useChat({
-    language: idioma === 'portugues' ? idiomaConfig.portugues.htmlLang : 'en-US',
+    language: language === 'portuguese' ? languageConfig.portuguese.htmlLang : 'en-US',
   });
   const isSending = status === 'sending';
 
@@ -51,51 +51,51 @@ export function ChatBot() {
     <div className="fixed inset-x-4 bottom-4 z-50 sm:inset-x-auto sm:right-6">
       {!open ? (
         <Button
-          aria-label={textos.chatbot.open}
+          aria-label={translations.chatbot.open}
           className="ml-auto flex shadow-[var(--shadow-glow)]"
           leftIcon={<QuestionAnswerOutlinedIcon aria-hidden="true" fontSize="small" />}
           onClick={() => setOpen(true)}
           size="large"
         >
-          {textos.chatbot.floatingButton}
+          {translations.chatbot.floatingButton}
         </Button>
       ) : (
         <section
-          aria-labelledby="Sérgio-ai-title"
+          aria-labelledby="SÃƒÆ’Ã‚Â©rgio-ai-title"
           className="fixed inset-0 flex flex-col overflow-hidden border-border bg-overlay shadow-[var(--shadow-glow)] backdrop-blur-xl sm:inset-auto sm:bottom-6 sm:right-6 sm:h-[min(720px,calc(100vh-48px))] sm:w-[min(420px,calc(100vw-48px))] sm:rounded-[var(--radius-xl)] sm:border"
           role="dialog"
         >
-          <span className="sr-only" id="Sérgio-ai-title">
-            {textos.chatbot.title}
+          <span className="sr-only" id="SÃƒÆ’Ã‚Â©rgio-ai-title">
+            {translations.chatbot.title}
           </span>
           <ChatHeader
-            closeLabel={textos.chatbot.close}
+            closeLabel={translations.chatbot.close}
             onClose={() => {
               setOpen(false);
               closeButtonRef.current?.focus();
             }}
-            subtitle={textos.chatbot.subtitle}
-            title={textos.chatbot.title}
+            subtitle={translations.chatbot.subtitle}
+            title={translations.chatbot.title}
           />
 
           <ChatMessages
-            analyzingLabel={textos.chatbot.analyzing}
-            assistantMessageLabel={textos.chatbot.assistantMessageLabel}
-            initialMessage={textos.chatbot.initialMessage}
+            analyzingLabel={translations.chatbot.analyzing}
+            assistantMessageLabel={translations.chatbot.assistantMessageLabel}
+            initialMessage={translations.chatbot.initialMessage}
             messages={messages}
-            messagesLabel={textos.chatbot.messagesLabel}
+            messagesLabel={translations.chatbot.messagesLabel}
             scrollRef={scrollRef}
             status={status}
-            userMessageLabel={textos.chatbot.userMessageLabel}
+            userMessageLabel={translations.chatbot.userMessageLabel}
           />
 
           {messages.length === 0 ? (
             <ChatSuggestions
-              ariaLabel={textos.chatbot.suggestionsLabel}
+              ariaLabel={translations.chatbot.suggestionsLabel}
               disabled={isSending}
-              labels={textos.chatbot.suggestions}
+              labels={translations.chatbot.suggestions}
               onSelect={sendMessage}
-              questions={textos.chatbot.suggestionQuestions}
+              questions={translations.chatbot.suggestionQuestions}
             />
           ) : null}
 
@@ -104,7 +104,7 @@ export function ChatBot() {
               aria-live="assertive"
               className="border-t border-border px-4 py-3 text-sm text-error"
             >
-              <p>{textos.chatbot.error}</p>
+              <p>{translations.chatbot.error}</p>
               <Button
                 className="mt-3"
                 disabled={isSending}
@@ -113,7 +113,7 @@ export function ChatBot() {
                 size="small"
                 variant="secondary"
               >
-                {textos.chatbot.retry}
+                {translations.chatbot.retry}
               </Button>
             </div>
           ) : null}
@@ -121,10 +121,10 @@ export function ChatBot() {
           <ChatInput
             disabled={isSending}
             inputRef={inputRef}
-            label={textos.chatbot.inputLabel}
+            label={translations.chatbot.inputLabel}
             onSend={sendMessage}
-            placeholder={textos.chatbot.inputPlaceholder}
-            sendLabel={textos.chatbot.send}
+            placeholder={translations.chatbot.inputPlaceholder}
+            sendLabel={translations.chatbot.send}
           />
         </section>
       )}

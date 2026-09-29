@@ -24,7 +24,7 @@ export function CarouselSlide({
   width,
   height,
 }: CarouselSlideProps) {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const mounted = useMounted();
   const { resolvedTheme } = useTheme();
   const themedSrc =
@@ -66,12 +66,12 @@ export function CarouselSlide({
             className="inline-flex w-fit items-center gap-2 rounded-[var(--radius-full)] bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
             href={item.href}
           >
-            {textos.carousel.openProject}
+            {translations.carousel.openProject}
             <OpenInNewIcon aria-hidden="true" fontSize="small" />
           </Link>
         ) : null}
       </div>
-      <span className="sr-only">{textos.carousel.dimensions(width, height)}</span>
+      <span className="sr-only">{translations.carousel.dimensions(width, height)}</span>
     </article>
   );
 }

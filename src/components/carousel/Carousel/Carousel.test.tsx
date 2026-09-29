@@ -4,17 +4,17 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import { LanguageProvider } from '@/components/language';
 import { carouselItems } from '@/data/carousel';
 import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
-import { dicionario } from '@/i18n';
+import { dictionary } from '@/i18n';
 import type { CarouselImage } from '@/types/carousel';
 import { Carousel } from './Carousel';
 
 const translatedItems: CarouselImage[] = carouselItems.map((item) => ({
   ...item,
-  ...dicionario.portugues.carousel.items[item.translationKey],
+  ...dictionary.portuguese.carousel.items[item.translationKey],
 }));
 
 function renderCarousel(ui: React.ReactElement) {
-  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portugues');
+  localStorage.setItem(LANGUAGE_STORAGE_KEY, 'portuguese');
 
   return render(<LanguageProvider>{ui}</LanguageProvider>);
 }

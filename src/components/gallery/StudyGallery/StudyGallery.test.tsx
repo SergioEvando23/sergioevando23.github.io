@@ -12,7 +12,7 @@ vi.mock('@/services/firebase/firebaseStudyRestService', () => ({
 
 describe('StudyGallery', () => {
   it('renders an empty state when the REST gallery has no published studies', async () => {
-    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-language', 'portuguese');
 
     render(
       <ThemeProvider>
@@ -37,7 +37,7 @@ describe('StudyGallery', () => {
         galleryImages: [], createdAt: null, updatedAt: null, createdBy: 'admin',
       },
     ]);
-    localStorage.setItem('Sérgio-portfolio-language', 'portugues');
+    localStorage.setItem('Sérgio-portfolio-language', 'portuguese');
 
     render(<ThemeProvider><LanguageProvider><AuthProvider><StudyGallery /></AuthProvider></LanguageProvider></ThemeProvider>);
 

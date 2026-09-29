@@ -16,21 +16,21 @@ import { canRunProject } from '@/services/study/projectPreview';
 import type { StudyProject } from '@/types/firebase/studyProject';
 
 export function StudyGallery() {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { projects, loading, error, retry } = useStudyProjects();
   const [selectedProject, setSelectedProject] = useState<StudyProject | null>(null);
   const triggerRef = useRef<HTMLButtonElement | null>(null);
-  const highlightedIndex = textos.studyGallery.title.indexOf(
-    textos.studyGallery.highlightedTitle,
+  const highlightedIndex = translations.studyGallery.title.indexOf(
+    translations.studyGallery.highlightedTitle,
   );
   const titleBeforeHighlight =
     highlightedIndex >= 0
-      ? textos.studyGallery.title.slice(0, highlightedIndex)
-      : textos.studyGallery.title;
+      ? translations.studyGallery.title.slice(0, highlightedIndex)
+      : translations.studyGallery.title;
   const titleAfterHighlight =
     highlightedIndex >= 0
-      ? textos.studyGallery.title.slice(
-          highlightedIndex + textos.studyGallery.highlightedTitle.length,
+      ? translations.studyGallery.title.slice(
+          highlightedIndex + translations.studyGallery.highlightedTitle.length,
         )
       : '';
 
@@ -38,13 +38,13 @@ export function StudyGallery() {
     <section className="py-14" id="galeria-estudos">
       <Container className="flex flex-col gap-10">
         <SectionHeading
-          description={textos.studyGallery.description}
-          eyebrow={textos.studyGallery.eyebrow}
+          description={translations.studyGallery.description}
+          eyebrow={translations.studyGallery.eyebrow}
           title={
             <>
               {titleBeforeHighlight}
               <span className="text-primary">
-                {textos.studyGallery.highlightedTitle}
+                {translations.studyGallery.highlightedTitle}
               </span>
               {titleAfterHighlight}
             </>
@@ -53,26 +53,26 @@ export function StudyGallery() {
 
         {loading ? (
           <div className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-            {textos.studyGallery.loading}
+            {translations.studyGallery.loading}
           </div>
         ) : null}
 
         {!loading && error ? (
           <div className="flex flex-col items-start gap-4 rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-            <p>{textos.studyGallery.error}</p>
+            <p>{translations.studyGallery.error}</p>
             <Button
               leftIcon={<RefreshIcon aria-hidden="true" />}
               onClick={() => void retry()}
               variant="secondary"
             >
-              {textos.studyGallery.retry}
+              {translations.studyGallery.retry}
             </Button>
           </div>
         ) : null}
 
         {!loading && !error && projects.length === 0 ? (
           <div className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-            {textos.studyGallery.empty}
+            {translations.studyGallery.empty}
           </div>
         ) : null}
 
@@ -96,7 +96,7 @@ export function StudyGallery() {
                     {cover ? (
                       <Image
                         alt={
-                          cover.alt || textos.studyGallery.imageAltFallback(project.title)
+                          cover.alt || translations.studyGallery.imageAltFallback(project.title)
                         }
                         className="object-cover"
                         fill
@@ -115,25 +115,25 @@ export function StudyGallery() {
                     <dl className="grid gap-3 text-sm text-text-muted sm:grid-cols-2">
                       <div>
                         <dt className="font-bold text-text">
-                          {textos.studyGallery.focus}
+                          {translations.studyGallery.focus}
                         </dt>
                         <dd>{project.focus}</dd>
                       </div>
                       <div>
                         <dt className="font-bold text-text">
-                          {textos.studyGallery.period}
+                          {translations.studyGallery.period}
                         </dt>
                         <dd>{period}</dd>
                       </div>
                       <div>
                         <dt className="font-bold text-text">
-                          {textos.studyGallery.category}
+                          {translations.studyGallery.category}
                         </dt>
                         <dd>{project.category}</dd>
                       </div>
                       <div>
                         <dt className="font-bold text-text">
-                          {textos.studyGallery.kind}
+                          {translations.studyGallery.kind}
                         </dt>
                         <dd>{project.kind}</dd>
                       </div>
@@ -150,7 +150,7 @@ export function StudyGallery() {
                       target="_blank"
                       variant="secondary"
                     >
-                      {textos.studyGallery.github}
+                      {translations.studyGallery.github}
                     </Button>
                     {canRunProject(project) ? (
                       <Button
@@ -160,7 +160,7 @@ export function StudyGallery() {
                           setSelectedProject(project);
                         }}
                       >
-                        {textos.studyGallery.playground.run}
+                        {translations.studyGallery.playground.run}
                       </Button>
                     ) : null}
                   </div>

@@ -1,7 +1,7 @@
-import type { ConteudoTraduzido } from '@/i18n';
+import type { TranslatedContent } from '@/i18n';
 
 export type CarouselSize = 'small' | 'medium' | 'large';
-export type CarouselTranslationKey = keyof ConteudoTraduzido['carousel']['items'];
+export type CarouselTranslationKey = keyof TranslatedContent['carousel']['items'];
 
 export interface CarouselImage {
   id: string;

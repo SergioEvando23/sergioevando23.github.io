@@ -68,36 +68,36 @@ function normalizeTag(tag: string) {
   return tag.trim();
 }
 
-function mapServiceError(error: unknown, textos: ReturnType<typeof useLanguage>['textos']) {
+function mapServiceError(error: unknown, translations: ReturnType<typeof useLanguage>['translations']) {
   if (!(error instanceof Error)) {
-    return textos.studyDocumentations.admin.errors.save;
+    return translations.studyDocumentations.admin.errors.save;
   }
 
   if (error.message === 'documentation-title-required') {
-    return textos.studyDocumentations.admin.errors.titleRequired;
+    return translations.studyDocumentations.admin.errors.titleRequired;
   }
 
   if (error.message === 'documentation-content-required') {
-    return textos.studyDocumentations.admin.errors.contentRequired;
+    return translations.studyDocumentations.admin.errors.contentRequired;
   }
 
   if (error.message === 'documentation-tags-required') {
-    return textos.studyDocumentations.admin.errors.tagsRequired;
+    return translations.studyDocumentations.admin.errors.tagsRequired;
   }
 
   if (
     error.message === 'documentation-token-required' ||
     error.message === 'documentation-unauthorized'
   ) {
-    return textos.studyDocumentations.admin.errors.unauthorized;
+    return translations.studyDocumentations.admin.errors.unauthorized;
   }
 
-  return textos.studyDocumentations.admin.errors.save;
+  return translations.studyDocumentations.admin.errors.save;
 }
 
 export function StudyDocumentationsAdminPage() {
   const params = useSearchParams();
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { user, loading, isAuthenticated, authError, signInWithGoogle, signOut } =
     useAuth();
   const [documentations, setDocumentations] = useState<StudyDocumentation[]>([]);
@@ -189,12 +189,12 @@ export function StudyDocumentationsAdminPage() {
       }
 
       event.preventDefault();
-      event.returnValue = textos.studyDocumentations.admin.unsavedChanges;
+      event.returnValue = translations.studyDocumentations.admin.unsavedChanges;
     };
 
     window.addEventListener('beforeunload', onBeforeUnload);
     return () => window.removeEventListener('beforeunload', onBeforeUnload);
-  }, [dirty, textos.studyDocumentations.admin.unsavedChanges]);
+  }, [dirty, translations.studyDocumentations.admin.unsavedChanges]);
 
   const updateForm = <Key extends keyof StudyDocumentationInput>(
     key: Key,
@@ -227,15 +227,15 @@ export function StudyDocumentationsAdminPage() {
     const nextErrors: DocumentationFormErrors = {};
 
     if (!form.title.trim()) {
-      nextErrors.title = textos.studyDocumentations.admin.errors.titleRequired;
+      nextErrors.title = translations.studyDocumentations.admin.errors.titleRequired;
     }
 
     if (!form.content.trim()) {
-      nextErrors.content = textos.studyDocumentations.admin.errors.contentRequired;
+      nextErrors.content = translations.studyDocumentations.admin.errors.contentRequired;
     }
 
     if (form.tags.map(normalizeTag).filter(Boolean).length === 0) {
-      nextErrors.tags = textos.studyDocumentations.admin.errors.tagsRequired;
+      nextErrors.tags = translations.studyDocumentations.admin.errors.tagsRequired;
     }
 
     setErrors(nextErrors);
@@ -248,7 +248,7 @@ export function StudyDocumentationsAdminPage() {
     }
 
     if (!user) {
-      setErrors({ auth: textos.studyDocumentations.admin.errors.auth });
+      setErrors({ auth: translations.studyDocumentations.admin.errors.auth });
       return;
     }
 
@@ -266,9 +266,9 @@ export function StudyDocumentationsAdminPage() {
 
       await loadDocumentations();
       resetForm();
-      setStatus(textos.studyDocumentations.admin.success);
+      setStatus(translations.studyDocumentations.admin.success);
     } catch (error) {
-      setStatus(mapServiceError(error, textos));
+      setStatus(mapServiceError(error, translations));
     } finally {
       setSaving(false);
     }
@@ -286,13 +286,13 @@ export function StudyDocumentationsAdminPage() {
       await deleteDocumentation(deleteTarget.id, token);
       await loadDocumentations();
       setDeleteTarget(null);
-      setStatus(textos.studyDocumentations.admin.deleteSuccess);
+      setStatus(translations.studyDocumentations.admin.deleteSuccess);
 
       if (editingId === deleteTarget.id) {
         resetForm();
       }
     } catch {
-      setStatus(textos.studyDocumentations.admin.errors.delete);
+      setStatus(translations.studyDocumentations.admin.errors.delete);
     } finally {
       setSaving(false);
     }
@@ -306,7 +306,7 @@ export function StudyDocumentationsAdminPage() {
   if (loading) {
     return (
       <Container className="py-16">
-        <p className="text-text-muted">{textos.studyDocumentations.admin.loadingAuth}</p>
+        <p className="text-text-muted">{translations.studyDocumentations.admin.loadingAuth}</p>
       </Container>
     );
   }
@@ -316,17 +316,17 @@ export function StudyDocumentationsAdminPage() {
       <Container className="py-16">
         <div className="max-w-xl rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 shadow-[var(--shadow-card)]">
           <h1 className="text-3xl font-black text-text">
-            {textos.studyDocumentations.admin.loginTitle}
+            {translations.studyDocumentations.admin.loginTitle}
           </h1>
           <p className="mt-3 text-text-muted">
-            {textos.studyDocumentations.admin.loginDescription}
+            {translations.studyDocumentations.admin.loginDescription}
           </p>
           <Button
             className="mt-6"
             leftIcon={<GoogleIcon aria-hidden="true" />}
             onClick={signInWithGoogle}
           >
-            {textos.studyDocumentations.admin.signIn}
+            {translations.studyDocumentations.admin.signIn}
           </Button>
           {authError ? (
             <Alert className="mt-4" severity="error">
@@ -343,10 +343,10 @@ export function StudyDocumentationsAdminPage() {
       <Container className="py-16">
         <div className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 shadow-[var(--shadow-card)]">
           <h1 className="text-3xl font-black text-text">
-            {textos.admin.accessDeniedTitle}
+            {translations.admin.accessDeniedTitle}
           </h1>
           <p className="mt-3 text-text-muted">
-            {textos.studyDocumentations.admin.deniedDescription}
+            {translations.studyDocumentations.admin.deniedDescription}
           </p>
           <Button
             className="mt-6"
@@ -354,7 +354,7 @@ export function StudyDocumentationsAdminPage() {
             onClick={logout}
             variant="secondary"
           >
-            {textos.studyDocumentations.admin.signOut}
+            {translations.studyDocumentations.admin.signOut}
           </Button>
         </div>
       </Container>
@@ -366,22 +366,22 @@ export function StudyDocumentationsAdminPage() {
       <div className="flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <div>
           <h1 className="text-4xl font-black text-text">
-            {textos.studyDocumentations.admin.title}
+            {translations.studyDocumentations.admin.title}
           </h1>
           <p className="mt-3 text-text-muted">
-            {textos.studyDocumentations.admin.description}
+            {translations.studyDocumentations.admin.description}
           </p>
         </div>
         <div className="flex flex-wrap gap-3">
           <Button leftIcon={<AddIcon aria-hidden="true" />} onClick={resetForm}>
-            {textos.studyDocumentations.admin.newDocumentation}
+            {translations.studyDocumentations.admin.newDocumentation}
           </Button>
           <Button
             leftIcon={<LogoutIcon aria-hidden="true" />}
             onClick={logout}
             variant="secondary"
           >
-            {textos.studyDocumentations.admin.signOut}
+            {translations.studyDocumentations.admin.signOut}
           </Button>
         </div>
       </div>
@@ -389,8 +389,8 @@ export function StudyDocumentationsAdminPage() {
       {status ? (
         <Alert
           severity={
-            status === textos.studyDocumentations.admin.success ||
-            status === textos.studyDocumentations.admin.deleteSuccess
+            status === translations.studyDocumentations.admin.success ||
+            status === translations.studyDocumentations.admin.deleteSuccess
               ? 'success'
               : 'error'
           }
@@ -410,14 +410,14 @@ export function StudyDocumentationsAdminPage() {
         >
           <h2 className="text-2xl font-black text-text">
             {editingId
-              ? textos.studyDocumentations.admin.edit
-              : textos.studyDocumentations.admin.newDocumentation}
+              ? translations.studyDocumentations.admin.edit
+              : translations.studyDocumentations.admin.newDocumentation}
           </h2>
 
           <div className="grid gap-4 md:grid-cols-3">
             <div className="rounded-[var(--radius-md)] border border-border bg-surface-secondary p-3">
               <p className="text-xs font-semibold uppercase text-text-muted">
-                {textos.studyDocumentations.admin.readonlyId}
+                {translations.studyDocumentations.admin.readonlyId}
               </p>
               <p className="mt-1 break-all text-sm font-bold text-text">
                 {editingId ?? '-'}
@@ -425,7 +425,7 @@ export function StudyDocumentationsAdminPage() {
             </div>
             <div className="rounded-[var(--radius-md)] border border-border bg-surface-secondary p-3">
               <p className="text-xs font-semibold uppercase text-text-muted">
-                {textos.studyDocumentations.admin.readonlyAuthor}
+                {translations.studyDocumentations.admin.readonlyAuthor}
               </p>
               <p className="mt-1 text-sm font-bold text-text">
                 {STUDY_DOCUMENTATION_AUTHOR}
@@ -433,7 +433,7 @@ export function StudyDocumentationsAdminPage() {
             </div>
             <div className="rounded-[var(--radius-md)] border border-border bg-surface-secondary p-3">
               <p className="text-xs font-semibold uppercase text-text-muted">
-                {textos.studyDocumentations.admin.readonlyUpdatedAt}
+                {translations.studyDocumentations.admin.readonlyUpdatedAt}
               </p>
               <p className="mt-1 text-sm font-bold text-text">server timestamp</p>
             </div>
@@ -442,7 +442,7 @@ export function StudyDocumentationsAdminPage() {
           <TextField
             error={Boolean(errors.title)}
             helperText={errors.title}
-            label={textos.studyDocumentations.admin.titleField}
+            label={translations.studyDocumentations.admin.titleField}
             onChange={(event) => updateForm('title', event.target.value)}
             value={form.title}
           />
@@ -452,7 +452,7 @@ export function StudyDocumentationsAdminPage() {
               <TextField
                 error={Boolean(errors.tags)}
                 helperText={errors.tags}
-                label={textos.studyDocumentations.admin.tagInput}
+                label={translations.studyDocumentations.admin.tagInput}
                 onChange={(event) => setTagInput(event.target.value)}
                 onKeyDown={(event) => {
                   if (event.key === 'Enter') {
@@ -463,14 +463,14 @@ export function StudyDocumentationsAdminPage() {
                 value={tagInput}
               />
               <Button onClick={() => addTag()} type="button" variant="secondary">
-                {textos.studyDocumentations.admin.addTag}
+                {translations.studyDocumentations.admin.addTag}
               </Button>
             </div>
 
             <div className="flex flex-wrap gap-2">
               {form.tags.map((tag) => (
                 <button
-                  aria-label={textos.studyDocumentations.admin.removeTag(tag)}
+                  aria-label={translations.studyDocumentations.admin.removeTag(tag)}
                   className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
                   key={tag}
                   onClick={() => removeTag(tag)}
@@ -483,7 +483,7 @@ export function StudyDocumentationsAdminPage() {
 
             <div>
               <p className="mb-2 text-sm font-bold text-text">
-                {textos.studyDocumentations.admin.suggestedTags}
+                {translations.studyDocumentations.admin.suggestedTags}
               </p>
               <div className="flex flex-wrap gap-2">
                 {SUGGESTED_TAGS.map((tag) => (
@@ -503,7 +503,7 @@ export function StudyDocumentationsAdminPage() {
           <TextField
             error={Boolean(errors.content)}
             helperText={errors.content}
-            label={textos.studyDocumentations.admin.contentField}
+            label={translations.studyDocumentations.admin.contentField}
             minRows={14}
             multiline
             onChange={(event) => updateForm('content', event.target.value)}
@@ -512,13 +512,13 @@ export function StudyDocumentationsAdminPage() {
 
           <div className="rounded-[var(--radius-lg)] border border-border bg-surface-secondary p-4">
             <h3 className="mb-4 text-lg font-black text-text">
-              {textos.studyDocumentations.admin.preview}
+              {translations.studyDocumentations.admin.preview}
             </h3>
             {form.content.trim() ? (
               <MarkdownRenderer markdown={form.content} />
             ) : (
               <p className="text-text-muted">
-                {textos.studyDocumentations.admin.contentField}
+                {translations.studyDocumentations.admin.contentField}
               </p>
             )}
           </div>
@@ -526,12 +526,12 @@ export function StudyDocumentationsAdminPage() {
           <div className="flex flex-wrap gap-3">
             <Button loading={saving} type="submit">
               {saving
-                ? textos.studyDocumentations.admin.saving
-                : textos.studyDocumentations.admin.save}
+                ? translations.studyDocumentations.admin.saving
+                : translations.studyDocumentations.admin.save}
             </Button>
             {editingId ? (
               <Button onClick={resetForm} type="button" variant="secondary">
-                {textos.studyDocumentations.admin.cancelEdit}
+                {translations.studyDocumentations.admin.cancelEdit}
               </Button>
             ) : null}
           </div>
@@ -540,10 +540,10 @@ export function StudyDocumentationsAdminPage() {
         <aside className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-5 shadow-[var(--shadow-card)]">
           <div className="mb-4 flex items-center justify-between gap-3">
             <h2 className="text-2xl font-black text-text">
-              {textos.studyDocumentations.title}
+              {translations.studyDocumentations.title}
             </h2>
             <IconButton
-              label={textos.studyDocumentations.retry}
+              label={translations.studyDocumentations.retry}
               onClick={() => void loadDocumentations()}
               size="small"
               variant="ghost"
@@ -554,14 +554,14 @@ export function StudyDocumentationsAdminPage() {
 
           {loadingList ? (
             <p className="text-text-muted">
-              {textos.studyDocumentations.admin.loadingList}
+              {translations.studyDocumentations.admin.loadingList}
             </p>
           ) : null}
           {loadError ? (
-            <Alert severity="error">{textos.studyDocumentations.admin.errors.load}</Alert>
+            <Alert severity="error">{translations.studyDocumentations.admin.errors.load}</Alert>
           ) : null}
           {!loadingList && sortedDocumentations.length === 0 ? (
-            <p className="text-text-muted">{textos.studyDocumentations.empty}</p>
+            <p className="text-text-muted">{translations.studyDocumentations.empty}</p>
           ) : null}
 
           <div className="grid gap-3">
@@ -579,7 +579,7 @@ export function StudyDocumentationsAdminPage() {
                   </div>
                   <div className="flex gap-2">
                     <IconButton
-                      label={textos.studyDocumentations.admin.edit}
+                      label={translations.studyDocumentations.admin.edit}
                       onClick={() => startEdit(documentation)}
                       size="small"
                       variant="ghost"
@@ -587,7 +587,7 @@ export function StudyDocumentationsAdminPage() {
                       <EditOutlinedIcon aria-hidden="true" fontSize="inherit" />
                     </IconButton>
                     <IconButton
-                      label={textos.studyDocumentations.admin.delete}
+                      label={translations.studyDocumentations.admin.delete}
                       onClick={() => setDeleteTarget(documentation)}
                       size="small"
                       variant="ghost"
@@ -603,18 +603,18 @@ export function StudyDocumentationsAdminPage() {
       </section>
 
       <Dialog onClose={() => setDeleteTarget(null)} open={Boolean(deleteTarget)}>
-        <DialogTitle>{textos.studyDocumentations.admin.confirmDelete}</DialogTitle>
+        <DialogTitle>{translations.studyDocumentations.admin.confirmDelete}</DialogTitle>
         <DialogContent>
           {deleteTarget
-            ? textos.studyDocumentations.admin.confirmDeleteMessage(deleteTarget.title)
+            ? translations.studyDocumentations.admin.confirmDeleteMessage(deleteTarget.title)
             : null}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setDeleteTarget(null)} variant="secondary">
-            {textos.common.close}
+            {translations.common.close}
           </Button>
           <Button loading={saving} onClick={() => void confirmDelete()}>
-            {textos.studyDocumentations.admin.confirmDelete}
+            {translations.studyDocumentations.admin.confirmDelete}
           </Button>
         </DialogActions>
       </Dialog>

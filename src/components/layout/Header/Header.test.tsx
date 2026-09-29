@@ -22,7 +22,7 @@ vi.mock('@/components/brand/Logo', () => ({ Logo: () => <span>Logo</span> }));
 vi.mock('@/components/language', () => ({
   LanguageSwitcher: () => <span>Language</span>,
   useLanguage: () => ({
-    textos: {
+    translations: {
       brand: { homeLabel: 'Home' },
       accessibility: {
         mainNavigation: 'Main navigation',

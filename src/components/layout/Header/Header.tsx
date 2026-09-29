@@ -24,7 +24,7 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const mobilePanelRef = useRef<HTMLDivElement>(null);
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { user, isAuthenticated, isAdmin, adminLoading, signInWithGoogle, signOut } =
     useAuth();
   const canAccessStudyAdmin =
@@ -57,7 +57,7 @@ export function Header() {
     <header className="sticky top-0 z-40 border-b border-border bg-overlay backdrop-blur-xl">
       <Container className="flex h-[var(--header-height)] items-center justify-between gap-4">
         <div className="flex min-w-0 items-center gap-2">
-          <Link aria-label={textos.brand.homeLabel} href="/">
+          <Link aria-label={translations.brand.homeLabel} href="/">
             <Logo />
           </Link>
           {isAuthenticated ? (
@@ -66,7 +66,7 @@ export function Header() {
         </div>
 
         <nav
-          aria-label={textos.accessibility.mainNavigation}
+          aria-label={translations.accessibility.mainNavigation}
           className="hidden items-center gap-6 lg:flex"
         >
           {navigationItems.map((item) =>
@@ -77,7 +77,7 @@ export function Header() {
                   className="inline-flex items-center gap-1 text-sm font-semibold text-text-muted transition-colors hover:text-text"
                   href={item.href}
                 >
-                  {textos.navigation[item.translationKey]}
+                  {translations.navigation[item.translationKey]}
                   <KeyboardArrowDownIcon aria-hidden="true" fontSize="small" />
                 </Link>
                 <div className="invisible absolute left-0 top-full z-50 min-w-56 translate-y-2 rounded-[var(--radius-lg)] border border-border bg-overlay p-2 opacity-0 shadow-[var(--shadow-card)] backdrop-blur-xl transition-all group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">
@@ -85,13 +85,13 @@ export function Header() {
                     className="block rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted hover:bg-surface-secondary hover:text-text"
                     href="/study"
                   >
-                    {textos.studyMenu.gallery}
+                    {translations.studyMenu.gallery}
                   </Link>
                   <Link
                     className="block rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted hover:bg-surface-secondary hover:text-text"
                     href="/study/documentations"
                   >
-                    {textos.studyMenu.documentations}
+                    {translations.studyMenu.documentations}
                   </Link>
                 </div>
               </div>
@@ -101,7 +101,7 @@ export function Header() {
                 href={item.href}
                 key={item.href}
               >
-                {textos.navigation[item.translationKey]}
+                {translations.navigation[item.translationKey]}
               </Link>
             ),
           )}
@@ -111,14 +111,14 @@ export function Header() {
               href="/study/admin"
             >
               <AddCircleOutlineIcon aria-hidden="true" fontSize="small" />
-              {textos.admin.insertProjects}
+              {translations.admin.insertProjects}
             </Link>
           ) : null}
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
           <IconButton
-            label={textos.accessibility.openGithub}
+            label={translations.accessibility.openGithub}
             onClick={() =>
               window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')
             }
@@ -128,7 +128,7 @@ export function Header() {
             <GitHubIcon aria-hidden="true" fontSize="inherit" />
           </IconButton>
           <IconButton
-            label={textos.accessibility.openLinkedin}
+            label={translations.accessibility.openLinkedin}
             onClick={() =>
               window.open(brandConfig.socialLinks.linkedin, '_blank', 'noreferrer')
             }
@@ -138,7 +138,7 @@ export function Header() {
             <LinkedInIcon aria-hidden="true" fontSize="inherit" />
           </IconButton>
           <IconButton
-            label={isAuthenticated ? textos.auth.signOut : textos.auth.signIn}
+            label={isAuthenticated ? translations.auth.signOut : translations.auth.signIn}
             onClick={isAuthenticated ? signOut : signInWithGoogle}
             size="small"
             variant="ghost"
@@ -160,7 +160,7 @@ export function Header() {
             aria-controls="mobile-navigation"
             aria-expanded={mobileOpen}
             label={
-              mobileOpen ? textos.accessibility.closeMenu : textos.accessibility.openMenu
+              mobileOpen ? translations.accessibility.closeMenu : translations.accessibility.openMenu
             }
             onClick={() => setMobileOpen((current) => !current)}
             ref={menuButtonRef}
@@ -192,7 +192,7 @@ export function Header() {
                   href={item.href}
                   onClick={closeMobileMenu}
                 >
-                  {textos.navigation[item.translationKey]}
+                  {translations.navigation[item.translationKey]}
                 </Link>
                 <div className="ml-3 grid gap-1 border-l border-border pl-3">
                   <Link
@@ -200,14 +200,14 @@ export function Header() {
                     href="/study"
                     onClick={closeMobileMenu}
                   >
-                    {textos.studyMenu.gallery}
+                    {translations.studyMenu.gallery}
                   </Link>
                   <Link
                     className="rounded-[var(--radius-md)] px-3 py-2 text-sm font-semibold text-text-muted transition-colors hover:bg-surface-secondary hover:text-text"
                     href="/study/documentations"
                     onClick={closeMobileMenu}
                   >
-                    {textos.studyMenu.documentations}
+                    {translations.studyMenu.documentations}
                   </Link>
                 </div>
               </div>
@@ -218,7 +218,7 @@ export function Header() {
                 key={item.href}
                 onClick={closeMobileMenu}
               >
-                {textos.navigation[item.translationKey]}
+                {translations.navigation[item.translationKey]}
               </Link>
             ),
           )}
@@ -229,12 +229,12 @@ export function Header() {
               onClick={closeMobileMenu}
             >
               <AddCircleOutlineIcon aria-hidden="true" fontSize="small" />
-              {textos.admin.insertProjects}
+              {translations.admin.insertProjects}
             </Link>
           ) : null}
           <div className="flex gap-2 border-t border-border pt-3">
             <IconButton
-              label={textos.accessibility.openGithub}
+              label={translations.accessibility.openGithub}
               onClick={() =>
                 window.open(brandConfig.socialLinks.github, '_blank', 'noreferrer')
               }
@@ -243,7 +243,7 @@ export function Header() {
               <GitHubIcon aria-hidden="true" fontSize="inherit" />
             </IconButton>
             <IconButton
-              label={textos.accessibility.openLinkedin}
+              label={translations.accessibility.openLinkedin}
               onClick={() =>
                 window.open(brandConfig.socialLinks.linkedin, '_blank', 'noreferrer')
               }
@@ -252,7 +252,7 @@ export function Header() {
               <LinkedInIcon aria-hidden="true" fontSize="inherit" />
             </IconButton>
             <IconButton
-              label={isAuthenticated ? textos.auth.signOut : textos.auth.signIn}
+              label={isAuthenticated ? translations.auth.signOut : translations.auth.signIn}
               onClick={isAuthenticated ? signOut : signInWithGoogle}
               variant="ghost"
             >

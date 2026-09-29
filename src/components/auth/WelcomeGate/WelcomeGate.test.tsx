@@ -15,7 +15,7 @@ vi.mock('@/lib/firebase/client', () => ({
 }));
 
 function renderGate() {
-  localStorage.setItem('Sérgio-portfolio-language', 'portugues');
+  localStorage.setItem('Sérgio-portfolio-language', 'portuguese');
 
   return render(
     <ThemeProvider>

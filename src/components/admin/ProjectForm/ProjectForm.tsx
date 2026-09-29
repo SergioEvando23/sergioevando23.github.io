@@ -59,7 +59,7 @@ function createImageId() {
 }
 
 export function ProjectForm() {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const { create, loading, progress } = useCreateStudyProject();
   const [input, setInput] = useState<StudyProjectInput>(initialInput);
   const [technologyDraft, setTechnologyDraft] = useState('');
@@ -80,13 +80,13 @@ export function ProjectForm() {
 
     const handleBeforeUnload = (event: BeforeUnloadEvent) => {
       event.preventDefault();
-      event.returnValue = textos.admin.form.actions.confirmLeave;
+      event.returnValue = translations.admin.form.actions.confirmLeave;
     };
 
     window.addEventListener('beforeunload', handleBeforeUnload);
 
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [dirty, textos.admin.form.actions.confirmLeave]);
+  }, [dirty, translations.admin.form.actions.confirmLeave]);
 
   const update = <Key extends keyof StudyProjectInput>(
     key: Key,
@@ -125,15 +125,15 @@ export function ProjectForm() {
 
     Array.from(files).forEach((file) => {
       if (nextImages.length >= MAX_PROJECT_IMAGES) {
-        nextErrors.images = textos.admin.form.errors.imageLimit;
+        nextErrors.images = translations.admin.form.errors.imageLimit;
         return;
       }
 
       if (!isAllowedProjectImage(file)) {
         nextErrors.images =
           file.size > 5 * 1024 * 1024
-            ? textos.admin.form.errors.imageSize
-            : textos.admin.form.errors.imageType;
+            ? translations.admin.form.errors.imageSize
+            : translations.admin.form.errors.imageType;
         return;
       }
 
@@ -177,9 +177,9 @@ export function ProjectForm() {
     const nextErrors: FormErrors = {};
 
     if (!input.id) {
-      nextErrors.id = textos.admin.form.errors.required;
+      nextErrors.id = translations.admin.form.errors.required;
     } else if (!slugPattern.test(input.id)) {
-      nextErrors.id = textos.admin.form.errors.invalidSlug;
+      nextErrors.id = translations.admin.form.errors.invalidSlug;
     }
 
     (
@@ -195,20 +195,20 @@ export function ProjectForm() {
       ] as const
     ).forEach((key) => {
       if (!input[key]) {
-        nextErrors[key] = textos.admin.form.errors.required;
+        nextErrors[key] = translations.admin.form.errors.required;
       }
     });
 
     if (!input.githubUrl.startsWith('https://github.com/')) {
-      nextErrors.githubUrl = textos.admin.form.errors.invalidGithub;
+      nextErrors.githubUrl = translations.admin.form.errors.invalidGithub;
     }
 
     if (input.demoUrl && !isValidProjectUrl(input.demoUrl)) {
-      nextErrors.demoUrl = textos.admin.form.errors.invalidDemoUrl;
+      nextErrors.demoUrl = translations.admin.form.errors.invalidDemoUrl;
     }
 
     if (images.length === 0) {
-      nextErrors.images = textos.admin.form.errors.imageRequired;
+      nextErrors.images = translations.admin.form.errors.imageRequired;
     }
 
     setErrors(nextErrors);
@@ -232,9 +232,9 @@ export function ProjectForm() {
           ...image,
           alt:
             image.alt.trim() ||
-            textos.studyGallery.imageAltFallback(`${input.title} ${index + 1}`),
+            translations.studyGallery.imageAltFallback(`${input.title} ${index + 1}`),
         })),
-        textos.admin.form.uploadProgress,
+        translations.admin.form.uploadProgress,
       );
       setSuccess(true);
       setInput(initialInput);
@@ -242,8 +242,8 @@ export function ProjectForm() {
     } catch (error) {
       setSubmitError(
         error instanceof Error && error.message === 'duplicate-id'
-          ? textos.admin.form.errors.duplicateId
-          : textos.admin.form.errors.saveFailed,
+          ? translations.admin.form.errors.duplicateId
+          : translations.admin.form.errors.saveFailed,
       );
     }
   };
@@ -255,42 +255,42 @@ export function ProjectForm() {
     >
       <div className="flex flex-col gap-5">
         <SectionHeading
-          description={textos.admin.form.description}
-          eyebrow={textos.admin.insertProjects}
-          title={textos.admin.form.title}
+          description={translations.admin.form.description}
+          eyebrow={translations.admin.insertProjects}
+          title={translations.admin.form.title}
         />
 
-        {success ? <Alert severity="success">{textos.admin.form.success}</Alert> : null}
+        {success ? <Alert severity="success">{translations.admin.form.success}</Alert> : null}
         {submitError ? <Alert severity="error">{submitError}</Alert> : null}
         {progress ? <Alert severity="info">{progress}</Alert> : null}
 
         <div className="grid gap-4 md:grid-cols-2">
           <TextField
             error={Boolean(errors.id)}
-            helperText={errors.id ?? textos.admin.form.helpers.id}
+            helperText={errors.id ?? translations.admin.form.helpers.id}
             inputRef={errors.id ? firstErrorRef : undefined}
-            label={textos.admin.form.fields.id}
+            label={translations.admin.form.fields.id}
             onChange={(event) => update('id', event.target.value)}
             value={input.id}
           />
           <TextField
             error={Boolean(errors.repository)}
             helperText={errors.repository}
-            label={textos.admin.form.fields.repository}
+            label={translations.admin.form.fields.repository}
             onChange={(event) => update('repository', event.target.value)}
             value={input.repository}
           />
           <TextField
             error={Boolean(errors.title)}
             helperText={errors.title}
-            label={textos.admin.form.fields.projectTitle}
+            label={translations.admin.form.fields.projectTitle}
             onChange={(event) => update('title', event.target.value)}
             value={input.title}
           />
           <TextField
             error={Boolean(errors.focus)}
             helperText={errors.focus}
-            label={textos.admin.form.fields.focus}
+            label={translations.admin.form.fields.focus}
             onChange={(event) => update('focus', event.target.value)}
             value={input.focus}
           />
@@ -298,16 +298,16 @@ export function ProjectForm() {
             className="md:col-span-2"
             error={Boolean(errors.description)}
             helperText={errors.description}
-            label={textos.admin.form.fields.projectDescription}
+            label={translations.admin.form.fields.projectDescription}
             minRows={4}
             multiline
             onChange={(event) => update('description', event.target.value)}
             value={input.description}
           />
           <FormControl>
-            <InputLabel>{textos.admin.form.fields.category}</InputLabel>
+            <InputLabel>{translations.admin.form.fields.category}</InputLabel>
             <Select
-              label={textos.admin.form.fields.category}
+              label={translations.admin.form.fields.category}
               onChange={(event) => update('category', event.target.value)}
               value={input.category}
             >
@@ -318,9 +318,9 @@ export function ProjectForm() {
             </Select>
           </FormControl>
           <FormControl>
-            <InputLabel>{textos.admin.form.fields.kind}</InputLabel>
+            <InputLabel>{translations.admin.form.fields.kind}</InputLabel>
             <Select
-              label={textos.admin.form.fields.kind}
+              label={translations.admin.form.fields.kind}
               onChange={(event) => update('kind', event.target.value)}
               value={input.kind}
             >
@@ -330,14 +330,14 @@ export function ProjectForm() {
             </Select>
           </FormControl>
           <TextField
-            label={textos.admin.form.fields.startedAt}
+            label={translations.admin.form.fields.startedAt}
             onChange={(event) => update('startedAt', event.target.value)}
             slotProps={{ inputLabel: { shrink: true } }}
             type="date"
             value={input.startedAt}
           />
           <TextField
-            label={textos.admin.form.fields.completedAt}
+            label={translations.admin.form.fields.completedAt}
             onChange={(event) => update('completedAt', event.target.value)}
             slotProps={{ inputLabel: { shrink: true } }}
             type="date"
@@ -346,7 +346,7 @@ export function ProjectForm() {
           <TextField
             error={Boolean(errors.date)}
             helperText={errors.date}
-            label={textos.admin.form.fields.date}
+            label={translations.admin.form.fields.date}
             onChange={(event) => update('date', event.target.value)}
             slotProps={{ inputLabel: { shrink: true } }}
             type="date"
@@ -355,14 +355,14 @@ export function ProjectForm() {
           <TextField
             error={Boolean(errors.githubUrl)}
             helperText={errors.githubUrl}
-            label={textos.admin.form.fields.githubUrl}
+            label={translations.admin.form.fields.githubUrl}
             onChange={(event) => update('githubUrl', event.target.value)}
             value={input.githubUrl}
           />
           <TextField
             error={Boolean(errors.demoUrl)}
-            helperText={errors.demoUrl ?? textos.admin.form.helpers.demoUrl}
-            label={textos.admin.form.fields.demoUrl}
+            helperText={errors.demoUrl ?? translations.admin.form.helpers.demoUrl}
+            label={translations.admin.form.fields.demoUrl}
             onChange={(event) => update('demoUrl', event.target.value)}
             value={input.demoUrl}
           />
@@ -370,8 +370,8 @@ export function ProjectForm() {
 
         <div className="flex flex-col gap-3 rounded-[var(--radius-lg)] border border-border bg-surface/80 p-4">
           <TextField
-            helperText={textos.admin.form.helpers.technologies}
-            label={textos.admin.form.fields.technologies}
+            helperText={translations.admin.form.helpers.technologies}
+            label={translations.admin.form.fields.technologies}
             onChange={(event) => setTechnologyDraft(event.target.value)}
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
@@ -399,8 +399,8 @@ export function ProjectForm() {
 
         <div className="flex flex-col gap-4 rounded-[var(--radius-lg)] border border-border bg-surface/80 p-4">
           <div>
-            <p className="font-bold text-text">{textos.admin.form.fields.images}</p>
-            <p className="text-sm text-text-muted">{textos.admin.form.helpers.images}</p>
+            <p className="font-bold text-text">{translations.admin.form.fields.images}</p>
+            <p className="text-sm text-text-muted">{translations.admin.form.helpers.images}</p>
           </div>
           <Button
             leftIcon={<AddPhotoAlternateIcon aria-hidden="true" />}
@@ -408,7 +408,7 @@ export function ProjectForm() {
             type="button"
             variant="secondary"
           >
-            {textos.common.open}
+            {translations.common.open}
           </Button>
           <input
             accept="image/png,image/jpeg,image/webp"
@@ -429,7 +429,7 @@ export function ProjectForm() {
               >
                 <div className="relative aspect-video overflow-hidden rounded-[var(--radius-md)]">
                   <Image
-                    alt={image.alt || input.title || textos.admin.form.preview}
+                    alt={image.alt || input.title || translations.admin.form.preview}
                     className="object-cover"
                     fill
                     src={image.previewUrl}
@@ -437,12 +437,12 @@ export function ProjectForm() {
                 </div>
                 {index === 0 ? (
                   <Tag className="mt-3" variant="primary">
-                    {textos.admin.form.cover}
+                    {translations.admin.form.cover}
                   </Tag>
                 ) : null}
                 <TextField
                   className="mt-3"
-                  label={textos.admin.form.fields.imageAlt}
+                  label={translations.admin.form.fields.imageAlt}
                   onChange={(event) =>
                     setImages((current) =>
                       current.map((item) =>
@@ -458,7 +458,7 @@ export function ProjectForm() {
                 <div className="mt-3 flex gap-2">
                   <IconButton
                     disabled={index === 0}
-                    label={textos.admin.form.actions.moveImageLeft}
+                    label={translations.admin.form.actions.moveImageLeft}
                     onClick={() => moveImage(index, -1)}
                     size="small"
                     variant="ghost"
@@ -467,7 +467,7 @@ export function ProjectForm() {
                   </IconButton>
                   <IconButton
                     disabled={index === images.length - 1}
-                    label={textos.admin.form.actions.moveImageRight}
+                    label={translations.admin.form.actions.moveImageRight}
                     onClick={() => moveImage(index, 1)}
                     size="small"
                     variant="ghost"
@@ -475,7 +475,7 @@ export function ProjectForm() {
                     <ArrowForwardIcon aria-hidden="true" fontSize="inherit" />
                   </IconButton>
                   <IconButton
-                    label={textos.admin.form.actions.removeImage}
+                    label={translations.admin.form.actions.removeImage}
                     onClick={() => removeImage(image.id)}
                     size="small"
                     variant="ghost"
@@ -495,7 +495,7 @@ export function ProjectForm() {
               onChange={(event) => update('portfolioEligible', event.target.checked)}
             />
           }
-          label={textos.admin.form.fields.portfolioEligible}
+          label={translations.admin.form.fields.portfolioEligible}
         />
 
         <Button
@@ -505,20 +505,20 @@ export function ProjectForm() {
           type="submit"
         >
           {loading
-            ? textos.admin.form.actions.publishing
-            : textos.admin.form.actions.publish}
+            ? translations.admin.form.actions.publishing
+            : translations.admin.form.actions.publish}
         </Button>
       </div>
 
       <aside className="h-fit rounded-[var(--radius-xl)] border border-border bg-surface/80 p-5 shadow-[var(--shadow-card)]">
         <p className="mb-4 text-sm font-bold uppercase text-text-muted">
-          {textos.admin.form.preview}
+          {translations.admin.form.preview}
         </p>
         <div className="overflow-hidden rounded-[var(--radius-lg)] border border-border">
           <div className="relative aspect-video bg-surface-secondary">
             {images[0] ? (
               <Image
-                alt={images[0].alt || input.title || textos.admin.form.preview}
+                alt={images[0].alt || input.title || translations.admin.form.preview}
                 className="object-cover"
                 fill
                 src={images[0].previewUrl}
@@ -527,10 +527,10 @@ export function ProjectForm() {
           </div>
           <div className="space-y-3 p-4">
             <h3 className="text-xl font-black text-text">
-              {input.title || textos.admin.form.fields.projectTitle}
+              {input.title || translations.admin.form.fields.projectTitle}
             </h3>
             <p className="text-sm leading-6 text-text-muted">
-              {input.description || textos.admin.form.fields.projectDescription}
+              {input.description || translations.admin.form.fields.projectDescription}
             </p>
             <div className="flex flex-wrap gap-2">
               {input.technologies.map((technology) => (
@@ -544,7 +544,7 @@ export function ProjectForm() {
       {dirty ? (
         <span
           aria-hidden="true"
-          data-confirm-leave={textos.admin.form.actions.confirmLeave}
+          data-confirm-leave={translations.admin.form.actions.confirmLeave}
         />
       ) : null}
     </form>

@@ -15,7 +15,7 @@ interface ProjectPlaygroundProps {
 }
 
 export function ProjectPlayground({ project, onClose }: ProjectPlaygroundProps) {
-  const { textos } = useLanguage();
+  const { translations } = useLanguage();
   const dialogRef = useRef<HTMLDivElement>(null);
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -43,7 +43,7 @@ export function ProjectPlayground({ project, onClose }: ProjectPlaygroundProps) 
 
   return (
     <div
-      aria-label={textos.studyGallery.playground.dialogLabel(project.title)}
+      aria-label={translations.studyGallery.playground.dialogLabel(project.title)}
       aria-modal="true"
       className="fixed inset-0 z-50 flex items-center justify-center bg-background/85 p-0 backdrop-blur-sm md:p-6"
       onMouseDown={(event) => {
@@ -57,14 +57,14 @@ export function ProjectPlayground({ project, onClose }: ProjectPlaygroundProps) 
         <header className="flex items-center justify-between gap-3 border-b border-border px-4 py-3 md:px-6">
           <h2 className="min-w-0 truncate text-lg font-black text-text">{project.title}</h2>
           <div className="flex gap-2">
-            {validUrl ? <a aria-label={textos.studyGallery.playground.openExternal} className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-full)] text-text-muted hover:bg-surface-secondary hover:text-text" href={project.demoUrl} rel="noopener noreferrer" target="_blank"><OpenInNewIcon aria-hidden="true" /></a> : null}
-            {fullscreenSupported && project.preview?.allowFullscreen !== false ? <IconButton label={textos.studyGallery.playground.fullscreen} onClick={() => void openFullscreen()} variant="ghost"><FullscreenIcon aria-hidden="true" /></IconButton> : null}
-            <IconButton label={textos.studyGallery.playground.close} onClick={onClose} variant="ghost"><CloseIcon aria-hidden="true" /></IconButton>
+            {validUrl ? <a aria-label={translations.studyGallery.playground.openExternal} className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--radius-full)] text-text-muted hover:bg-surface-secondary hover:text-text" href={project.demoUrl} rel="noopener noreferrer" target="_blank"><OpenInNewIcon aria-hidden="true" /></a> : null}
+            {fullscreenSupported && project.preview?.allowFullscreen !== false ? <IconButton label={translations.studyGallery.playground.fullscreen} onClick={() => void openFullscreen()} variant="ghost"><FullscreenIcon aria-hidden="true" /></IconButton> : null}
+            <IconButton label={translations.studyGallery.playground.close} onClick={onClose} variant="ghost"><CloseIcon aria-hidden="true" /></IconButton>
           </div>
         </header>
         <div className="relative min-h-0 flex-1 bg-surface-secondary">
-          {!loaded && !failed && validUrl ? <p className="absolute inset-0 grid place-items-center text-text-muted">{textos.studyGallery.playground.loading}</p> : null}
-          {failed || !validUrl ? <div className="grid h-full place-items-center p-6 text-center"><div><p className="text-text-muted">{textos.studyGallery.playground.error}</p>{validUrl ? <a className="mt-4 inline-flex rounded-[var(--radius-full)] bg-primary px-5 py-3 font-semibold text-primary-foreground" href={project.demoUrl} rel="noopener noreferrer" target="_blank">{textos.studyGallery.playground.openExternal}</a> : null}</div></div> : <iframe allowFullScreen={project.preview?.allowFullscreen !== false} className="h-full w-full border-0" onError={() => setFailed(true)} onLoad={() => setLoaded(true)} sandbox={getProjectIframeSandbox(project)} src={project.demoUrl} title={project.title} />}
+          {!loaded && !failed && validUrl ? <p className="absolute inset-0 grid place-items-center text-text-muted">{translations.studyGallery.playground.loading}</p> : null}
+          {failed || !validUrl ? <div className="grid h-full place-items-center p-6 text-center"><div><p className="text-text-muted">{translations.studyGallery.playground.error}</p>{validUrl ? <a className="mt-4 inline-flex rounded-[var(--radius-full)] bg-primary px-5 py-3 font-semibold text-primary-foreground" href={project.demoUrl} rel="noopener noreferrer" target="_blank">{translations.studyGallery.playground.openExternal}</a> : null}</div></div> : <iframe allowFullScreen={project.preview?.allowFullscreen !== false} className="h-full w-full border-0" onError={() => setFailed(true)} onLoad={() => setLoaded(true)} sandbox={getProjectIframeSandbox(project)} src={project.demoUrl} title={project.title} />}
         </div>
       </section>
     </div>

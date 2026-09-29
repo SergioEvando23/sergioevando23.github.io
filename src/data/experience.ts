@@ -1,8 +1,8 @@
-import type { ConteudoTraduzido } from '@/i18n';
+import type { TranslatedContent } from '@/i18n';
 
 export interface ExperienceItem {
   id: string;
-  translationKey: keyof ConteudoTraduzido['experience']['items'];
+  translationKey: keyof TranslatedContent['experience']['items'];
 }
 
 export const experienceItems: ExperienceItem[] = [

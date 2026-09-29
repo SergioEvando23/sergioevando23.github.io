@@ -49,7 +49,7 @@ function estimateReadTime(markdown: string) {
 }
 
 export function StudyDocumentationsPage() {
-  const { idioma, textos } = useLanguage();
+  const { language, translations } = useLanguage();
   const { user, isAdmin } = useAuth();
   const [documentations, setDocumentations] = useState<StudyDocumentation[]>([]);
   const [activeTag, setActiveTag] = useState(ALL_TAG);
@@ -58,28 +58,28 @@ export function StudyDocumentationsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const adminAllowed = canUseAdminActions(user, isAdmin);
-  const highlightedIndex = textos.studyDocumentations.title.indexOf(
-    textos.studyDocumentations.highlightedTitle,
+  const highlightedIndex = translations.studyDocumentations.title.indexOf(
+    translations.studyDocumentations.highlightedTitle,
   );
   const titleBeforeHighlight =
     highlightedIndex >= 0
-      ? textos.studyDocumentations.title.slice(0, highlightedIndex)
-      : textos.studyDocumentations.title;
+      ? translations.studyDocumentations.title.slice(0, highlightedIndex)
+      : translations.studyDocumentations.title;
   const titleAfterHighlight =
     highlightedIndex >= 0
-      ? textos.studyDocumentations.title.slice(
-          highlightedIndex + textos.studyDocumentations.highlightedTitle.length,
+      ? translations.studyDocumentations.title.slice(
+          highlightedIndex + translations.studyDocumentations.highlightedTitle.length,
         )
       : '';
 
   const dateFormatter = useMemo(
     () =>
-      new Intl.DateTimeFormat(idioma === 'portugues' ? 'pt-BR' : 'en-US', {
+      new Intl.DateTimeFormat(language === 'portuguese' ? 'pt-BR' : 'en-US', {
         day: '2-digit',
         month: 'short',
         year: 'numeric',
       }),
-    [idioma],
+    [language],
   );
 
   const loadDocumentations = useCallback(async () => {
@@ -144,25 +144,25 @@ export function StudyDocumentationsPage() {
         <Container className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-primary">
-              {textos.studyDocumentations.eyebrow}
+              {translations.studyDocumentations.eyebrow}
             </p>
             <h1 className="mt-4 max-w-4xl text-4xl font-black leading-tight text-text sm:text-5xl">
               {titleBeforeHighlight}
               <span className="text-primary">
-                {textos.studyDocumentations.highlightedTitle}
+                {translations.studyDocumentations.highlightedTitle}
               </span>
               {titleAfterHighlight}
             </h1>
             <p className="mt-4 max-w-3xl text-lg leading-8 text-text-muted">
-              {textos.studyDocumentations.description}
+              {translations.studyDocumentations.description}
             </p>
           </div>
           <blockquote className="rounded-[var(--radius-xl)] bg-surface/80 p-6 text-right text-text-muted shadow-[var(--shadow-card)]">
             <p className="text-lg italic leading-8">
-              &quot;{textos.studyDocumentations.quote}&quot;
+              &quot;{translations.studyDocumentations.quote}&quot;
             </p>
             <cite className="mt-3 block text-sm font-semibold not-italic text-text">
-              - Sérgio Costa
+              - SÃ©rgio Costa
             </cite>
           </blockquote>
         </Container>
@@ -173,10 +173,10 @@ export function StudyDocumentationsPage() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-2">
               <label className="text-sm font-semibold text-text" htmlFor="documentation-tag-filter">
-                {textos.studyDocumentations.allResults}
+                {translations.studyDocumentations.allResults}
               </label>
               <select
-                aria-label={textos.studyDocumentations.allResults}
+                aria-label={translations.studyDocumentations.allResults}
                 className="min-h-12 w-full rounded-[var(--radius-lg)] border border-border bg-surface/80 px-4 text-sm font-semibold text-text focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                 id="documentation-tag-filter"
                 onChange={(event) => setActiveTag(event.target.value)}
@@ -184,7 +184,7 @@ export function StudyDocumentationsPage() {
               >
                 {[ALL_TAG, ...availableTags].map((tag) => (
                   <option key={tag} value={tag}>
-                    {tag === ALL_TAG ? textos.studyDocumentations.filters.all : tag}
+                    {tag === ALL_TAG ? translations.studyDocumentations.filters.all : tag}
                   </option>
                 ))}
               </select>
@@ -192,32 +192,32 @@ export function StudyDocumentationsPage() {
 
             {loading ? (
               <div className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-                {textos.studyDocumentations.loading}
+                {translations.studyDocumentations.loading}
               </div>
             ) : null}
 
             {!loading && error ? (
               <div className="flex flex-col items-start gap-4 rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-                <p>{textos.studyDocumentations.error}</p>
+                <p>{translations.studyDocumentations.error}</p>
                 <Button
                   leftIcon={<RefreshIcon aria-hidden="true" />}
                   onClick={() => void loadDocumentations()}
                   variant="secondary"
                 >
-                  {textos.studyDocumentations.retry}
+                  {translations.studyDocumentations.retry}
                 </Button>
               </div>
             ) : null}
 
             {!loading && !error && filteredDocs.length === 0 ? (
               <div className="rounded-[var(--radius-xl)] border border-border bg-surface/80 p-8 text-text-muted">
-                {textos.studyDocumentations.empty}
+                {translations.studyDocumentations.empty}
               </div>
             ) : null}
 
             {!loading && !error ? (
               <div
-                aria-label={textos.studyDocumentations.listLabel}
+                aria-label={translations.studyDocumentations.listLabel}
                 className="grid gap-3 xl:max-h-[calc(100vh-13rem)] xl:overflow-y-auto xl:pr-2 xl:[-ms-overflow-style:none] xl:[scrollbar-width:none] xl:[&::-webkit-scrollbar]:hidden"
               >
                 {filteredDocs.map((documentation) => {
@@ -258,7 +258,7 @@ export function StudyDocumentationsPage() {
                         </span>
                         <span className="inline-flex items-center gap-2">
                           <AccessTimeIcon aria-hidden="true" fontSize="small" />
-                          {textos.studyDocumentations.minutes(
+                          {translations.studyDocumentations.minutes(
                             estimateReadTime(documentation.content),
                           )}
                         </span>
@@ -273,18 +273,18 @@ export function StudyDocumentationsPage() {
           <div className="sticky top-24 flex flex-col gap-3">
             <div className="flex flex-col gap-3 sm:flex-row">
               <label className="relative block min-w-0 flex-1">
-                <span className="sr-only">{textos.studyDocumentations.searchLabel}</span>
+                <span className="sr-only">{translations.studyDocumentations.searchLabel}</span>
                 <SearchIcon aria-hidden="true" className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" fontSize="small" />
-                <input className="min-h-12 w-full rounded-[var(--radius-lg)] border border-border bg-surface/80 py-3 pl-12 pr-4 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" onChange={(event) => setSearch(event.target.value)} placeholder={textos.studyDocumentations.searchPlaceholder} type="search" value={search} />
+                <input className="min-h-12 w-full rounded-[var(--radius-lg)] border border-border bg-surface/80 py-3 pl-12 pr-4 text-sm text-text placeholder:text-text-muted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20" onChange={(event) => setSearch(event.target.value)} placeholder={translations.studyDocumentations.searchPlaceholder} type="search" value={search} />
               </label>
-              {adminAllowed ? <Button href="/study/documentations/admin" leftIcon={<AddIcon aria-hidden="true" />} size="medium">{textos.studyDocumentations.admin.newDocumentation}</Button> : null}
+              {adminAllowed ? <Button href="/study/documentations/admin" leftIcon={<AddIcon aria-hidden="true" />} size="medium">{translations.studyDocumentations.admin.newDocumentation}</Button> : null}
             </div>
-          <article aria-label={textos.studyDocumentations.readerLabel} className="flex max-h-[calc(100vh-12rem)] min-h-[640px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]">
+          <article aria-label={translations.studyDocumentations.readerLabel} className="flex max-h-[calc(100vh-12rem)] min-h-[640px] flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-surface/80 shadow-[var(--shadow-card)]">
             {selectedDocumentation ? (
               <>
                 <div className="flex items-center justify-between gap-3 border-b border-border p-5">
                   <p className="text-sm font-semibold text-text-muted">
-                    {textos.studyDocumentations.admin.readOnlyNotice}
+                    {translations.studyDocumentations.admin.readOnlyNotice}
                   </p>
                   {adminAllowed ? (
                     <Button
@@ -293,7 +293,7 @@ export function StudyDocumentationsPage() {
                       size="small"
                       variant="secondary"
                     >
-                      {textos.studyDocumentations.admin.edit}
+                      {translations.studyDocumentations.admin.edit}
                     </Button>
                   ) : null}
                 </div>
@@ -319,7 +319,7 @@ export function StudyDocumentationsPage() {
                         <div className="inline-flex items-center gap-2">
                           <CalendarTodayIcon aria-hidden="true" fontSize="small" />
                           <dt className="sr-only">
-                            {textos.studyDocumentations.dateLabel}
+                            {translations.studyDocumentations.dateLabel}
                           </dt>
                           <dd>
                             {dateFormatter.format(
@@ -330,10 +330,10 @@ export function StudyDocumentationsPage() {
                         <div className="inline-flex items-center gap-2">
                           <AccessTimeIcon aria-hidden="true" fontSize="small" />
                           <dt className="sr-only">
-                            {textos.studyDocumentations.readTimeLabel}
+                            {translations.studyDocumentations.readTimeLabel}
                           </dt>
                           <dd>
-                            {textos.studyDocumentations.minutes(
+                            {translations.studyDocumentations.minutes(
                               estimateReadTime(selectedDocumentation.content),
                             )}
                           </dd>
@@ -341,7 +341,7 @@ export function StudyDocumentationsPage() {
                         <div className="inline-flex items-center gap-2">
                           <GroupsOutlinedIcon aria-hidden="true" fontSize="small" />
                           <dt className="sr-only">
-                            {textos.studyDocumentations.authorLabel}
+                            {translations.studyDocumentations.authorLabel}
                           </dt>
                           <dd>{selectedDocumentation.author}</dd>
                         </div>
@@ -353,7 +353,7 @@ export function StudyDocumentationsPage() {
                 </div>
               </>
             ) : (
-              <div className="p-6 text-text-muted">{textos.studyDocumentations.empty}</div>
+              <div className="p-6 text-text-muted">{translations.studyDocumentations.empty}</div>
             )}
           </article></div>
         </Container>

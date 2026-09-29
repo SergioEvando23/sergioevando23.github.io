@@ -1,4 +1,4 @@
-import type { ConteudoTraduzido } from '@/i18n';
+import type { TranslatedContent } from '@/i18n';
 
 export type StudyDocumentationCategory =
   | 'all'
@@ -10,7 +10,7 @@ export type StudyDocumentationCategory =
   | 'others';
 
 export type StudyDocumentationTranslationKey =
-  keyof ConteudoTraduzido['studyDocumentations']['items'];
+  keyof TranslatedContent['studyDocumentations']['items'];
 
 export interface StudyDocumentation {
   id: string;
