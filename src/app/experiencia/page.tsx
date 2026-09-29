@@ -75,8 +75,8 @@ export default function ExperienciaPage() {
                   {experience.responsibilities.map((responsibility) => <li className="flex gap-2" key={responsibility}><span className="font-black text-primary">✦</span><span>{responsibility}</span></li>)}
                 </ul>
                 <div className="mt-2 border-t border-border pt-2">
-                  <p className="mb-1.5 text-[10px] font-bold text-text-muted">Tecnologias</p>
-                  <div className="flex flex-wrap gap-1.5">{experience.technologies.map((technology) => <Tag className="px-2 py-0.5 text-[10px]" key={technology} variant="primary">{technology}</Tag>)}</div>
+                  <p className="mb-1.5 text-[13px] font-bold text-text-muted">Tecnologias</p>
+                  <div className="flex flex-wrap gap-1.5">{experience.technologies.map((technology) => <Tag className="px-2 py-0.5 text-[13px]" key={technology} variant="primary">{technology}</Tag>)}</div>
                 </div>
               </article>
             ))}
