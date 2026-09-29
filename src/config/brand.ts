@@ -1,12 +1,12 @@
-import { dicionario } from '@/i18n';
+import { dictionary } from '@/i18n';
 import type { BrandConfig } from '@/types/brand';
 
 export const brandConfig: BrandConfig = {
-  name: dicionario.portugues.brand.name,
-  initials: dicionario.portugues.brand.initials,
-  role: dicionario.portugues.brand.role,
-  description: dicionario.portugues.brand.description,
-  location: dicionario.portugues.brand.location,
+  name: dictionary.portuguese.brand.name,
+  initials: dictionary.portuguese.brand.initials,
+  role: dictionary.portuguese.brand.role,
+  description: dictionary.portuguese.brand.description,
+  location: dictionary.portuguese.brand.location,
   email: '',
   socialLinks: {
     github: 'https://github.com/SérgioEvando23',

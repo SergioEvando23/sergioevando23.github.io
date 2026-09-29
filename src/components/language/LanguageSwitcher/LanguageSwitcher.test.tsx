@@ -5,7 +5,7 @@ import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
 import { LanguageProvider } from '../LanguageProvider';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
-function renderSwitcher(initial = 'portugues') {
+function renderSwitcher(initial = 'portuguese') {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, initial);
 
   return render(
@@ -28,7 +28,7 @@ describe('LanguageSwitcher', () => {
   });
 
   it('sets aria-pressed for the active language', async () => {
-    renderSwitcher('ingles');
+    renderSwitcher('english');
 
     await waitFor(() =>
       expect(

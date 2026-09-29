@@ -1,7 +1,7 @@
 export {
-  dicionario,
-  type ConteudoTraduzido,
-  type Dicionario,
-  type Idioma,
-} from './dicionario';
+  dictionary,
+  type TranslatedContent,
+  type Dictionary,
+  type Language,
+} from './dictionary';
 export { LANGUAGE_STORAGE_KEY } from './config';

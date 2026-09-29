@@ -1,22 +1,22 @@
-import type { Idioma } from './dicionario';
+import type { Language } from './dictionary';
 
 export const LANGUAGE_STORAGE_KEY = 'Sérgio-portfolio-language';
 
-export const idiomaConfig = {
-  portugues: {
+export const languageConfig = {
+  portuguese: {
     code: 'pt',
     htmlLang: 'pt-BR',
     shortLabel: 'PT',
     fullLabel: 'Portugues',
   },
-  ingles: {
+  english: {
     code: 'en',
     htmlLang: 'en',
     shortLabel: 'EN',
     fullLabel: 'English',
   },
 } as const satisfies Record<
-  Idioma,
+  Language,
   {
     code: string;
     htmlLang: string;
@@ -25,10 +25,10 @@ export const idiomaConfig = {
   }
 >;
 
-export function isIdioma(value: unknown): value is Idioma {
-  return value === 'portugues' || value === 'ingles';
+export function isLanguage(value: unknown): value is Language {
+  return value === 'portuguese' || value === 'english';
 }
 
-export function getIdiomaFromLocale(locale: string | undefined): Idioma {
-  return locale?.toLowerCase().startsWith('pt') ? 'portugues' : 'ingles';
+export function getLanguageFromLocale(locale: string | undefined): Language {
+  return locale?.toLowerCase().startsWith('pt') ? 'portuguese' : 'english';
 }

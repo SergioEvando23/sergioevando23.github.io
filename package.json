@@ -14,7 +14,7 @@
     "test:coverage": "firebase emulators:exec --only firestore,database \"vitest run --coverage\"",
     "test:e2e": "playwright test",
     "test:rules": "firebase emulators:exec --only firestore,database \"vitest run src/test/rules\"",
-    "validate:i18n": "tsx scripts/validate-dicionario.ts",
+    "validate:i18n": "tsx scripts/validate-dictionary.ts",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\" \"e2e/**/*.{ts,tsx}\" \"*.{js,mjs,ts,json,md}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,md}\" \"e2e/**/*.{ts,tsx}\" \"*.{js,mjs,ts,json,md}\"",
     "validate": "npm run validate:i18n && npm run typecheck && npm run lint && npm run test:run && npm run test:rules && npm run build"

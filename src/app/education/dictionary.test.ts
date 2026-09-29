@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'vitest';
 import { validateDictionaryParity } from '@/i18n/validate';
-import { experienceDictionary } from './dicionario';
+import { educationDictionary } from './dictionary';
 
-describe('experienceDictionary', () => {
+describe('educationDictionary', () => {
   it('keeps Portuguese and English content structurally equivalent', () => {
     expect(
       validateDictionaryParity(
-        experienceDictionary.portugues,
-        experienceDictionary.ingles,
+        educationDictionary.portuguese,
+        educationDictionary.english,
       ),
     ).toEqual([]);
   });

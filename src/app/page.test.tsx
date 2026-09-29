@@ -4,11 +4,11 @@ import { describe, expect, it } from 'vitest';
 import { AuthProvider } from '@/components/auth';
 import { LanguageProvider } from '@/components/language';
 import { ThemeProvider } from '@/components/theme';
-import { curriculos } from '@/config/curriculos';
+import { resumes } from '@/config/resumes';
 import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
 import Home from './page';
 
-function renderHome(initial = 'portugues') {
+function renderHome(initial = 'portuguese') {
   localStorage.setItem(LANGUAGE_STORAGE_KEY, initial);
 
   return render(
@@ -33,10 +33,10 @@ describe('Home i18n integration', () => {
       name: 'Baixar curriculo EN',
     });
 
-    expect(portugueseResume).toHaveAttribute('href', curriculos.portugues.href);
-    expect(portugueseResume).toHaveAttribute('download', curriculos.portugues.fileName);
-    expect(englishResume).toHaveAttribute('href', curriculos.ingles.href);
-    expect(englishResume).toHaveAttribute('download', curriculos.ingles.fileName);
+    expect(portugueseResume).toHaveAttribute('href', resumes.portuguese.href);
+    expect(portugueseResume).toHaveAttribute('download', resumes.portuguese.fileName);
+    expect(englishResume).toHaveAttribute('href', resumes.english.href);
+    expect(englishResume).toHaveAttribute('download', resumes.english.fileName);
   });
 
   it('renders the study gallery navigation and documentation links', () => {
@@ -71,11 +71,11 @@ describe('Home i18n integration', () => {
     );
     expect(screen.getAllByRole('link', { name: 'Education' })[0]).toHaveAttribute(
       'href',
-      '/formacao',
+      '/education',
     );
     expect(screen.getAllByRole('link', { name: 'Experience' })[0]).toHaveAttribute(
       'href',
-      '/experiencia',
+      '/experience',
     );
     expect(
       screen.getByRole('heading', {
@@ -91,11 +91,11 @@ describe('Home i18n integration', () => {
     expect(screen.getAllByText('Mobile - Flutter + Dart')[0]).toBeVisible();
     expect(screen.getByRole('link', { name: 'Download resume PT' })).toHaveAttribute(
       'href',
-      curriculos.portugues.href,
+      resumes.portuguese.href,
     );
     expect(screen.getByRole('link', { name: 'Download resume EN' })).toHaveAttribute(
       'href',
-      curriculos.ingles.href,
+      resumes.english.href,
     );
   });
 });

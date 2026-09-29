@@ -1,13 +1,13 @@
-import type { ConteudoTraduzido } from '@/i18n';
+import type { TranslatedContent } from '@/i18n';
 
 export interface NavigationItem {
   href: string;
-  translationKey: keyof ConteudoTraduzido['navigation'];
+  translationKey: keyof TranslatedContent['navigation'];
 }
 
 export const navigationItems: NavigationItem[] = [
   { translationKey: 'about', href: '/' },
   { translationKey: 'studies', href: '/study' },
-  { translationKey: 'education', href: '/formacao' },
-  { translationKey: 'experience', href: '/experiencia' },
+  { translationKey: 'education', href: '/education' },
+  { translationKey: 'experience', href: '/experience' },
 ];

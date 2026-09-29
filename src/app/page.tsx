@@ -21,7 +21,7 @@ import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Tag } from '@/components/ui/Tag';
 import { brandConfig } from '@/config/brand';
-import { curriculos } from '@/config/curriculos';
+import { resumes } from '@/config/resumes';
 import { carouselItems } from '@/data/carousel';
 import { experienceItems } from '@/data/experience';
 import { skillGroups } from '@/data/skills';
@@ -36,33 +36,33 @@ const domainIcons = [
 ];
 
 function HomeContent() {
-  const { idioma, textos } = useLanguage();
+  const { language, translations } = useLanguage();
   const [showFullDescription, setShowFullDescription] = useState(false);
   const translatedCarouselItems = useMemo<CarouselImage[]>(
     () =>
       carouselItems.map((item) => ({
         ...item,
-        ...textos.carousel.items[item.translationKey],
+        ...translations.carousel.items[item.translationKey],
       })),
-    [textos],
+    [translations],
   );
-  const highlightedRoleIndex = textos.brand.role.indexOf(textos.brand.highlightedRole);
+  const highlightedRoleIndex = translations.brand.role.indexOf(translations.brand.highlightedRole);
   const roleBeforeHighlight =
     highlightedRoleIndex >= 0
-      ? textos.brand.role.slice(0, highlightedRoleIndex)
-      : textos.brand.role;
+      ? translations.brand.role.slice(0, highlightedRoleIndex)
+      : translations.brand.role;
   const roleAfterHighlight =
     highlightedRoleIndex >= 0
-      ? textos.brand.role.slice(
-          highlightedRoleIndex + textos.brand.highlightedRole.length,
+      ? translations.brand.role.slice(
+          highlightedRoleIndex + translations.brand.highlightedRole.length,
         )
       : '';
-  const descriptionLimit = idioma === 'portugues' ? 'incidentes em produção' : 'production incidents';
-  const descriptionLimitIndex = textos.brand.description.indexOf(descriptionLimit);
+  const descriptionLimit = language === 'portuguese' ? 'incidentes em produÃƒÆ’Ã‚Â§ÃƒÆ’Ã‚Â£o' : 'production incidents';
+  const descriptionLimitIndex = translations.brand.description.indexOf(descriptionLimit);
   const visibleDescription =
     descriptionLimitIndex >= 0
-      ? textos.brand.description.slice(0, descriptionLimitIndex + descriptionLimit.length)
-      : textos.brand.description;
+      ? translations.brand.description.slice(0, descriptionLimitIndex + descriptionLimit.length)
+      : translations.brand.description;
 
   return (
     <>
@@ -72,21 +72,21 @@ function HomeContent() {
           <Container className="grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
             <div className="flex flex-col gap-7">
               <div className="flex flex-wrap gap-2">
-                <Tag variant="primary">{textos.brand.initials}</Tag>
-                <Tag variant="accent">{textos.brand.location}</Tag>
+                <Tag variant="primary">{translations.brand.initials}</Tag>
+                <Tag variant="accent">{translations.brand.location}</Tag>
               </div>
               <div className="flex flex-col gap-5">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">
-                  {textos.hero.eyebrow} {textos.brand.name}
+                  {translations.hero.eyebrow} {translations.brand.name}
                 </p>
                 <h1 className="max-w-4xl text-4xl font-black leading-tight text-text sm:text-5xl lg:text-6xl">
                   {roleBeforeHighlight}
-                  <span className="text-primary">{textos.brand.highlightedRole}</span>
+                  <span className="text-primary">{translations.brand.highlightedRole}</span>
                   {roleAfterHighlight}
                 </h1>
                 <div className="max-w-2xl text-lg leading-8 text-text-muted">
                   <p>
-                    {showFullDescription ? textos.brand.description : `${visibleDescription}…`}
+                    {showFullDescription ? translations.brand.description : `${visibleDescription}ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦`}
                   </p>
                   {descriptionLimitIndex >= 0 ? (
                     <button
@@ -94,7 +94,7 @@ function HomeContent() {
                       onClick={() => setShowFullDescription((current) => !current)}
                       type="button"
                     >
-                      {showFullDescription ? textos.hero.hideFullDescription : textos.hero.viewFullDescription}
+                      {showFullDescription ? translations.hero.hideFullDescription : translations.hero.viewFullDescription}
                     </button>
                   ) : null}
                 </div>
@@ -104,23 +104,23 @@ function HomeContent() {
                   href="#galeria-estudos"
                   leftIcon={<FolderOutlinedIcon aria-hidden="true" />}
                 >
-                  {textos.hero.viewProjects}
+                  {translations.hero.viewProjects}
                 </Button>
                 <Button
-                  download={curriculos.portugues.fileName}
-                  href={curriculos.portugues.href}
+                  download={resumes.portuguese.fileName}
+                  href={resumes.portuguese.href}
                   leftIcon={<DownloadOutlinedIcon aria-hidden="true" />}
                   variant="secondary"
                 >
-                  {textos.resume.downloadPortuguese}
+                  {translations.resume.downloadPortuguese}
                 </Button>
                 <Button
-                  download={curriculos.ingles.fileName}
-                  href={curriculos.ingles.href}
+                  download={resumes.english.fileName}
+                  href={resumes.english.href}
                   leftIcon={<DownloadOutlinedIcon aria-hidden="true" />}
                   variant="secondary"
                 >
-                  {textos.resume.downloadEnglish}
+                  {translations.resume.downloadEnglish}
                 </Button>
               </div>
               <div className="flex gap-3">
@@ -131,7 +131,7 @@ function HomeContent() {
                   target="_blank"
                 >
                   <GitHubIcon aria-hidden="true" fontSize="small" />
-                  {textos.hero.githubLabel}
+                  {translations.hero.githubLabel}
                 </Link>
                 <Link
                   className="inline-flex items-center gap-2 text-sm font-semibold text-text-muted transition-colors hover:text-primary"
@@ -140,13 +140,13 @@ function HomeContent() {
                   target="_blank"
                 >
                   <LinkedInIcon aria-hidden="true" fontSize="small" />
-                  {textos.hero.linkedinLabel}
+                  {translations.hero.linkedinLabel}
                 </Link>
               </div>
             </div>
 
             <Carousel
-              ariaLabel={textos.carousel.mainLabel}
+              ariaLabel={translations.carousel.mainLabel}
               autoPlay
               className="lg:justify-self-end"
               items={translatedCarouselItems}
@@ -159,14 +159,14 @@ function HomeContent() {
         <section className="py-14" id="tecnologias">
           <Container className="flex flex-col gap-10">
             <SectionHeading
-              description={textos.sections.technologies.description}
-              eyebrow={textos.sections.technologies.eyebrow}
-              title={textos.sections.technologies.title}
+              description={translations.sections.technologies.description}
+              eyebrow={translations.sections.technologies.eyebrow}
+              title={translations.sections.technologies.title}
             />
             <div className="grid gap-5 md:grid-cols-3">
               {skillGroups.map((group, index) => {
                 const Icon = domainIcons[index] ?? CodeIcon;
-                const translatedGroup = textos.skills.groups[group.translationKey];
+                const translatedGroup = translations.skills.groups[group.translationKey];
 
                 return (
                   <article
@@ -194,13 +194,13 @@ function HomeContent() {
         <section className="py-14" id="experiencia">
           <Container className="flex flex-col gap-8">
             <SectionHeading
-              description={textos.sections.architecture.description}
-              eyebrow={textos.sections.architecture.eyebrow}
-              title={textos.sections.architecture.title}
+              description={translations.sections.architecture.description}
+              eyebrow={translations.sections.architecture.eyebrow}
+              title={translations.sections.architecture.title}
             />
             <div className="grid gap-5 md:grid-cols-2">
               {experienceItems.map((item) => {
-                const translatedItem = textos.experience.items[item.translationKey];
+                const translatedItem = translations.experience.items[item.translationKey];
 
                 return (
                   <article
@@ -217,7 +217,7 @@ function HomeContent() {
                       className="mt-auto inline-flex items-center gap-2 pt-5 text-sm font-semibold text-primary transition-colors hover:text-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
                       href="/study/documentations/"
                     >
-                      {textos.sections.architecture.continueEvolution}
+                      {translations.sections.architecture.continueEvolution}
                       <ArrowForwardIcon aria-hidden="true" fontSize="small" />
                     </Link>
                   </article>

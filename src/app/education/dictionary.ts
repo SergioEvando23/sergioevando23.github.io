@@ -1,5 +1,5 @@
-export const formationDictionary = {
-  portugues: {
+export const educationDictionary = {
+  portuguese: {
     title: 'Formação',
     academicTitle: 'Formação acadêmica',
     certificatesTitle: 'Certificados',
@@ -21,7 +21,7 @@ export const formationDictionary = {
       { title: 'Módulo - Fundamentos do Desenvolvimento Web', category: 'frontend', tags: ['HTML', 'CSS', 'JavaScript'] },
     ],
   },
-  ingles: {
+  english: {
     title: 'Education',
     academicTitle: 'Academic education',
     certificatesTitle: 'Certificates',

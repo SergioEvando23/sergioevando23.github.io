@@ -1,5 +1,5 @@
 export const experienceDictionary = {
-  portugues: {
+  portuguese: {
     title: 'Experiência profissional',
     highlights: [
       { title: '4+ anos de experiência', subtitle: 'Construindo produtos reais' },
@@ -31,7 +31,7 @@ export const experienceDictionary = {
       },
     ],
   },
-  ingles: {
+  english: {
     title: 'Professional experience',
     highlights: [
       { title: '4+ years of experience', subtitle: 'Building real products' },

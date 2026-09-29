@@ -3,12 +3,12 @@ import { AuthProvider, WelcomeGate } from '@/components/auth';
 import { ChatBot } from '@/components/chat';
 import { LanguageProvider } from '@/components/language';
 import { HydrationStatus, ThemeProvider } from '@/components/theme';
-import { dicionario } from '@/i18n';
+import { dictionary } from '@/i18n';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: dicionario.portugues.metadata.title,
-  description: dicionario.portugues.metadata.description,
+  title: dictionary.portuguese.metadata.title,
+  description: dictionary.portuguese.metadata.description,
 };
 
 interface RootLayoutProps {

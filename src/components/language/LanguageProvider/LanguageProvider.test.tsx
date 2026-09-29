@@ -5,19 +5,19 @@ import { LANGUAGE_STORAGE_KEY } from '@/i18n/config';
 import { LanguageProvider, useLanguage } from './LanguageProvider';
 
 function Probe() {
-  const { idioma, textos, alterarIdioma, alternarIdioma } = useLanguage();
+  const { language, translations, setLanguage, toggleLanguage } = useLanguage();
 
   return (
     <div>
-      <span data-testid="idioma">{idioma}</span>
-      <span>{textos.hero.viewProjects}</span>
-      <button onClick={() => alterarIdioma('ingles')} type="button">
+      <span data-testid="language">{language}</span>
+      <span>{translations.hero.viewProjects}</span>
+      <button onClick={() => setLanguage('english')} type="button">
         EN
       </button>
-      <button onClick={() => alterarIdioma('portugues')} type="button">
+      <button onClick={() => setLanguage('portuguese')} type="button">
         PT
       </button>
-      <button onClick={alternarIdioma} type="button">
+      <button onClick={toggleLanguage} type="button">
         toggle
       </button>
     </div>
@@ -44,7 +44,7 @@ describe('LanguageProvider', () => {
 
     renderProvider();
 
-    expect(screen.getByTestId('idioma')).toHaveTextContent('portugues');
+    expect(screen.getByTestId('language')).toHaveTextContent('portuguese');
   });
 
   it('detects english for non-portuguese navigator language', async () => {
@@ -52,13 +52,13 @@ describe('LanguageProvider', () => {
 
     renderProvider();
 
-    await waitFor(() => expect(screen.getByTestId('idioma')).toHaveTextContent('ingles'));
+    await waitFor(() => expect(screen.getByTestId('language')).toHaveTextContent('english'));
   });
 
   it('restores persisted preference and rejects invalid stored values', async () => {
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, 'ingles');
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, 'english');
     renderProvider();
-    await waitFor(() => expect(screen.getByTestId('idioma')).toHaveTextContent('ingles'));
+    await waitFor(() => expect(screen.getByTestId('language')).toHaveTextContent('english'));
   });
 
   it('falls back when stored value is invalid', () => {
@@ -67,7 +67,7 @@ describe('LanguageProvider', () => {
 
     renderProvider();
 
-    expect(screen.getByTestId('idioma')).toHaveTextContent('portugues');
+    expect(screen.getByTestId('language')).toHaveTextContent('portuguese');
   });
 
   it('persists changes and updates html lang without reload', async () => {
@@ -77,7 +77,7 @@ describe('LanguageProvider', () => {
     await user.click(screen.getByRole('button', { name: 'EN' }));
 
     await waitFor(() =>
-      expect(localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe('ingles'),
+      expect(localStorage.getItem(LANGUAGE_STORAGE_KEY)).toBe('english'),
     );
     expect(document.documentElement.lang).toBe('en');
     expect(screen.getByText('View projects')).toBeInTheDocument();

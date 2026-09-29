@@ -98,13 +98,13 @@ function validateValue(
 }
 
 export function validateDictionaryParity(
-  portugues: unknown,
-  ingles: unknown,
+  portuguese: unknown,
+  english: unknown,
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = [];
 
-  validateValue(portugues, ingles, '', issues);
-  validateValue(ingles, portugues, '', issues);
+  validateValue(portuguese, english, '', issues);
+  validateValue(english, portuguese, '', issues);
 
   return issues;
 }

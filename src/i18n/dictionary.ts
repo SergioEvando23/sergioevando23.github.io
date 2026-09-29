@@ -8,7 +8,7 @@ export type DictionaryShape<T> = T extends (...args: infer Args) => string
         ? { [K in keyof T]: DictionaryShape<T[K]> }
         : T;
 
-const portugues = {
+const portuguese = {
   common: {
     loading: 'Carregando...',
     open: 'Abrir',
@@ -643,7 +643,7 @@ const portugues = {
   },
 } as const;
 
-const ingles = {
+const english = {
   common: {
     loading: 'Loading...',
     open: 'Open',
@@ -1274,13 +1274,13 @@ const ingles = {
     rights: 'All rights reserved.',
     backToTop: 'Back to top',
   },
-} as const satisfies DictionaryShape<typeof portugues>;
+} as const satisfies DictionaryShape<typeof portuguese>;
 
-export const dicionario = {
-  portugues,
-  ingles,
+export const dictionary = {
+  portuguese,
+  english,
 } as const;
 
-export type Dicionario = typeof dicionario;
-export type Idioma = keyof Dicionario;
-export type ConteudoTraduzido = Dicionario[Idioma];
+export type Dictionary = typeof dictionary;
+export type Language = keyof Dictionary;
+export type TranslatedContent = Dictionary[Language];

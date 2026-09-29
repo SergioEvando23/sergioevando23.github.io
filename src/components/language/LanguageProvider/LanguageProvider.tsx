@@ -8,19 +8,19 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { dicionario, type ConteudoTraduzido, type Idioma } from '@/i18n';
+import { dictionary, type Language, type TranslatedContent } from '@/i18n';
 import {
-  getIdiomaFromLocale,
-  idiomaConfig,
-  isIdioma,
+  getLanguageFromLocale,
+  isLanguage,
+  languageConfig,
   LANGUAGE_STORAGE_KEY,
 } from '@/i18n/config';
 
 interface LanguageContextValue {
-  idioma: Idioma;
-  textos: ConteudoTraduzido;
-  alterarIdioma: (idioma: Idioma) => void;
-  alternarIdioma: () => void;
+  language: Language;
+  translations: TranslatedContent;
+  setLanguage: (language: Language) => void;
+  toggleLanguage: () => void;
 }
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
@@ -29,24 +29,24 @@ interface LanguageProviderProps {
   children: React.ReactNode;
 }
 
-function resolveStoredIdioma(): Idioma {
+function resolveStoredLanguage(): Language {
   const stored = window.localStorage.getItem(LANGUAGE_STORAGE_KEY);
 
-  if (isIdioma(stored)) {
+  if (isLanguage(stored)) {
     return stored;
   }
 
-  return getIdiomaFromLocale(window.navigator.language);
+  return getLanguageFromLocale(window.navigator.language);
 }
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [idioma, setIdioma] = useState<Idioma>('portugues');
+  const [language, setLanguageState] = useState<Language>('portuguese');
   const [initialized, setInitialized] = useState(false);
-  const textos = dicionario[idioma];
+  const translations = dictionary[language];
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
-      setIdioma(resolveStoredIdioma());
+      setLanguageState(resolveStoredLanguage());
       setInitialized(true);
     }, 0);
 
@@ -54,31 +54,31 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = idiomaConfig[idioma].htmlLang;
+    document.documentElement.lang = languageConfig[language].htmlLang;
 
     if (initialized) {
-      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, idioma);
+      window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language);
     }
-  }, [idioma, initialized]);
+  }, [language, initialized]);
 
-  const alterarIdioma = useCallback((nextIdioma: Idioma) => {
+  const setLanguage = useCallback((nextLanguage: Language) => {
     setInitialized(true);
-    setIdioma(nextIdioma);
+    setLanguageState(nextLanguage);
   }, []);
 
-  const alternarIdioma = useCallback(() => {
+  const toggleLanguage = useCallback(() => {
     setInitialized(true);
-    setIdioma((current) => (current === 'portugues' ? 'ingles' : 'portugues'));
+    setLanguageState((current) => (current === 'portuguese' ? 'english' : 'portuguese'));
   }, []);
 
   const value = useMemo<LanguageContextValue>(
     () => ({
-      idioma,
-      textos,
-      alterarIdioma,
-      alternarIdioma,
+      language,
+      translations,
+      setLanguage,
+      toggleLanguage,
     }),
-    [alterarIdioma, alternarIdioma, idioma, textos],
+    [language, setLanguage, toggleLanguage, translations],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

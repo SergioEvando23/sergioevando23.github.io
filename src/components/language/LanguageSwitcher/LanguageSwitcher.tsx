@@ -1,23 +1,23 @@
 'use client';
 
 import LanguageIcon from '@mui/icons-material/Language';
-import { idiomaConfig } from '@/i18n/config';
-import type { Idioma } from '@/i18n';
+import { languageConfig } from '@/i18n/config';
+import type { Language } from '@/i18n';
 import { cn } from '@/lib/cn';
 import { useLanguage } from '../LanguageProvider';
 
-const idiomas: Idioma[] = ['portugues', 'ingles'];
+const languages: Language[] = ['portuguese', 'english'];
 
 interface LanguageSwitcherProps {
   className?: string;
 }
 
 export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
-  const { idioma, textos, alterarIdioma } = useLanguage();
+  const { language, translations, setLanguage } = useLanguage();
 
   return (
     <div
-      aria-label={textos.language.label}
+      aria-label={translations.language.label}
       className={cn(
         'inline-flex min-h-11 items-center gap-1 rounded-[var(--radius-full)] border border-border bg-overlay p-1 text-sm font-bold shadow-[var(--shadow-card)] backdrop-blur',
         className,
@@ -29,12 +29,12 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
         className="ml-2 hidden text-text-muted sm:block"
         fontSize="small"
       />
-      {idiomas.map((item) => {
-        const active = idioma === item;
+      {languages.map((item) => {
+        const active = language === item;
         const label =
-          item === 'portugues'
-            ? textos.language.switchToPortuguese
-            : textos.language.switchToEnglish;
+          item === 'portuguese'
+            ? translations.language.switchToPortuguese
+            : translations.language.switchToEnglish;
 
         return (
           <button
@@ -46,10 +46,10 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
                 'bg-primary text-primary-foreground shadow-[var(--shadow-glow)] hover:text-primary-foreground',
             )}
             key={item}
-            onClick={() => alterarIdioma(item)}
+            onClick={() => setLanguage(item)}
             type="button"
           >
-            {idiomaConfig[item].shortLabel}
+            {languageConfig[item].shortLabel}
           </button>
         );
       })}

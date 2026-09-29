@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dicionario } from './dicionario';
+import { dictionary } from './dictionary';
 import { validateDictionaryParity } from './validate';
 
 function countStrings(value: unknown): number {
@@ -22,32 +22,32 @@ function countStrings(value: unknown): number {
   return 0;
 }
 
-describe('dicionario', () => {
+describe('dictionary', () => {
   it('contains portuguese and english dictionaries', () => {
-    expect(dicionario.portugues).toBeDefined();
-    expect(dicionario.ingles).toBeDefined();
+    expect(dictionary.portuguese).toBeDefined();
+    expect(dictionary.english).toBeDefined();
   });
 
   it('has bidirectional structural parity and no empty translations', () => {
-    expect(validateDictionaryParity(dicionario.portugues, dicionario.ingles)).toEqual([]);
+    expect(validateDictionaryParity(dictionary.portuguese, dictionary.english)).toEqual([]);
   });
 
   it('keeps equivalent function signatures', () => {
-    expect(dicionario.portugues.carousel.goToSlide.length).toBe(
-      dicionario.ingles.carousel.goToSlide.length,
+    expect(dictionary.portuguese.carousel.goToSlide.length).toBe(
+      dictionary.english.carousel.goToSlide.length,
     );
-    expect(dicionario.portugues.carousel.slidePosition.length).toBe(
-      dicionario.ingles.carousel.slidePosition.length,
+    expect(dictionary.portuguese.carousel.slidePosition.length).toBe(
+      dictionary.english.carousel.slidePosition.length,
     );
   });
 
   it('keeps compatible array structures', () => {
-    expect(dicionario.portugues.skills.groups.frontend.items).toHaveLength(
-      dicionario.ingles.skills.groups.frontend.items.length,
+    expect(dictionary.portuguese.skills.groups.frontend.items).toHaveLength(
+      dictionary.english.skills.groups.frontend.items.length,
     );
   });
 
   it('counts the same amount of translated text entries', () => {
-    expect(countStrings(dicionario.portugues)).toBe(countStrings(dicionario.ingles));
+    expect(countStrings(dictionary.portuguese)).toBe(countStrings(dictionary.english));
   });
 });
