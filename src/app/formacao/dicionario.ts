@@ -5,9 +5,10 @@ export const formationDictionary = {
     certificatesTitle: 'Certificados',
     certificateFilterLabel: 'Filtrar certificados',
     profileSource: 'LinkedIn',
-    listedOnProfile: 'Certificação listada no perfil',
     certificateDescription: 'Formação complementar registrada no export do perfil profissional.',
     registeredCertificate: 'Certificado registrado',
+    previousCertificates: 'Ver certificados anteriores',
+    nextCertificates: 'Ver mais certificados',
     filters: { all: 'Todos', frontend: 'Frontend', mobile: 'Mobile', architecture: 'Arquitetura' },
     academic: [
       { title: 'Engenharia de Software', institution: 'Estácio', period: 'Out. 2025 — Set. 2029', description: 'Bacharelado em Engenharia de Software, conectando fundamentos de computação e sistemas à prática profissional.', tags: ['Engenharia de Software', 'Arquitetura', 'Banco de Dados', 'Desenvolvimento de Sistemas'], status: 'Em andamento', active: true },
@@ -26,9 +27,10 @@ export const formationDictionary = {
     certificatesTitle: 'Certificates',
     certificateFilterLabel: 'Filter certificates',
     profileSource: 'LinkedIn',
-    listedOnProfile: 'Certification listed on profile',
     certificateDescription: 'Complementary education recorded in the professional profile export.',
     registeredCertificate: 'Certificate registered',
+    previousCertificates: 'View previous certificates',
+    nextCertificates: 'View more certificates',
     filters: { all: 'All', frontend: 'Frontend', mobile: 'Mobile', architecture: 'Architecture' },
     academic: [
       { title: 'Software Engineering', institution: 'Estácio', period: 'Oct. 2025 — Sep. 2029', description: 'Bachelor’s degree in Software Engineering, connecting computer systems foundations to professional practice.', tags: ['Software Engineering', 'Architecture', 'Databases', 'Systems Development'], status: 'In progress', active: true },

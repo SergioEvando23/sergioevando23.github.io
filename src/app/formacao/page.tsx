@@ -1,7 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ArchitectureOutlinedIcon from '@mui/icons-material/ArchitectureOutlined';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CodeOutlinedIcon from '@mui/icons-material/CodeOutlined';
@@ -26,10 +28,14 @@ export default function FormacaoPage() {
   const { idioma } = useLanguage();
   const textos = formationDictionary[idioma];
   const [activeFilter, setActiveFilter] = useState('all');
+  const certificatesRef = useRef<HTMLDivElement>(null);
   const filters = Object.entries(textos.filters);
   const visibleCertificates = activeFilter === 'all'
     ? textos.certificates
     : textos.certificates.filter((certificate) => certificate.category === activeFilter);
+  const scrollCertificates = (direction: 1 | -1) => {
+    certificatesRef.current?.scrollBy({ left: direction * 313, behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -62,12 +68,16 @@ export default function FormacaoPage() {
               <div aria-label={textos.certificateFilterLabel} className="mt-2 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
                 {filters.map(([key, label]) => <button className={activeFilter === key ? 'shrink-0 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground' : 'shrink-0 rounded-full border border-border bg-surface-secondary px-3 py-1 text-[10px] font-semibold text-text-muted'} key={key} onClick={() => setActiveFilter(key)} type="button">{label}</button>)}
               </div>
-              <div className="mt-3 flex w-full snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="list">
+              <div className="relative mt-3">
+                <button aria-label={textos.previousCertificates} className="absolute left-2 top-1/2 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-surface/95 text-primary shadow-[var(--shadow-card)] transition-colors hover:bg-surface-secondary" onClick={() => scrollCertificates(-1)} type="button"><ArrowBackIosNewIcon aria-hidden="true" sx={{ fontSize: 16 }} /></button>
+                <button aria-label={textos.nextCertificates} className="absolute right-2 top-1/2 z-10 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full bg-surface/95 text-primary shadow-[var(--shadow-card)] transition-colors hover:bg-surface-secondary" onClick={() => scrollCertificates(1)} type="button"><ArrowForwardIosIcon aria-hidden="true" sx={{ fontSize: 16 }} /></button>
+              <div className="flex w-full snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" ref={certificatesRef} role="list">
                 {visibleCertificates.map((certificate) => {
                   const certificateIndex = textos.certificates.findIndex((item) => item.title === certificate.title);
                   const Icon = certificateIcons[certificateIndex] ?? WorkspacePremiumOutlinedIcon;
-                  return <article className="w-[285px] shrink-0 snap-start rounded-[10px] border border-transparent bg-surface/90 p-4 shadow-[var(--shadow-card)] sm:w-[300px]" key={certificate.title} role="listitem"><div className="flex items-start justify-between gap-3"><span className="grid h-9 w-9 place-items-center rounded-[8px] bg-primary/15 text-primary"><Icon aria-hidden="true" sx={{ fontSize: 18 }} /></span><span className="inline-flex items-center gap-1 text-[10px] text-text-muted"><CalendarMonthOutlinedIcon aria-hidden="true" sx={{ fontSize: 13 }} />{textos.profileSource}</span></div><h3 className="mt-3 text-sm font-black text-text">{certificate.title}</h3><p className="mt-0.5 text-xs font-semibold text-text-muted">{textos.listedOnProfile}</p><p className="mt-3 text-xs leading-5 text-text-muted">{textos.certificateDescription}</p><div className="mt-3 flex flex-wrap gap-1.5">{certificate.tags.map((tag) => <Tag className="px-2 py-0.5 text-[10px]" key={tag}>{tag}</Tag>)}</div><span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary"><CheckCircleIcon aria-hidden="true" sx={{ fontSize: 15 }} />{textos.registeredCertificate}</span></article>;
+                  return <article className="w-[285px] shrink-0 snap-start rounded-[10px] border border-transparent bg-surface/90 p-4 shadow-[var(--shadow-card)] sm:w-[300px]" key={certificate.title} role="listitem"><div className="flex items-start justify-between gap-3"><span className="grid h-9 w-9 place-items-center rounded-[8px] bg-primary/15 text-primary"><Icon aria-hidden="true" sx={{ fontSize: 18 }} /></span><span className="inline-flex items-center gap-1 text-[10px] text-text-muted"><CalendarMonthOutlinedIcon aria-hidden="true" sx={{ fontSize: 13 }} />{textos.profileSource}</span></div><h3 className="mt-3 text-sm font-black text-text">{certificate.title}</h3><p className="mt-3 text-xs leading-5 text-text-muted">{textos.certificateDescription}</p><div className="mt-3 flex flex-wrap gap-1.5">{certificate.tags.map((tag) => <Tag className="px-2 py-0.5 text-[10px]" key={tag}>{tag}</Tag>)}</div><span className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary"><CheckCircleIcon aria-hidden="true" sx={{ fontSize: 15 }} />{textos.registeredCertificate}</span></article>;
                 })}
+              </div>
               </div>
             </section>
           </div>
