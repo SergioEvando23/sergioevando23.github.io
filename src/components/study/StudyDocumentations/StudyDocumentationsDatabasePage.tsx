@@ -218,7 +218,7 @@ export function StudyDocumentationsPage() {
             {!loading && !error ? (
               <div
                 aria-label={textos.studyDocumentations.listLabel}
-                className="grid gap-3"
+                className="grid gap-3 xl:max-h-[calc(100vh-13rem)] xl:overflow-y-auto xl:pr-2 xl:[-ms-overflow-style:none] xl:[scrollbar-width:none] xl:[&::-webkit-scrollbar]:hidden"
               >
                 {filteredDocs.map((documentation) => {
                   const selected = documentation.id === selectedDocumentation?.id;
