@@ -1,0 +1,66 @@
+export const experienceDictionary = {
+  portugues: {
+    title: 'Experiência profissional',
+    highlights: [
+      { title: '4+ anos de experiência', subtitle: 'Construindo produtos reais' },
+      { title: 'Web & Mobile', subtitle: 'Do frontend ao backend' },
+      { title: 'Produtos de alta escala', subtitle: 'Performance, qualidade e impacto' },
+    ],
+    responsibilitiesTitle: 'Principais responsabilidades e resultados',
+    technologiesTitle: 'Tecnologias',
+    current: 'Atual',
+    remoteBrazil: 'Remoto · Brasil',
+    experiences: [
+      {
+        role: 'Engenheiro de Software Fullstack Web & Mobile',
+        company: 'XP Inc.',
+        period: 'Set. 2022 — atual',
+        current: true,
+        description: 'Atuação no desenvolvimento de produtos financeiros de alta escala, contribuindo em toda a jornada de engenharia, do desenho à operação em produção, com foco em performance, qualidade e experiência do usuário.',
+        responsibilities: ['Participação em decisões de arquitetura e migrações de monólito para microfrontends.', 'Desenvolvimento de aplicações web com React e TypeScript, com foco em escalabilidade e manutenibilidade.', 'Desenvolvimento de aplicações mobile com Flutter.', 'Implementação e manutenção de pipelines de CI/CD, testes unitários e testes E2E (Playwright).', 'Atuação na resposta a incidentes em produção e participação em war rooms.', 'Desenvolvimento de agentes de IA para modernização de código legado e aumento de produtividade.'],
+        technologies: ['⚛ React', 'TS TypeScript', '◢ Flutter', '◆ Dart', '⬡ Node.js', '⚙ CI/CD', '🎭 Playwright'],
+      },
+      {
+        role: 'Desenvolvedor Frontend & Mobile',
+        company: 'Eduardo Costa Software Solutions',
+        period: 'Fev. 2021 — Jul. 2021 · 6 meses',
+        current: false,
+        description: 'Desenvolvimento de aplicações web e mobile, com foco em interfaces modernas, performance e boa experiência do usuário.',
+        responsibilities: ['Desenvolvimento de interfaces web com React.', 'Desenvolvimento de aplicações mobile com React Native.', 'Implementação de interfaces com Styled Components.', 'Integração com APIs REST e consumo de serviços externos.'],
+        technologies: ['⚛ React', '⚛ React Native', 'JS JavaScript', '● Styled Components', '🔗 REST APIs'],
+      },
+    ],
+  },
+  ingles: {
+    title: 'Professional experience',
+    highlights: [
+      { title: '4+ years of experience', subtitle: 'Building real products' },
+      { title: 'Web & Mobile', subtitle: 'From frontend to backend' },
+      { title: 'High-scale products', subtitle: 'Performance, quality and impact' },
+    ],
+    responsibilitiesTitle: 'Key responsibilities and results',
+    technologiesTitle: 'Technologies',
+    current: 'Current',
+    remoteBrazil: 'Remote · Brazil',
+    experiences: [
+      {
+        role: 'Fullstack Web & Mobile Software Engineer',
+        company: 'XP Inc.',
+        period: 'Sep. 2022 — present',
+        current: true,
+        description: 'Working on high-scale financial products across the entire engineering journey, from design through production operations, with a focus on performance, quality and user experience.',
+        responsibilities: ['Participating in architectural decisions and monolith-to-microfrontend migrations.', 'Developing web applications with React and TypeScript, focused on scalability and maintainability.', 'Developing mobile applications with Flutter.', 'Implementing and maintaining CI/CD pipelines, unit tests and E2E tests (Playwright).', 'Responding to production incidents and participating in war rooms.', 'Developing AI agents for legacy code modernization and productivity gains.'],
+        technologies: ['⚛ React', 'TS TypeScript', '◢ Flutter', '◆ Dart', '⬡ Node.js', '⚙ CI/CD', '🎭 Playwright'],
+      },
+      {
+        role: 'Frontend & Mobile Developer',
+        company: 'Eduardo Costa Software Solutions',
+        period: 'Feb. 2021 — Jul. 2021 · 6 months',
+        current: false,
+        description: 'Developing web and mobile applications focused on modern interfaces, performance and a strong user experience.',
+        responsibilities: ['Developing web interfaces with React.', 'Developing mobile applications with React Native.', 'Implementing interfaces with Styled Components.', 'Integrating REST APIs and consuming external services.'],
+        technologies: ['⚛ React', '⚛ React Native', 'JS JavaScript', '● Styled Components', '🔗 REST APIs'],
+      },
+    ],
+  },
+} as const;
