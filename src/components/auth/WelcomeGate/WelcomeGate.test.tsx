@@ -44,6 +44,23 @@ describe('WelcomeGate', () => {
       }),
     ).toBeInTheDocument();
     expect(screen.queryByText('Portfolio content')).not.toBeInTheDocument();
+    expect(screen.getByText(/incidentes em produção\.\.\./)).toBeInTheDocument();
+    expect(screen.getByText('React.js')).toBeInTheDocument();
+    expect(screen.getByText('ReactNative')).toBeInTheDocument();
+    expect(screen.getByText('Flutter')).toBeInTheDocument();
+    expect(screen.getByText('Node.js')).toBeInTheDocument();
+  });
+
+  it('expands the professional description on request', async () => {
+    const user = userEvent.setup();
+    renderGate();
+
+    await user.click(
+      await screen.findByRole('button', { name: 'Visualizar descrição completa' }),
+    );
+
+    expect(screen.getByRole('button', { name: 'Mostrar menos' })).toBeInTheDocument();
+    expect(screen.getByText(/Atualmente, curso Engenharia de Software/)).toBeInTheDocument();
   });
 
   it('continues as visitor and stores the entry choice', async () => {

@@ -60,9 +60,17 @@ function storeEntryChoice(choice: EntryChoice) {
 export function WelcomeGate({ children }: { children: React.ReactNode }) {
   const [choice, setChoice] = useState<EntryChoice | null>(null);
   const [mounted, setMounted] = useState(false);
-  const { translations } = useLanguage();
+  const [showFullDescription, setShowFullDescription] = useState(false);
+  const { language, translations } = useLanguage();
   const { signInWithGoogle, authError, loading } = useAuth();
   const pathname = usePathname();
+  const descriptionLimit =
+    language === 'portuguese' ? 'incidentes em produção' : 'production incidents';
+  const descriptionLimitIndex = translations.brand.description.indexOf(descriptionLimit);
+  const visibleDescription =
+    descriptionLimitIndex >= 0
+      ? translations.brand.description.slice(0, descriptionLimitIndex + descriptionLimit.length)
+      : translations.brand.description;
 
   useEffect(() => {
     const timeout = window.setTimeout(() => {
@@ -180,19 +188,34 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
                 </span>
               </div>
               <p className="text-2xl font-black text-text">{translations.brand.name}</p>
-              <p className="mt-3 leading-7 text-text-muted">{translations.brand.description}</p>
+              <p className="mt-3 leading-7 text-text-muted">
+                {showFullDescription
+                  ? translations.brand.description
+                  : `${visibleDescription}...`}
+              </p>
+              {descriptionLimitIndex >= 0 ? (
+                <button
+                  className="mt-3 text-sm font-semibold text-primary transition-colors hover:text-primary-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"
+                  onClick={() => setShowFullDescription((current) => !current)}
+                  type="button"
+                >
+                  {showFullDescription
+                    ? translations.hero.hideFullDescription
+                    : translations.hero.viewFullDescription}
+                </button>
+              ) : null}
               <div className="mt-8 grid gap-3 sm:grid-cols-2">
                 <span className="rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-text-muted">
-                  React
+                  React.js
                 </span>
                 <span className="rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-text-muted">
-                  TypeScript
+                  ReactNative
                 </span>
                 <span className="rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-text-muted">
-                  Firebase
+                  Flutter
                 </span>
                 <span className="rounded-[var(--radius-md)] border border-border bg-surface px-4 py-3 text-sm font-semibold text-text-muted">
-                  Mobile
+                  Node.js
                 </span>
               </div>
             </div>
