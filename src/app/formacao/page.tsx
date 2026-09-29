@@ -62,7 +62,7 @@ export default function FormacaoPage() {
               <div aria-label={textos.certificateFilterLabel} className="mt-2 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none]">
                 {filters.map(([key, label]) => <button className={activeFilter === key ? 'shrink-0 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground' : 'shrink-0 rounded-full border border-border bg-surface-secondary px-3 py-1 text-[10px] font-semibold text-text-muted'} key={key} onClick={() => setActiveFilter(key)} type="button">{label}</button>)}
               </div>
-              <div className="mt-3 flex w-full snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [scrollbar-width:auto]" role="list">
+              <div className="mt-3 flex w-full snap-x snap-mandatory gap-3 overflow-x-auto pb-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" role="list">
                 {visibleCertificates.map((certificate) => {
                   const certificateIndex = textos.certificates.findIndex((item) => item.title === certificate.title);
                   const Icon = certificateIcons[certificateIndex] ?? WorkspacePremiumOutlinedIcon;
