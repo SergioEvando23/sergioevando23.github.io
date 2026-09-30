@@ -54,7 +54,7 @@
     "jsdom": "^26.1.0",
     "prettier": "latest",
     "tailwindcss": "latest",
-    "tsx": "^4.23.13",
+    "tsx": "^4.23.15",
     "typescript": "latest",
     "vitest": "latest"
   }
