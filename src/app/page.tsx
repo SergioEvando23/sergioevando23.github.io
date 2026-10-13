@@ -74,6 +74,9 @@ function HomeContent() {
               <div className="flex flex-wrap gap-2">
                 <Tag variant="primary">{textos.brand.initials}</Tag>
                 <Tag variant="accent">{textos.brand.location}</Tag>
+                <Tag className="border-primary bg-primary text-primary-foreground shadow-[0_0_22px_color-mix(in_srgb,var(--color-primary)_80%,transparent)]" variant="primary">
+                  {textos.brand.availableForHire}
+                </Tag>
               </div>
               <div className="flex flex-col gap-5">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-accent">

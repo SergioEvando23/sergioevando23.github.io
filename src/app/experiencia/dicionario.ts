@@ -14,8 +14,8 @@ export const experienceDictionary = {
       {
         role: 'Engenheiro de Software Fullstack Web & Mobile',
         company: 'XP Inc.',
-        period: 'Set. 2022 — atual',
-        current: true,
+        period: 'Set. 2022 — Out. 2026',
+        current: false,
         description: 'Atuação no desenvolvimento de produtos financeiros de alta escala, contribuindo em toda a jornada de engenharia, do desenho à operação em produção, com foco em performance, qualidade e experiência do usuário.',
         responsibilities: ['Participação em decisões de arquitetura e migrações de monólito para microfrontends.', 'Desenvolvimento de aplicações web com React e TypeScript, com foco em escalabilidade e manutenibilidade.', 'Desenvolvimento de aplicações mobile com Flutter.', 'Implementação e manutenção de pipelines de CI/CD, testes unitários e testes E2E (Playwright).', 'Atuação na resposta a incidentes em produção e participação em war rooms.', 'Desenvolvimento de agentes de IA para modernização de código legado e aumento de produtividade.'],
         technologies: ['⚛ React', 'TS TypeScript', '◢ Flutter', '◆ Dart', '⬡ Node.js', '⚙ CI/CD', '🎭 Playwright'],
@@ -46,10 +46,10 @@ export const experienceDictionary = {
       {
         role: 'Fullstack Web & Mobile Software Engineer',
         company: 'XP Inc.',
-        period: 'Sep. 2022 — present',
-        current: true,
-        description: 'Working on high-scale financial products across the entire engineering journey, from design through production operations, with a focus on performance, quality and user experience.',
-        responsibilities: ['Participating in architectural decisions and monolith-to-microfrontend migrations.', 'Developing web applications with React and TypeScript, focused on scalability and maintainability.', 'Developing mobile applications with Flutter.', 'Implementing and maintaining CI/CD pipelines, unit tests and E2E tests (Playwright).', 'Responding to production incidents and participating in war rooms.', 'Developing AI agents for legacy code modernization and productivity gains.'],
+        period: 'Sep. 2022 — Oct. 2026',
+        current: false,
+        description: 'Worked on high-scale financial products across the entire engineering journey, from design through production operations, with a focus on performance, quality and user experience.',
+        responsibilities: ['Participated in architectural decisions and monolith-to-microfrontend migrations.', 'Developed web applications with React and TypeScript, focused on scalability and maintainability.', 'Developed mobile applications with Flutter.', 'Implemented and maintained CI/CD pipelines, unit tests and E2E tests (Playwright).', 'Responded to production incidents and participated in war rooms.', 'Developed AI agents for legacy code modernization and productivity gains.'],
         technologies: ['⚛ React', 'TS TypeScript', '◢ Flutter', '◆ Dart', '⬡ Node.js', '⚙ CI/CD', '🎭 Playwright'],
       },
       {

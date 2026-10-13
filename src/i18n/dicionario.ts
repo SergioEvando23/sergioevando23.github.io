@@ -30,7 +30,7 @@ const portugues = {
   metadata: {
     title: 'Sérgio Costa | Engenheiro de Software Fullstack Web & Mobile',
     description:
-      `Sou Engenheiro de Software Full Stack atualmente na XP Inc., especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
+      `Sou Engenheiro de Software Full Stack especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
     Minha experiência envolve arquitetura de software, micro-frontends, modernização de sistemas legados, qualidade de código e CI/CD, além da atuação cotidiana na investigação e resolução de incidentes em produção, analisando falhas, identificando causas e atuando para soluções que aumentem a estabilidade das aplicações.
     Também exploro o uso de IA e agentes inteligentes aplicados à Engenharia de Software, buscando otimizar processos de desenvolvimento e evolução de código.
     Este portfólio reúne projetos, estudos e documentações técnicas que refletem minha evolução profissional e minha forma de pensar, construir e evoluir software.
@@ -57,12 +57,13 @@ const portugues = {
     role: 'Engenheiro de Software Fullstack Web & Mobile',
     highlightedRole: 'Web & Mobile',
     description:
-      `Sou Engenheiro de Software Full Stack atualmente na XP Inc., especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
+      `Sou Engenheiro de Software Full Stack especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
     Minha experiência envolve arquitetura de software, micro-frontends, modernização de sistemas legados, qualidade de código e CI/CD, além da atuação cotidiana na investigação e resolução de incidentes em produção, analisando falhas, identificando causas e atuando para soluções que aumentem a estabilidade das aplicações.
     Também exploro o uso de IA e agentes inteligentes aplicados à Engenharia de Software, buscando otimizar processos de desenvolvimento e evolução de código.
     Este portfólio reúne projetos, estudos e documentações técnicas que refletem minha evolução profissional e minha forma de pensar, construir e evoluir software.
     Atualmente, curso Engenharia de Software na Estácio, conectando fundamentos acadêmicos à experiência prática do dia a dia.`,
-    location: 'Paulista - PE | Remoto | hibrido no grande Recife',
+    location: 'Paulista PE | Remoto | híbrido no Grande Recife',
+    availableForHire: 'Disponível para contratação',
     homeLabel: 'Sérgio Costa, inicio',
   },
   hero: {
@@ -665,7 +666,7 @@ const ingles = {
   metadata: {
     title: 'Sérgio Costa | Fullstack Web & Mobile Software Engineer',
     description:
-      `I am a Full Stack Software Engineer currently at XP Inc., specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
+      `I am a Full Stack Software Engineer specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
     My experience includes software architecture, micro-frontends, legacy-system modernization, code quality, and CI/CD, as well as the day-to-day investigation and resolution of production incidents—analyzing failures, identifying root causes, and delivering solutions that improve application stability.
     I also explore the use of AI and intelligent agents applied to Software Engineering, seeking to optimize development processes and code evolution.
     This portfolio brings together projects, studies, and technical documentation that reflect my professional growth and the way I think about, build, and evolve software.
@@ -692,12 +693,13 @@ const ingles = {
     role: 'Fullstack Web & Mobile Software Engineer',
     highlightedRole: 'Web & Mobile',
     description:
-      `I am a Full Stack Software Engineer currently at XP Inc., specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
+      `I am a Full Stack Software Engineer specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
     My experience includes software architecture, micro-frontends, legacy-system modernization, code quality, and CI/CD, as well as the day-to-day investigation and resolution of production incidents—analyzing failures, identifying root causes, and delivering solutions that improve application stability.
     I also explore the use of AI and intelligent agents applied to Software Engineering, seeking to optimize development processes and code evolution.
     This portfolio brings together projects, studies, and technical documentation that reflect my professional growth and the way I think about, build, and evolve software.
     I am currently pursuing a Software Engineering degree at Estácio, connecting academic foundations with hands-on professional experience.`,
-    location: 'Paulista - PE | Remote or hybrid in Recife',
+    location: 'Paulista PE | Remote or hybrid in Recife',
+    availableForHire: 'Available for hire',
     homeLabel: 'Sérgio Costa, home',
   },
   hero: {
