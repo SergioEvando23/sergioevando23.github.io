@@ -10,4 +10,17 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/dependency-review-action@v4
         with:
-          fail-on-severity: high
+          fail-on-severity: critical
+
+  npm-audit:
+    name: npm audit (critical only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm audit --audit-level=critical
