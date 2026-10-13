@@ -65,12 +65,13 @@ def styles():
     base = getSampleStyleSheet()
     return {
         "name": ParagraphStyle("name", parent=base["Normal"], fontName="Resume-Bold", fontSize=23, leading=26, textColor=colors.HexColor("#102A43")),
-        "contact": ParagraphStyle("contact", parent=base["Normal"], fontName="Resume", fontSize=8.7, leading=12, textColor=colors.HexColor("#486581")),
-        "section": ParagraphStyle("section", parent=base["Normal"], fontName="Resume-Bold", fontSize=11.5, leading=14, spaceBefore=9, spaceAfter=4, textColor=colors.HexColor("#007C91")),
-        "body": ParagraphStyle("body", parent=base["Normal"], fontName="Resume", fontSize=9.1, leading=13, spaceAfter=3, textColor=colors.HexColor("#243B53"), alignment=TA_LEFT),
-        "role": ParagraphStyle("role", parent=base["Normal"], fontName="Resume-Bold", fontSize=9.6, leading=13, textColor=colors.HexColor("#102A43")),
-        "meta": ParagraphStyle("meta", parent=base["Normal"], fontName="Resume", fontSize=8.2, leading=11.3, textColor=colors.HexColor("#627D98")),
-        "cert": ParagraphStyle("cert", parent=base["Normal"], fontName="Resume", fontSize=7.8, leading=9.6, textColor=colors.HexColor("#243B53"), spaceAfter=2),
+        "contact": ParagraphStyle("contact", parent=base["Normal"], fontName="Resume", fontSize=8.7, leading=14, textColor=colors.HexColor("#486581")),
+        "section": ParagraphStyle("section", parent=base["Normal"], fontName="Resume-Bold", fontSize=11.5, leading=15, spaceBefore=13, spaceAfter=6, textColor=colors.HexColor("#007C91")),
+        "body": ParagraphStyle("body", parent=base["Normal"], fontName="Resume", fontSize=9.1, leading=15, spaceAfter=5, textColor=colors.HexColor("#243B53"), alignment=TA_LEFT),
+        "skills": ParagraphStyle("skills", parent=base["Normal"], fontName="Resume", fontSize=8.1, leading=10.3, spaceAfter=2, textColor=colors.HexColor("#243B53"), alignment=TA_LEFT),
+        "role": ParagraphStyle("role", parent=base["Normal"], fontName="Resume-Bold", fontSize=9.6, leading=14, textColor=colors.HexColor("#102A43")),
+        "meta": ParagraphStyle("meta", parent=base["Normal"], fontName="Resume", fontSize=8.2, leading=12, textColor=colors.HexColor("#627D98")),
+        "cert": ParagraphStyle("cert", parent=base["Normal"], fontName="Resume", fontSize=8, leading=11, textColor=colors.HexColor("#243B53"), spaceAfter=4),
         "footer": ParagraphStyle("footer", parent=base["Normal"], fontName="Resume", fontSize=7.2, textColor=colors.HexColor("#829AB1")),
     }
 
@@ -96,7 +97,7 @@ def experience(story, s, role, dates, bullets):
     story.append(Paragraph(dates, s["meta"]))
     for bullet in bullets:
         story.append(Paragraph(f"- {bullet}", s["body"]))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 6))
 
 
 def build_resume(filename, language):
@@ -111,7 +112,7 @@ def build_resume(filename, language):
     story = [
         Paragraph("Sergio Costa", s["name"]),
         Spacer(1, 2),
-        Paragraph("workbysergiocosta@gmail.com  |  linkedin.com/in/sergiocosta23  |  github.com/sergioevando23", s["contact"]),
+        Paragraph("workbysergiocosta@gmail.com | linkedin.com/in/sergiocosta23 | github.com/sergioevando23 |<br/>sergioevando23.github.io | Telefone e WhatsApp +55 81 99880-0238", s["contact"]),
         Spacer(1, 6),
     ]
 
@@ -126,13 +127,14 @@ def build_resume(filename, language):
         ]:
             story.append(Paragraph(summary, s["body"]))
         section(story, "Experiência", s)
-        experience(story, s, "XP Inc. - Engenheiro de Software Fullstack Web & Mobile", "Set. 2022 - Out. 2026 | Brasil", ["Desenvolvimento de aplicacoes web escalaveis com React e TypeScript e aplicacoes mobile com Flutter.", "Participacao em decisoes de arquitetura, incluindo migracoes de monolito para micro-frontends.", "Implementacao de pipelines de CI/CD e testes automatizados unitarios e E2E.", "Atuacao na resposta a incidentes em producao e na melhoria da estabilidade das aplicacoes."])
-        experience(story, s, "Eduardo Costa Software Solutions - Desenvolvedor de Software", "Fev. 2021 - Jul. 2021 | Brasil", ["Desenvolvimento de aplicacoes frontend com React e TypeScript e integracao com APIs REST.", "Criacao de componentes reutilizaveis e melhorias na estrutura do codigo, performance e experiencia do usuario."])
+        experience(story, s, "XP Inc. - Engenheiro de Software Fullstack Web & Mobile", "Set. 2022 - Out. 2026 | Brasil", ["Desenvolvimento e manutenção de aplicações web escaláveis utilizando React e TypeScript, além de aplicações mobile com Flutter.", "Contribuição em decisões arquiteturais, incluindo adoção de micro-frontends.", "Criação e implementação de testes automatizados (unitários, integração e E2E).", "Realização de code reviews e promoção de boas práticas de engenharia.", "Mentoria e onboarding de novos engenheiros, acelerando sua adaptação.", "Atuação na resolução de incidentes em produção e melhoria da estabilidade dos sistemas.", "Monitoramento de aplicações utilizando Dynatrace.", "Gestão de releases com uso de feature flags (Firebase).", "Evolução contínua dos processos de desenvolvimento e qualidade de código."])
+        experience(story, s, "Eduardo Costa Software Solutions - Desenvolvedor de Software", "Fev. 2021 - Jul. 2021 | Brasil", ["Desenvolvimento e evolução de aplicações frontend com React e TypeScript.", "Criação de componentes reutilizáveis e melhoria da estrutura do código para escalabilidade.", "Integração com APIs REST e colaboração com times backend.", "Identificação e correção de bugs, melhorando estabilidade e experiência do usuário.", "Análise de performance e implementação de otimizações.", "Participação em decisões técnicas e evolução da base de código.", "Colaboração com times multidisciplinares para entrega de funcionalidades orientadas ao negócio."])
+        story.append(PageBreak())
         section(story, "Formação Acadêmica", s)
         story.append(Paragraph("Bacharelado em Engenharia de Software - Estácio (2025 - 2029)", s["body"]))
         section(story, "Habilidades Técnicas", s)
-        for line in ["Frontend: React.js, TypeScript, JavaScript, HTML5, CSS3, Styled Components", "Arquitetura: Micro-frontends, Clean Architecture, SOLID, Design Patterns", "Testes: Jest, React Testing Library, Playwright, Cucumber, Robot Framework", "Mobile e outros: Flutter, Dart, APIs REST, GraphQL, Firebase, Dynatrace"]:
-            story.append(Paragraph(line, s["body"]))
+        for line in ["Frontend: React, Next.js, TypeScript, Tailwind CSS, Angular, Styled Components, SASS, HTML5, CSS3, Redux, Recoil, Context.js, Webpack, Zustand, Jotai", "Mobile: Flutter, Dart, React Native, TypeScript", "Backend: Node.js, MySQL, PostgreSQL, MongoDB, Redis, Docker, AWS, Serverless, REST APIs, RESTful APIs", "Observabilidade: Datadog, Grafana, Dynatrace", "Testes: Unitários, E2E, Integração, Carga, Sintéticos"]:
+            story.append(Paragraph(line, s["skills"]))
         certificates = CERTIFICATES_PT
         certificate_title = "Certificações"
         credential_label = "Código da credencial"
@@ -148,19 +150,19 @@ def build_resume(filename, language):
         ]:
             story.append(Paragraph(summary, s["body"]))
         section(story, "Experience", s)
-        experience(story, s, "XP Inc. - Fullstack Web & Mobile Software Engineer", "Sep. 2022 - Oct. 2026 | Brazil", ["Developed scalable web applications with React and TypeScript, as well as mobile applications with Flutter.", "Contributed to architectural decisions, including monolith-to-microfrontend migrations.", "Implemented CI/CD pipelines and automated unit and E2E tests.", "Responded to production incidents and helped improve application stability."])
-        experience(story, s, "Eduardo Costa Software Solutions - Software Developer", "Feb. 2021 - Jul. 2021 | Brazil", ["Developed frontend applications with React and TypeScript and integrated them with REST APIs.", "Built reusable components and improved code structure, performance, and user experience."])
+        experience(story, s, "XP Inc. - Fullstack Web & Mobile Software Engineer", "Sep. 2022 - Oct. 2026 | Brazil", ["Developed and maintained scalable web applications using React and TypeScript, as well as mobile applications with Flutter.", "Contributed to architectural decisions, including the adoption of micro-frontends.", "Created and implemented automated tests (unit, integration, and E2E).", "Conducted code reviews and promoted engineering best practices.", "Mentored and onboarded new engineers, accelerating their ramp-up.", "Resolved production incidents and improved system stability.", "Monitored applications using Dynatrace.", "Managed releases using feature flags (Firebase).", "Continuously improved development processes and code quality."])
+        experience(story, s, "Eduardo Costa Software Solutions - Software Developer", "Feb. 2021 - Jul. 2021 | Brazil", ["Developed and evolved frontend applications with React and TypeScript.", "Built reusable components and improved code structure for scalability.", "Integrated REST APIs and collaborated with backend teams.", "Identified and fixed bugs, improving stability and user experience.", "Analyzed performance and implemented optimizations.", "Participated in technical decisions and the evolution of the codebase.", "Collaborated with cross-functional teams to deliver business-oriented features."])
+        story.append(PageBreak())
         section(story, "Education", s)
         story.append(Paragraph("Bachelor's Degree in Software Engineering - Estacio (2025 - 2029)", s["body"]))
         section(story, "Technical Skills", s)
-        for line in ["Frontend: React.js, TypeScript, JavaScript, HTML5, CSS3, Styled Components", "Architecture: Micro-frontends, Clean Architecture, SOLID, Design Patterns", "Testing: Jest, React Testing Library, Playwright, Cucumber, Robot Framework", "Mobile & Other: Flutter, Dart, REST APIs, GraphQL, Firebase, Dynatrace"]:
-            story.append(Paragraph(line, s["body"]))
+        for line in ["Frontend: React, Next.js, TypeScript, Tailwind CSS, Angular, Styled Components, SASS, HTML5, CSS3, Redux, Recoil, Context.js, Webpack, Zustand, Jotai", "Mobile: Flutter, Dart, React Native, TypeScript", "Backend: Node.js, MySQL, PostgreSQL, MongoDB, Redis, Docker, AWS, Serverless, REST APIs, RESTful APIs", "Observability: Datadog, Grafana, Dynatrace", "Testing: Unit, E2E, Integration, Load, Synthetic"]:
+            story.append(Paragraph(line, s["skills"]))
         certificates = CERTIFICATES_EN
         certificate_title = "Certifications"
         credential_label = "Credential ID"
         issued_label = "issued"
 
-    story.append(PageBreak())
     section(story, certificate_title, s)
     story.append(Paragraph(f"{len(certificates)} professional certificates", s["meta"]))
     story.append(Spacer(1, 5))
