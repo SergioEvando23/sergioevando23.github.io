@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "latest",
-    "@firebase/rules-unit-testing": "^5.0.2",
+    "@firebase/rules-unit-testing": "^6.0.0",
     "@playwright/test": "latest",
     "@tailwindcss/postcss": "latest",
     "@testing-library/jest-dom": "latest",
