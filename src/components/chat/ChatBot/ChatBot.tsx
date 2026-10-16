@@ -100,8 +100,7 @@ export function ChatBot() {
 
           {provider === 'knowledge-search' && localAIState === 'idle' ? (
             <div className="border-t border-border px-4 py-3 text-sm text-text-muted">
-              <p>{textos.chatbot.localConsent}</p>
-              <Button className="mt-3" disabled={isSending} onClick={() => void activateLocalAI()} size="small" variant="secondary">
+              <Button disabled={isSending} onClick={() => void activateLocalAI()} size="small" variant="secondary">
                 {textos.chatbot.activateLocal}
               </Button>
             </div>
