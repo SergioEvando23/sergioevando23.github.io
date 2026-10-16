@@ -471,6 +471,28 @@ https://Sérgioevando23.github.io
 Para testar localmente em `http://localhost:3000`, adicione essa origem na lista
 permitida do workflow n8n antes de validar a chamada real.
 
+### Fallback Local E Privacidade
+
+Quando o n8n estiver indisponivel por rede, timeout (8 segundos), resposta 5xx
+ou payload invalido, o chat usa primeiro a IA local se ela ja tiver sido
+ativada pelo visitante. O modo local usa WebLLM em Web Worker e WebGPU; o modelo
+padrao `Llama-3.2-1B-Instruct-q4f32_1-MLC` e quantizado, licenciado Apache-2.0
+e pode consumir centenas de MB no primeiro download. Ele e baixado sob demanda,
+nunca versionado neste repositorio, e o navegador pode reutilizar seu cache.
+
+Antes do primeiro download, o visitante deve confirmar a ativacao. Em browsers
+sem WebGPU, offline, ou se o carregamento for recusado/cancelado, o chatbot usa
+uma busca lexical deterministica. A base local fica em
+`src/features/portfolio-assistant/knowledge/records.ts`, contem apenas fatos
+publicos do portfolio em PT e EN, e os testes impedem registros nao-publicos e
+ids sem paridade. Dados incluidos no frontend sao necessariamente publicos.
+
+Opcionalmente, configure o identificador publico do modelo:
+
+```env
+NEXT_PUBLIC_LOCAL_AI_MODEL_ID=Llama-3.2-1B-Instruct-q4f32_1-MLC
+```
+
 ### Workflow Sugerido No n8n
 
 ```text

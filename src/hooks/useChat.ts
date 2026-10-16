@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback, useMemo, useRef, useState } from 'react';
-import { sendChatMessage } from '@/services/chat';
+import { ChatOrchestrator, KnowledgeSearchProvider, LocalAIChatProvider, N8nChatProvider } from '@/features/portfolio-assistant';
+import type { LocalAIState, ProviderName } from '@/features/portfolio-assistant/types';
 import type { ChatMessage, ChatResponse, ChatStatus } from '@/types/chat';
 
 const CHAT_SESSION_STORAGE_KEY = 'Sérgio-ai-session-id';
@@ -16,6 +17,11 @@ interface UseChatResult {
   error: string | null;
   sessionId: string;
   lastResponse: ChatResponse | null;
+  provider: ProviderName | null;
+  localAIState: LocalAIState;
+  localAIProgress: number;
+  activateLocalAI: () => Promise<void>;
+  cancelLocalAI: () => Promise<void>;
   sendMessage: (content: string) => Promise<void>;
   retry: () => Promise<void>;
   reset: () => void;
@@ -50,8 +56,16 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
   const [status, setStatus] = useState<ChatStatus>('idle');
   const [error, setError] = useState<string | null>(null);
   const [lastResponse, setLastResponse] = useState<ChatResponse | null>(null);
+  const [provider, setProvider] = useState<ProviderName | null>(null);
+  const [localAIState, setLocalAIState] = useState<LocalAIState>('idle');
+  const [localAIProgress, setLocalAIProgress] = useState(0);
   const [sessionId, setSessionId] = useState(createSessionId);
   const lastUserMessageRef = useRef<string | null>(null);
+  const [assistant] = useState(() => {
+    const local = new LocalAIChatProvider();
+    local.setStateListener((next, progress) => { setLocalAIState(next); setLocalAIProgress(progress); });
+    return { local, orchestrator: new ChatOrchestrator(new N8nChatProvider(), local, new KnowledgeSearchProvider()) };
+  });
 
   const requestAssistantResponse = useCallback(
     async (message: string) => {
@@ -59,7 +73,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
       setError(null);
 
       try {
-        const response = await sendChatMessage({
+        const response = await assistant.orchestrator.sendMessage({
           message,
           sessionId,
           language,
@@ -73,6 +87,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
         };
 
         setLastResponse(response);
+        setProvider(response.provider ?? null);
         setMessages((current) => [...current, assistantMessage]);
         setStatus('success');
       } catch (caughtError) {
@@ -80,7 +95,7 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
         setStatus('error');
       }
     },
-    [language, sessionId],
+    [assistant, language, sessionId],
   );
 
   const sendMessage = useCallback(
@@ -120,11 +135,15 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
     setStatus('idle');
     setError(null);
     setLastResponse(null);
+    setProvider(null);
     const nextSessionId = createId('Sérgio-ai');
     window.sessionStorage.setItem(CHAT_SESSION_STORAGE_KEY, nextSessionId);
     setSessionId(nextSessionId);
     lastUserMessageRef.current = null;
   }, []);
+
+  const activateLocalAI = useCallback(async () => { await assistant.local.activate(); }, [assistant]);
+  const cancelLocalAI = useCallback(async () => { await assistant.local.cancel(); }, [assistant]);
 
   return useMemo(
     () => ({
@@ -133,10 +152,15 @@ export function useChat({ language }: UseChatOptions): UseChatResult {
       error,
       sessionId,
       lastResponse,
+      provider,
+      localAIState,
+      localAIProgress,
+      activateLocalAI,
+      cancelLocalAI,
       sendMessage,
       retry,
       reset,
     }),
-    [error, lastResponse, messages, reset, retry, sendMessage, sessionId, status],
+    [activateLocalAI, cancelLocalAI, error, lastResponse, localAIProgress, localAIState, messages, provider, reset, retry, sendMessage, sessionId, status],
   );
 }

@@ -18,7 +18,7 @@ export function ChatBot() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
-  const { messages, status, error, sendMessage, retry } = useChat({
+  const { messages, status, error, provider, localAIState, localAIProgress, sendMessage, retry, activateLocalAI, cancelLocalAI } = useChat({
     language: idioma === 'portugues' ? idiomaConfig.portugues.htmlLang : 'en-US',
   });
   const isSending = status === 'sending';
@@ -88,6 +88,33 @@ export function ChatBot() {
             status={status}
             userMessageLabel={textos.chatbot.userMessageLabel}
           />
+
+          <div aria-live="polite" className="border-t border-border px-4 py-2 text-xs text-text-muted">
+            {provider === 'n8n' ? textos.chatbot.providerOnline : null}
+            {provider === 'local-ai' ? textos.chatbot.providerLocal : null}
+            {provider === 'knowledge-search' ? textos.chatbot.providerSearch : null}
+            {localAIState === 'ready' ? textos.chatbot.localReady : null}
+            {localAIState === 'unsupported' ? textos.chatbot.localUnsupported : null}
+            {localAIState === 'error' ? textos.chatbot.localError : null}
+          </div>
+
+          {provider === 'knowledge-search' && localAIState === 'idle' ? (
+            <div className="border-t border-border px-4 py-3 text-sm text-text-muted">
+              <p>{textos.chatbot.localConsent}</p>
+              <Button className="mt-3" disabled={isSending} onClick={() => void activateLocalAI()} size="small" variant="secondary">
+                {textos.chatbot.activateLocal}
+              </Button>
+            </div>
+          ) : null}
+
+          {localAIState === 'downloading' ? (
+            <div aria-live="polite" className="border-t border-border px-4 py-3 text-sm text-text-muted">
+              <p>{textos.chatbot.localDownloading(localAIProgress)}</p>
+              <Button className="mt-3" onClick={() => void cancelLocalAI()} size="small" variant="secondary">
+                {textos.chatbot.cancelDownload}
+              </Button>
+            </div>
+          ) : null}
 
           {messages.length === 0 ? (
             <ChatSuggestions
