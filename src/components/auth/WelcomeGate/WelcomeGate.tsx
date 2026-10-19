@@ -127,31 +127,40 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
             aria-describedby="evolution-notice-description"
             aria-label={textos.auth.evolutionNotice.dialogLabel}
             aria-modal="true"
-            className="w-full max-w-lg rounded-[var(--radius-xl)] border border-border bg-surface p-6 shadow-[var(--shadow-glow)]"
+            className="relative w-full max-w-xl rounded-[var(--radius-xl)] border border-border bg-surface p-8 text-center shadow-[var(--shadow-glow)] sm:p-10"
             role="dialog"
           >
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h2 className="text-xl font-black text-text">
-                  {textos.auth.evolutionNotice.title}
-                </h2>
-                <p
-                  className="mt-3 leading-7 text-text-muted"
-                  id="evolution-notice-description"
-                >
-                  {textos.auth.evolutionNotice.description}
-                </p>
-              </div>
-              <button
-                aria-label={textos.auth.evolutionNotice.closeIcon}
-                className="text-text-muted transition-colors hover:text-text focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent"
-                onClick={() => setShowEvolutionNotice(false)}
-                type="button"
+            <button
+              aria-label={textos.auth.evolutionNotice.closeIcon}
+              className="absolute right-5 top-5 text-text-muted transition-colors hover:text-text focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent"
+              onClick={() => setShowEvolutionNotice(false)}
+              type="button"
+            >
+              <CloseIcon aria-hidden="true" />
+            </button>
+            <div className="mx-auto max-w-md">
+              <h2 className="pr-8 text-2xl font-black text-text sm:pr-0">
+                {textos.auth.evolutionNotice.title}
+              </h2>
+              <p
+                className="mt-5 text-base leading-8 text-text-muted"
+                id="evolution-notice-description"
               >
-                <CloseIcon aria-hidden="true" />
-              </button>
+                {textos.auth.evolutionNotice.descriptionStart}{' '}
+                <strong className="font-bold text-primary">
+                  {textos.auth.evolutionNotice.highlightEvolution}
+                </strong>
+                {textos.auth.evolutionNotice.descriptionMiddle}{' '}
+                <strong className="font-bold text-primary">
+                  {textos.auth.evolutionNotice.highlightUpdates}
+                </strong>
+                {textos.auth.evolutionNotice.descriptionEnd}{' '}
+                <strong className="font-bold text-primary">
+                  {textos.auth.evolutionNotice.highlightFeatures}
+                </strong>
+              </p>
             </div>
-            <Button className="mt-6" onClick={() => setShowEvolutionNotice(false)}>
+            <Button className="mt-8" onClick={() => setShowEvolutionNotice(false)}>
               {textos.auth.evolutionNotice.close}
             </Button>
           </section>

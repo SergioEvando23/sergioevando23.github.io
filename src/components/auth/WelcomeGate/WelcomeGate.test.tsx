@@ -50,11 +50,9 @@ describe('WelcomeGate', () => {
     const user = userEvent.setup();
     renderGate();
     expect(
-      await screen.findByRole('dialog', { name: 'Aviso sobre a evolucao do projeto' }),
+      await screen.findByRole('dialog', { name: 'Aviso sobre a evolução do projeto' }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(/Este projeto esta em constante evolucao/),
-    ).toBeInTheDocument();
+    expect(screen.getByText('constante evolução')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Entendi' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
