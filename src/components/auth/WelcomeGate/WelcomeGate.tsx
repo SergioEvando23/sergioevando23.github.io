@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
+import CloseIcon from '@mui/icons-material/Close';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { Logo } from '@/components/brand/Logo';
@@ -60,6 +61,7 @@ function storeEntryChoice(choice: EntryChoice) {
 export function WelcomeGate({ children }: { children: React.ReactNode }) {
   const [choice, setChoice] = useState<EntryChoice | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [showEvolutionNotice, setShowEvolutionNotice] = useState(true);
   const { textos } = useLanguage();
   const { signInWithGoogle, authError, loading } = useAuth();
   const pathname = usePathname();
@@ -72,6 +74,15 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
 
     return () => window.clearTimeout(timeout);
   }, []);
+
+  useEffect(() => {
+    if (!showEvolutionNotice) return undefined;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowEvolutionNotice(false);
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [showEvolutionNotice]);
 
   const continueAsVisitor = () => {
     storeEntryChoice('visitor');
@@ -110,6 +121,42 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
 
   return (
     <main className="min-h-screen bg-background text-text">
+      {showEvolutionNotice ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay/80 p-4 backdrop-blur-sm">
+          <section
+            aria-describedby="evolution-notice-description"
+            aria-label={textos.auth.evolutionNotice.dialogLabel}
+            aria-modal="true"
+            className="w-full max-w-lg rounded-[var(--radius-xl)] border border-border bg-surface p-6 shadow-[var(--shadow-glow)]"
+            role="dialog"
+          >
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-xl font-black text-text">
+                  {textos.auth.evolutionNotice.title}
+                </h2>
+                <p
+                  className="mt-3 leading-7 text-text-muted"
+                  id="evolution-notice-description"
+                >
+                  {textos.auth.evolutionNotice.description}
+                </p>
+              </div>
+              <button
+                aria-label={textos.auth.evolutionNotice.closeIcon}
+                className="text-text-muted transition-colors hover:text-text focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent"
+                onClick={() => setShowEvolutionNotice(false)}
+                type="button"
+              >
+                <CloseIcon aria-hidden="true" />
+              </button>
+            </div>
+            <Button className="mt-6" onClick={() => setShowEvolutionNotice(false)}>
+              {textos.auth.evolutionNotice.close}
+            </Button>
+          </section>
+        </div>
+      ) : null}
       <Container className="flex min-h-screen flex-col py-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
