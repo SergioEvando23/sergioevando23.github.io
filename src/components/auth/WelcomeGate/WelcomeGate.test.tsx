@@ -53,7 +53,8 @@ describe('WelcomeGate', () => {
       await screen.findByRole('dialog', { name: 'Aviso sobre a evolução do projeto' }),
     ).toBeInTheDocument();
     expect(screen.getByText('constante evolução')).toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'Entendi' }));
+    expect(screen.getByText('Evolução em andamento')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Fechar aviso' }));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
 import CloseIcon from '@mui/icons-material/Close';
+import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { Logo } from '@/components/brand/Logo';
@@ -139,6 +140,10 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
               <CloseIcon aria-hidden="true" />
             </button>
             <div className="mx-auto max-w-md">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-bold text-primary">
+                <UpdateOutlinedIcon aria-hidden="true" fontSize="small" />
+                {textos.auth.evolutionNotice.status}
+              </div>
               <h2 className="pr-8 text-2xl font-black text-text sm:pr-0">
                 {textos.auth.evolutionNotice.title}
               </h2>
@@ -160,9 +165,6 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
                 </strong>
               </p>
             </div>
-            <Button className="mt-8" onClick={() => setShowEvolutionNotice(false)}>
-              {textos.auth.evolutionNotice.close}
-            </Button>
           </section>
         </div>
       ) : null}
