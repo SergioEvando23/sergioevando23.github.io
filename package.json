@@ -22,6 +22,7 @@
   "dependencies": {
     "@emotion/react": "latest",
     "@emotion/styled": "latest",
+    "@mlc-ai/web-llm": "^0.2.86",
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "clsx": "latest",

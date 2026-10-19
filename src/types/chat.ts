@@ -32,4 +32,5 @@ export interface ChatResponse {
   sources?: ChatSource[];
   suggestions?: string[];
   actions?: ChatAction[];
+  provider?: 'n8n' | 'local-ai' | 'knowledge-search';
 }

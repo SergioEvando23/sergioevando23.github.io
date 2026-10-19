@@ -11,6 +11,7 @@ const { sendChatMessageMock } = vi.hoisted(() => ({
 
 vi.mock('@/services/chat', () => ({
   CHAT_MESSAGE_MAX_LENGTH: 4000,
+  ChatServiceError: class ChatServiceError extends Error {},
   sendChatMessage: sendChatMessageMock,
 }));
 
@@ -37,6 +38,7 @@ function renderChatWithLanguageSwitcher() {
 
 describe('ChatBot', () => {
   beforeEach(() => {
+    vi.stubEnv('NEXT_PUBLIC_N8N_CHAT_WEBHOOK_URL', 'https://n8n.example/webhook');
     localStorage.clear();
     sessionStorage.clear();
     sendChatMessageMock.mockReset();
@@ -121,11 +123,8 @@ describe('ChatBot', () => {
     await user.type(screen.getByLabelText('Mensagem para Sérgio AI'), 'E testes?');
     await user.keyboard('{Enter}');
 
-    expect(await screen.findByText(/Nao consegui consultar minha base/)).toBeInTheDocument();
+    expect(await screen.findByText('Consulta basica')).toBeInTheDocument();
 
-    await user.click(screen.getByRole('button', { name: 'Tentar novamente' }));
-
-    expect(await screen.findByText('Resposta apos retry.')).toBeInTheDocument();
     expect(screen.getAllByText('E testes?')).toHaveLength(1);
   });
 

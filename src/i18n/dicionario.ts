@@ -29,8 +29,7 @@ const portugues = {
   },
   metadata: {
     title: 'Sérgio Costa | Engenheiro de Software Fullstack Web & Mobile',
-    description:
-      `Sou Engenheiro de Software Full Stack especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
+    description: `Sou Engenheiro de Software Full Stack especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
     Minha experiência envolve arquitetura de software, micro-frontends, modernização de sistemas legados, qualidade de código e CI/CD, além da atuação cotidiana na investigação e resolução de incidentes em produção, analisando falhas, identificando causas e atuando para soluções que aumentem a estabilidade das aplicações.
     Também exploro o uso de IA e agentes inteligentes aplicados à Engenharia de Software, buscando otimizar processos de desenvolvimento e evolução de código.
     Este portfólio reúne projetos, estudos e documentações técnicas que refletem minha evolução profissional e minha forma de pensar, construir e evoluir software.
@@ -56,8 +55,7 @@ const portugues = {
     initials: 'SC',
     role: 'Engenheiro de Software Fullstack Web & Mobile',
     highlightedRole: 'Web & Mobile',
-    description:
-      `Sou Engenheiro de Software Full Stack especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
+    description: `Sou Engenheiro de Software Full Stack especializado em Front-end, atuando com React, TypeScript e Flutter no desenvolvimento de aplicações de alta escala.
     Minha experiência envolve arquitetura de software, micro-frontends, modernização de sistemas legados, qualidade de código e CI/CD, além da atuação cotidiana na investigação e resolução de incidentes em produção, analisando falhas, identificando causas e atuando para soluções que aumentem a estabilidade das aplicações.
     Também exploro o uso de IA e agentes inteligentes aplicados à Engenharia de Software, buscando otimizar processos de desenvolvimento e evolução de código.
     Este portfólio reúne projetos, estudos e documentações técnicas que refletem minha evolução profissional e minha forma de pensar, construir e evoluir software.
@@ -102,6 +100,17 @@ const portugues = {
     signInWithGoogle: 'Entrar com Google',
     continueAsVisitor: 'Continuar como visitante',
     optionalLogin: 'O login e opcional. Visitantes podem acessar a galeria publica.',
+    evolutionNotice: {
+      descriptionStart: 'Este projeto está em',
+      highlightEvolution: 'constante evolução',
+      descriptionMiddle: '. As informações existentes podem ser',
+      highlightUpdates: 'atualizadas a qualquer momento',
+      descriptionEnd: ', e novas funcionalidades podem ser',
+      highlightFeatures: 'incluídas conforme necessário.',
+      closeIcon: 'Fechar aviso',
+      dialogLabel: 'Aviso sobre a evolução do projeto',
+      status: 'Evolução em andamento',
+    },
     signOut: 'Sair',
     signIn: 'Entrar',
     missingConfig:
@@ -252,7 +261,8 @@ const portugues = {
       date: 'Data',
       githubUrl: 'URL do GitHub',
       demoUrl: 'URL da demonstracao',
-      demoUrlHelp: 'Ao informar uma URL HTTPS, o Playground sera habilitado automaticamente.',
+      demoUrlHelp:
+        'Ao informar uma URL HTTPS, o Playground sera habilitado automaticamente.',
       portfolioEligible: 'Exibir publicamente',
       coverImage: 'Imagem de capa',
       images: 'Imagens',
@@ -295,8 +305,7 @@ const portugues = {
       title: 'Administracao das documentações',
       description: 'Crie, edite e exclua documentações publicadas no Firebase.',
       loginTitle: 'Acesso administrativo',
-      loginDescription:
-        'Entre com Google para gerenciar as documentações de estudo.',
+      loginDescription: 'Entre com Google para gerenciar as documentações de estudo.',
       deniedDescription: 'Use a conta autorizada sergioevandocosta@gmail.com.',
       edit: 'Editar',
       delete: 'Excluir',
@@ -434,8 +443,7 @@ const portugues = {
       },
       typescriptBeyondBasics: {
         title: 'TypeScript alem do basico',
-        summary:
-          'Conceitos avancados e patterns que tenho utilizado no dia a dia.',
+        summary: 'Conceitos avancados e patterns que tenho utilizado no dia a dia.',
         body: [
           '# TypeScript alem do basico',
           'TypeScript ajuda a modelar contratos e reduzir estados invalidos quando usado com intencao.',
@@ -465,8 +473,7 @@ const portugues = {
       },
       myDevJourney: {
         title: 'Minha jornada como dev',
-        summary:
-          'Aprendizados, erros, conquistas e planos para o futuro.',
+        summary: 'Aprendizados, erros, conquistas e planos para o futuro.',
         body: [
           '# Jornada',
           'Minha trajetoria combina curiosidade tecnica, pratica constante e vontade de transformar problemas em produtos digitais confiaveis.',
@@ -498,6 +505,17 @@ const portugues = {
     analyzing: 'Sérgio AI esta analisando...',
     error: 'Nao consegui consultar minha base neste momento. Tente novamente.',
     retry: 'Tentar novamente',
+    providerOnline: 'Assistente online',
+    providerLocal: 'Modo local',
+    providerSearch: 'Consulta basica',
+    activateLocal: 'Ativar modo local',
+    cancelDownload: 'Cancelar download',
+    localDownloading: (progress: number) => `Baixando modelo local: ${progress}%`,
+    localReady: 'Modelo local pronto',
+    localUnsupported:
+      'Seu navegador nao oferece suporte ao modo local. A consulta basica continua disponivel.',
+    localError:
+      'Nao foi possivel carregar o modelo local. A consulta basica continua disponivel.',
     emptyError: 'Digite uma pergunta antes de enviar.',
     maxLength: (limit: number) => `Use no maximo ${limit} caracteres.`,
     suggestions: [
@@ -575,13 +593,28 @@ const portugues = {
         'Enquanto o desenvolvimento de código resolve como o software funciona por dentro, a arquitetura resolve onde cada peça se encaixa para que o sistema inteiro não colapse no futuro.',
       continueEvolution: 'Leia documentações de estudos',
     },
-
   },
   skills: {
     groups: {
       frontend: {
         title: 'Frontend',
-        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Redux', 'Recoil', 'Context.js', 'Webpack', 'Zustand', 'Jotai'],
+        items: [
+          'React',
+          'Next.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'Angular',
+          'Styled Components',
+          'SASS',
+          'HTML5',
+          'CSS3',
+          'Redux',
+          'Recoil',
+          'Context.js',
+          'Webpack',
+          'Zustand',
+          'Jotai',
+        ],
       },
       mobile: {
         title: 'Mobile',
@@ -589,16 +622,27 @@ const portugues = {
       },
       backend: {
         title: 'Backend',
-        items: ['Node.js', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless', 'REST APIs', 'RESTFULL APIs'],
+        items: [
+          'Node.js',
+          'MYSQL',
+          'PostgreSQL',
+          'MongoDB',
+          'Redis',
+          'Docker',
+          'AWS',
+          'Serverless',
+          'REST APIs',
+          'RESTFULL APIs',
+        ],
       },
       observabilidade: {
         title: 'Observabilidade',
         items: ['Datadog', 'Grafana', 'Dynatrace'],
       },
-      testes: { 
+      testes: {
         title: 'Testes',
-        items: ['Unitários', 'E2E', 'Integração', 'Carga', 'Sinteticos'], 
-      }
+        items: ['Unitários', 'E2E', 'Integração', 'Carga', 'Sinteticos'],
+      },
     },
   },
   experience: {
@@ -613,10 +657,11 @@ const portugues = {
         description:
           'Componentes desacoplados, tokens semanticos e temas adaptaveis para diferentes marcas.',
       },
-      monolithicServices:{
+      monolithicServices: {
         title: 'Engenharia de Monorepos',
-        description: 'Centralização de múltiplos projetos e pacotes em um único repositório, otimizada por ferramentas de build inteligente, compartilhamento eficiente de código e gerenciamento unificado de dependências.',
-      }
+        description:
+          'Centralização de múltiplos projetos e pacotes em um único repositório, otimizada por ferramentas de build inteligente, compartilhamento eficiente de código e gerenciamento unificado de dependências.',
+      },
     },
   },
   projects: {
@@ -665,8 +710,7 @@ const ingles = {
   },
   metadata: {
     title: 'Sérgio Costa | Fullstack Web & Mobile Software Engineer',
-    description:
-      `I am a Full Stack Software Engineer specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
+    description: `I am a Full Stack Software Engineer specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
     My experience includes software architecture, micro-frontends, legacy-system modernization, code quality, and CI/CD, as well as the day-to-day investigation and resolution of production incidents—analyzing failures, identifying root causes, and delivering solutions that improve application stability.
     I also explore the use of AI and intelligent agents applied to Software Engineering, seeking to optimize development processes and code evolution.
     This portfolio brings together projects, studies, and technical documentation that reflect my professional growth and the way I think about, build, and evolve software.
@@ -692,8 +736,7 @@ const ingles = {
     initials: 'SC',
     role: 'Fullstack Web & Mobile Software Engineer',
     highlightedRole: 'Web & Mobile',
-    description:
-      `I am a Full Stack Software Engineer specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
+    description: `I am a Full Stack Software Engineer specializing in Front-end development and working with React, TypeScript, and Flutter to build highly scalable applications.
     My experience includes software architecture, micro-frontends, legacy-system modernization, code quality, and CI/CD, as well as the day-to-day investigation and resolution of production incidents—analyzing failures, identifying root causes, and delivering solutions that improve application stability.
     I also explore the use of AI and intelligent agents applied to Software Engineering, seeking to optimize development processes and code evolution.
     This portfolio brings together projects, studies, and technical documentation that reflect my professional growth and the way I think about, build, and evolve software.
@@ -738,6 +781,17 @@ const ingles = {
     signInWithGoogle: 'Sign in with Google',
     continueAsVisitor: 'Continue as visitor',
     optionalLogin: 'Login is optional. Visitors can access the public gallery.',
+    evolutionNotice: {
+      descriptionStart: 'This project is under',
+      highlightEvolution: 'continuous evolution',
+      descriptionMiddle: '. Existing information may be',
+      highlightUpdates: 'updated at any time',
+      descriptionEnd: ', and new features may be',
+      highlightFeatures: 'included as needed.',
+      closeIcon: 'Close notice',
+      dialogLabel: 'Project evolution notice',
+      status: 'Evolution in progress',
+    },
     signOut: 'Sign out',
     signIn: 'Sign in',
     missingConfig:
@@ -1069,8 +1123,7 @@ const ingles = {
       },
       typescriptBeyondBasics: {
         title: 'TypeScript beyond the basics',
-        summary:
-          'Advanced concepts and patterns I have used in day-to-day work.',
+        summary: 'Advanced concepts and patterns I have used in day-to-day work.',
         body: [
           '# TypeScript beyond the basics',
           'TypeScript helps model contracts and reduce invalid states when used intentionally.',
@@ -1100,8 +1153,7 @@ const ingles = {
       },
       myDevJourney: {
         title: 'My journey as a developer',
-        summary:
-          'Lessons, mistakes, achievements and plans for the future.',
+        summary: 'Lessons, mistakes, achievements and plans for the future.',
         body: [
           '# Journey',
           'My path combines technical curiosity, constant practice and the will to turn problems into reliable digital products.',
@@ -1133,6 +1185,16 @@ const ingles = {
     analyzing: 'Sérgio AI is analyzing...',
     error: 'I could not query my knowledge base right now. Try again.',
     retry: 'Try again',
+    providerOnline: 'Online assistant',
+    providerLocal: 'Local mode',
+    providerSearch: 'Basic search',
+    activateLocal: 'Enable local mode',
+    cancelDownload: 'Cancel download',
+    localDownloading: (progress: number) => `Downloading local model: ${progress}%`,
+    localReady: 'Local model ready',
+    localUnsupported:
+      'Your browser does not support local mode. Basic search remains available.',
+    localError: 'The local model could not load. Basic search remains available.',
     emptyError: 'Type a question before sending.',
     maxLength: (limit: number) => `Use up to ${limit} characters.`,
     suggestions: [
@@ -1215,7 +1277,23 @@ const ingles = {
     groups: {
       frontend: {
         title: 'Frontend',
-        items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Angular', 'Styled Components', 'SASS', 'HTML5', 'CSS3', 'Redux', 'Recoil', 'Context.js', 'Webpack', 'Zustand', 'Jotai'],
+        items: [
+          'React',
+          'Next.js',
+          'TypeScript',
+          'Tailwind CSS',
+          'Angular',
+          'Styled Components',
+          'SASS',
+          'HTML5',
+          'CSS3',
+          'Redux',
+          'Recoil',
+          'Context.js',
+          'Webpack',
+          'Zustand',
+          'Jotai',
+        ],
       },
       mobile: {
         title: 'Mobile',
@@ -1223,7 +1301,18 @@ const ingles = {
       },
       backend: {
         title: 'Backend',
-        items: ['Node.js', 'MYSQL', 'PostgreSQL', 'MongoDB', 'Redis', 'Docker', 'AWS', 'Serverless', 'REST APIs', 'RESTFULL APIs'],
+        items: [
+          'Node.js',
+          'MYSQL',
+          'PostgreSQL',
+          'MongoDB',
+          'Redis',
+          'Docker',
+          'AWS',
+          'Serverless',
+          'REST APIs',
+          'RESTFULL APIs',
+        ],
       },
       observabilidade: {
         title: 'Observability',
@@ -1247,10 +1336,11 @@ const ingles = {
         description:
           'Decoupled components, semantic tokens, and adaptive themes for different brands.',
       },
-      monolithicServices:{
+      monolithicServices: {
         title: 'Monolithic Engineering ',
-        description: 'Centralization of multiple projects and packages in a single repository, optimized by intelligent build tools, efficient code sharing, and unified dependency management.',
-      }
+        description:
+          'Centralization of multiple projects and packages in a single repository, optimized by intelligent build tools, efficient code sharing, and unified dependency management.',
+      },
     },
   },
   projects: {

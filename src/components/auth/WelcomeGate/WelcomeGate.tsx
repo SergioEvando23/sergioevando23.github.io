@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import GoogleIcon from '@mui/icons-material/Google';
 import LoginIcon from '@mui/icons-material/Login';
+import CloseIcon from '@mui/icons-material/Close';
+import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { LanguageSwitcher, useLanguage } from '@/components/language';
 import { Logo } from '@/components/brand/Logo';
@@ -60,6 +62,7 @@ function storeEntryChoice(choice: EntryChoice) {
 export function WelcomeGate({ children }: { children: React.ReactNode }) {
   const [choice, setChoice] = useState<EntryChoice | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [showEvolutionNotice, setShowEvolutionNotice] = useState(true);
   const { textos } = useLanguage();
   const { signInWithGoogle, authError, loading } = useAuth();
   const pathname = usePathname();
@@ -72,6 +75,15 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
 
     return () => window.clearTimeout(timeout);
   }, []);
+
+  useEffect(() => {
+    if (!showEvolutionNotice) return undefined;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowEvolutionNotice(false);
+    };
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [showEvolutionNotice]);
 
   const continueAsVisitor = () => {
     storeEntryChoice('visitor');
@@ -110,6 +122,49 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
 
   return (
     <main className="min-h-screen bg-background text-text">
+      {showEvolutionNotice ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-overlay/80 p-4 backdrop-blur-sm">
+          <section
+            aria-describedby="evolution-notice-description"
+            aria-label={textos.auth.evolutionNotice.dialogLabel}
+            aria-modal="true"
+            className="relative w-full max-w-xl rounded-[var(--radius-xl)] border border-border bg-surface p-8 text-center shadow-[var(--shadow-glow)] sm:p-10"
+            role="dialog"
+          >
+            <button
+              aria-label={textos.auth.evolutionNotice.closeIcon}
+              className="absolute right-5 top-5 text-text-muted transition-colors hover:text-text focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent"
+              onClick={() => setShowEvolutionNotice(false)}
+              type="button"
+            >
+              <CloseIcon aria-hidden="true" />
+            </button>
+            <div className="mx-auto max-w-md">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-violet-600 px-4 py-2 text-sm font-bold text-white shadow-[var(--shadow-card)]">
+                <UpdateOutlinedIcon aria-hidden="true" fontSize="small" />
+                {textos.auth.evolutionNotice.status}
+              </div>
+              <p
+                className="mt-2 text-base leading-8 text-text-muted"
+                id="evolution-notice-description"
+              >
+                {textos.auth.evolutionNotice.descriptionStart}{' '}
+                <strong className="font-bold text-primary">
+                  {textos.auth.evolutionNotice.highlightEvolution}
+                </strong>
+                {textos.auth.evolutionNotice.descriptionMiddle}{' '}
+                <strong className="font-bold text-primary">
+                  {textos.auth.evolutionNotice.highlightUpdates}
+                </strong>
+                {textos.auth.evolutionNotice.descriptionEnd}{' '}
+                <strong className="font-bold text-primary">
+                  {textos.auth.evolutionNotice.highlightFeatures}
+                </strong>
+              </p>
+            </div>
+          </section>
+        </div>
+      ) : null}
       <Container className="flex min-h-screen flex-col py-6">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
