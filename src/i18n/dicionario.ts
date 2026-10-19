@@ -101,7 +101,6 @@ const portugues = {
     continueAsVisitor: 'Continuar como visitante',
     optionalLogin: 'O login e opcional. Visitantes podem acessar a galeria publica.',
     evolutionNotice: {
-      title: 'Projeto em constante evolução',
       descriptionStart: 'Este projeto está em',
       highlightEvolution: 'constante evolução',
       descriptionMiddle: '. As informações existentes podem ser',
@@ -783,7 +782,6 @@ const ingles = {
     continueAsVisitor: 'Continue as visitor',
     optionalLogin: 'Login is optional. Visitors can access the public gallery.',
     evolutionNotice: {
-      title: 'Project under continuous evolution',
       descriptionStart: 'This project is under',
       highlightEvolution: 'continuous evolution',
       descriptionMiddle: '. Existing information may be',

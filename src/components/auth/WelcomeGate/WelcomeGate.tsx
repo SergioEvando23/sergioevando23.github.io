@@ -140,15 +140,12 @@ export function WelcomeGate({ children }: { children: React.ReactNode }) {
               <CloseIcon aria-hidden="true" />
             </button>
             <div className="mx-auto max-w-md">
-              <div className="mb-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] border border-primary/30 bg-primary/10 px-3 py-2 text-sm font-bold text-primary">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-[var(--radius-full)] bg-violet-600 px-4 py-2 text-sm font-bold text-white shadow-[var(--shadow-card)]">
                 <UpdateOutlinedIcon aria-hidden="true" fontSize="small" />
                 {textos.auth.evolutionNotice.status}
               </div>
-              <h2 className="pr-8 text-2xl font-black text-text sm:pr-0">
-                {textos.auth.evolutionNotice.title}
-              </h2>
               <p
-                className="mt-5 text-base leading-8 text-text-muted"
+                className="mt-2 text-base leading-8 text-text-muted"
                 id="evolution-notice-description"
               >
                 {textos.auth.evolutionNotice.descriptionStart}{' '}
