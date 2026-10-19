@@ -14,6 +14,13 @@ test('first visit shows welcome screen and visitor can enter portfolio', async (
   await expect(
     page.getByRole('heading', { name: 'Welcome to my portfolio' }),
   ).toBeVisible();
+  const evolutionNotice = page.getByRole('dialog', {
+    name: 'Project evolution notice',
+  });
+  await expect(evolutionNotice).toBeVisible();
+  await expect(evolutionNotice.getByText('Evolution in progress')).toBeVisible();
+  await evolutionNotice.getByRole('button', { name: 'Close notice' }).click();
+  await expect(evolutionNotice).not.toBeVisible();
   await expect(page.getByRole('button', { name: 'Continue as visitor' })).toBeVisible();
 
   await page.getByRole('button', { name: 'Continue as visitor' }).click();
