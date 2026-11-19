@@ -18,6 +18,7 @@ export const formationDictionary = {
       { title: 'Desenvolvimento Web Full Stack', institution: 'Trybe', period: 'Out. 2021 — Out. 2022', description: 'Formação intensiva em desenvolvimento web full stack, com projetos práticos e foco em empregabilidade no mercado de tecnologia.', tags: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'Banco de Dados'], status: 'Concluído', active: false },
     ],
     certificates: [
+      { title: 'Formação Automação com Inteligência Artificial 2026 com n8n', issuer: 'Udemy', issued: 'nov. de 2026', credentialId: 'UC-a8dc6adc-3a85-49ff-be82-eda5af0786b8', category: 'architecture', tags: ['n8n', 'Agentes de IA', 'RAG', 'APIs', 'Supabase', 'Automação'] },
       { title: 'Engenharia de Prompts com IA: Do Zero ao Avançado', issuer: 'Udemy', issued: 'set. de 2026', credentialId: 'UC-783d4a69-045e-45f0-b7d3-644e776f9edd', category: 'architecture', tags: ['IA', 'Prompt Engineering', 'LLMs'] },
       { title: 'Inteligência artificial do zero ao avançado', issuer: 'Udemy', issued: 'set. de 2026', credentialId: 'UC-77eff13e-22d0-48e3-a734-f4f44348c5af', category: 'architecture', tags: ['IA', 'Arquitetura', 'Automação'] },
       { title: 'Trilha de Desenvolvimento full cycle', issuer: 'XP Inc.', issued: 'mai. de 2024', credentialId: '136977', category: 'architecture', tags: ['Full Cycle', 'Arquitetura', 'Desenvolvimento'] },
@@ -53,6 +54,7 @@ export const formationDictionary = {
       { title: 'Full Stack Web Development', institution: 'Trybe', period: 'Oct. 2021 — Oct. 2022', description: 'Intensive full stack web development program with hands-on projects and a focus on employability in the technology market.', tags: ['HTML', 'CSS', 'JavaScript', 'React', 'Node.js', 'Databases'], status: 'Completed', active: false },
     ],
     certificates: [
+      { title: 'AI Automation Training 2026 with n8n', issuer: 'Udemy', issued: 'Nov. 2026', credentialId: 'UC-a8dc6adc-3a85-49ff-be82-eda5af0786b8', category: 'architecture', tags: ['n8n', 'AI Agents', 'RAG', 'APIs', 'Supabase', 'Automation'] },
       { title: 'Prompt Engineering with AI: From Zero to Advanced', issuer: 'Udemy', issued: 'Sep. 2026', credentialId: 'UC-783d4a69-045e-45f0-b7d3-644e776f9edd', category: 'architecture', tags: ['AI', 'Prompt Engineering', 'LLMs'] },
       { title: 'Artificial Intelligence: From Zero to Advanced', issuer: 'Udemy', issued: 'Sep. 2026', credentialId: 'UC-77eff13e-22d0-48e3-a734-f4f44348c5af', category: 'architecture', tags: ['AI', 'Architecture', 'Automation'] },
       { title: 'Full Cycle Development Track', issuer: 'XP Inc.', issued: 'May 2024', credentialId: '136977', category: 'architecture', tags: ['Full Cycle', 'Architecture', 'Development'] },

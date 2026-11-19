@@ -27,6 +27,7 @@ pdfmetrics.registerFont(TTFont("Resume-Bold", BOLD_FONT))
 
 
 CERTIFICATES_PT = [
+    ("Formação Automação com Inteligência Artificial 2026 com n8n", "Udemy", "nov. de 2026", "UC-a8dc6adc-3a85-49ff-be82-eda5af0786b8"),
     ("Engenharia de Prompts com IA: Do Zero ao Avançado", "Udemy", "set. de 2026", "UC-783d4a69-045e-45f0-b7d3-644e776f9edd"),
     ("Inteligência artificial do zero ao avançado", "Udemy", "set. de 2026", "UC-77eff13e-22d0-48e3-a734-f4f44348c5af"),
     ("Trilha de Desenvolvimento full cycle", "XP Inc.", "mai. de 2024", "136977"),
@@ -44,6 +45,7 @@ CERTIFICATES_PT = [
 ]
 
 CERTIFICATES_EN = [
+    ("AI Automation Training 2026 with n8n", "Udemy", "Nov. 2026", "UC-a8dc6adc-3a85-49ff-be82-eda5af0786b8"),
     ("Prompt Engineering with AI: From Zero to Advanced", "Udemy", "Sep. 2026", "UC-783d4a69-045e-45f0-b7d3-644e776f9edd"),
     ("Artificial Intelligence: From Zero to Advanced", "Udemy", "Sep. 2026", "UC-77eff13e-22d0-48e3-a734-f4f44348c5af"),
     ("Full Cycle Development Track", "XP Inc.", "May 2024", "136977"),
